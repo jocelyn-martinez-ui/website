@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutriva | Jocelyn Martinez Portfolio</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            /* Brand Identity - Keeping your requested base colors */
+            --brand-primary: #4C2727; /* Deep Burgundy */
+            --brand-bg: #E8E6E3;      /* Warm Paper */
+            
+            /* Typography */
+            --text-main: #000000;     /* Headers */
+            --text-body: #4A4742;     /* Body Text */
+            --text-sub: #8B827B;      /* Subtext/Muted */
+            
+            /* Layout */
+            --serif: 'Cormorant Garamond', serif;
+            --sans: 'Plus Jakarta Sans', sans-serif;
+            --section-pad: 12rem 5%;
+        }
+
+        /* High-End Texture */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.035;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        body { 
+            background-color: var(--brand-bg); 
+            color: var(--text-body); 
+            font-family: var(--sans); 
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Custom Cursor */
+        #cursor-dot, #cursor-trailer { 
+            position: fixed; top: 0; left: 0; border-radius: 50%; 
+            pointer-events: none; z-index: 10000; transform: translate(-50%, -50%); 
+        }
+        #cursor-dot { width: 5px; height: 5px; background: var(--text-main); }
+        #cursor-trailer { 
+            width: 35px; height: 35px; border: 1px solid var(--brand-primary); 
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1); 
+        }
+
+        /* Navigation */
+        nav { 
+            position: fixed; width: 100%; padding: 2rem 5%; 
+            display: flex; justify-content: space-between; align-items: center; 
+            z-index: 1000; mix-blend-mode: multiply;
+        }
+        .logo { font-family: var(--serif); font-size: 1.5rem; color: var(--text-main); text-decoration: none; font-weight: 600; }
+        .back-btn { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 3px; color: var(--text-main); text-decoration: none; font-weight: 700; opacity: 0.5; }
+
+        /* Hero */
+        h1, h2, h3, h4 { font-family: var(--serif); color: var(--text-main); font-weight: 300; }
+        .hero { padding: 18rem 5% 10rem; }
+        h1 { font-size: clamp(4rem, 15vw, 10rem); line-height: 0.8; margin-bottom: 3rem; }
+        h1 i { font-style: italic; color: var(--brand-primary); font-weight: 400; }
+
+        section { padding: var(--section-pad); border-top: 1px solid rgba(0,0,0,0.06); }
+        .grid { display: grid; grid-template-columns: 1.2fr 2.8fr; gap: 6rem; }
+        .section-label { 
+            font-size: 0.65rem; text-transform: uppercase; letter-spacing: 4px; 
+            font-weight: 800; color: var(--text-sub); position: sticky; top: 8rem; height: fit-content; 
+        }
+        
+        .content h2 { font-size: clamp(2.5rem, 6vw, 4.5rem); margin-bottom: 2.5rem; line-height: 1.1; }
+        .content p { font-size: 1.15rem; margin-bottom: 2rem; max-width: 800px; }
+
+        /* Cards */
+        .analysis-block { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin: 4rem 0; }
+        .card { 
+            padding: 3rem; background: #fff; border: 1px solid rgba(0,0,0,0.03); 
+            transition: 0.4s ease; border-radius: 2px;
+        }
+        .card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.04); }
+        .card h4 { font-size: 1.6rem; margin-bottom: 1rem; color: var(--brand-primary); }
+
+        /* Competitor Audit */
+        .competitor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem; }
+        .comp-card { background: #fff; padding: 3rem; border-radius: 4px; border: 1px solid rgba(0,0,0,0.04); }
+        .comp-header { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(0,0,0,0.06); padding-bottom: 1rem; margin-bottom: 1.5rem; }
+        .comp-name { font-family: var(--serif); font-size: 2rem; }
+        .comp-type { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: var(--brand-primary); font-weight: 800; }
+        .opportunity-card { background: var(--brand-primary); color: #fff; }
+
+        .metric-row { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.8rem; font-weight: 600; text-transform: uppercase; }
+        .metric-value.high { color: #B22222; }
+        .metric-value.low { color: #2E8B57; }
+
+        /* Animations */
+        .reveal { opacity: 0; transform: translateY(50px); transition: 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 1100px) {
+            .grid { grid-template-columns: 1fr; gap: 3rem; }
+            .section-label { position: relative; top: 0; }
+            .competitor-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="cursor-dot"></div>
+    <div id="cursor-trailer"></div>
+
+    <nav>
+        <a href="#" class="logo">Jocelyn Martinez</a>
+        <a href="index.html" class="back-btn">Close Case Study</a>
+    </nav>
+
+    <header class="hero reveal">
+        <p style="font-size: 0.7rem; letter-spacing: 5px; color: var(--text-sub); margin-bottom: 2.5rem; font-weight: 800;">UX RESEARCH & MOBILE PRODUCT DESIGN</p>
+        <h1>Nutriva <i>Kitchen</i></h1>
+        <p style="font-size: 1.4rem; max-width: 700px; margin-top: 3rem; color: var(--text-body); font-weight: 400;">
+            Bridging the gap between refrigerator inventory and dinner inspiration through AI-curated meal planning.
+        </p>
+    </header>
+
+<section class="reveal">
+    <div class="grid">
+        <div class="section-label">01 / The Problem</div>
+        <div class="content">
+            <h2>The Fridge Paradox: <br><i>Choice Paralysis in the Kitchen</i></h2>
+            
+            <p>Despite the average household having access to more ingredients than ever before, the modern consumer is paralyzed by <b>Decision Fatigue</b>. My research identified that the friction isn't a lack of food—it’s the high mental tax required to inventory, cross-reference, and execute a meal after a 10-hour workday.</p>
+
+            <blockquote style="border-left: 2px solid var(--brand-primary); padding: 1rem 2rem; margin: 3rem 0; font-style: italic; color: var(--text-main); background: rgba(76, 39, 39, 0.03);">
+                "I have a full fridge, but I'm still ordering takeout because I don't have the mental capacity to 'solve' dinner."
+                <footer style="margin-top: 0.5rem; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--text-sub);">— Primary User Insight</footer>
+            </blockquote>
+
+            <p>Nutriva was designed to shift the user journey from <b>Active Searching</b> to <b>Passive Discovery</b>, effectively applying <i>Hick’s Law</i> to reduce the number of choices until the most viable solution remains.</p>
+            
+            <div class="analysis-block" style="grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+                <div class="card">
+                    <span style="font-size: 0.65rem; font-weight: 800; color: var(--brand-primary); letter-spacing: 1px;">COGNITIVE OVERLOAD</span>
+                    <h4 style="margin: 1rem 0;">Information Chaos</h4>
+                    <p style="font-size: 0.9rem; line-height: 1.6;">Users often manage three fragmented data points: the physical fridge, a digital grocery list, and external recipe blogs. This creates high <b>task-switching friction</b>.</p>
+                </div>
+
+                <div class="card">
+                    <span style="font-size: 0.65rem; font-weight: 800; color: var(--brand-primary); letter-spacing: 1px;">INVENTORY DECAY</span>
+                    <h4 style="margin: 1rem 0;">The Hidden Cost</h4>
+                    <p style="font-size: 0.9rem; line-height: 1.6;">$1,500 of food is wasted annually per household due to "out of sight, out of mind" ingredients. Nutriva treats food as a <b>perishing asset</b> with real-time value tracking.</p>
+                </div>
+
+                <div class="card">
+                    <span style="font-size: 0.65rem; font-weight: 800; color: var(--brand-primary); letter-spacing: 1px;">BEHAVIORAL FRICTION</span>
+                    <h4 style="margin: 1rem 0;">The Search Barrier</h4>
+                    <p style="font-size: 0.9rem; line-height: 1.6;">Traditional recipe apps require "Search Terms." If a user doesn't know what they want, search is a dead end. We replace search with <b>algorithmic matching</b> based on shelf-life.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 4rem; padding: 3rem; border: 1px solid rgba(0,0,0,0.06); border-radius: 4px;">
+                <h3 style="font-size: 1.8rem; margin-bottom: 2rem;">Identifying the Friction Points</h3>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
+                    <thead>
+                        <tr style="border-bottom: 1px solid var(--text-main); text-align: left;">
+                            <th style="padding: 1rem; font-family: var(--sans); font-weight: 700;">User Pain Point</th>
+                            <th style="padding: 1rem; font-family: var(--sans); font-weight: 700;">UX Impact</th>
+                            <th style="padding: 1rem; font-family: var(--sans); font-weight: 700;">Nutriva Intervention</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid rgba(0,0,0,0.05);">
+                            <td style="padding: 1.5rem 1rem;">Scanning Expiration Dates</td>
+                            <td style="padding: 1.5rem 1rem; color: var(--text-sub);">High Interaction Cost</td>
+                            <td style="padding: 1.5rem 1rem; font-weight: 600;">Visual color-coding (Traffic Light System)</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(0,0,0,0.05);">
+                            <td style="padding: 1.5rem 1rem;">Missing "One Ingredient"</td>
+                            <td style="padding: 1.5rem 1rem; color: var(--text-sub);">User Drop-off / Abandonment</td>
+                            <td style="padding: 1.5rem 1rem; font-weight: 600;">Dynamic swaps & substitutions engine</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 1.5rem 1rem;">Complex Calorie Math</td>
+                            <td style="padding: 1.5rem 1rem; color: var(--text-sub);">Guilt & Cognitive Fatigue</td>
+                            <td style="padding: 1.5rem 1rem; font-weight: 600;">Mood-based categorization (e.g. "Low Energy")</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <section class="reveal" style="background: #F4F2F0;">
+    <div class="grid">
+        <div class="section-label">02 / Competitive Audit</div>
+        <div class="content">
+            <h2>Benchmarking & <br><i>Market Fragmentation</i></h2>
+            <p>To understand the "Why" behind Nutriva, I conducted a deep-dive audit into three industry leaders. I evaluated them through the lens of <b>Nielsen’s Heuristics</b>, specifically focusing on <i>"Consistency and Standards"</i> and <i>"Recognition rather than Recall."</i></p>
+
+            <p style="margin-bottom: 4rem;">The conclusion was clear: The market is split between <b>Utility-Heavy Trackers</b> (which cause burnout) and <b>Subscription-Based Curators</b> (which cause financial friction). No one was addressing the <b>Pre-Purchase Friction</b>—the food already in the user's home.</p>
+
+            <div style="overflow-x: auto; margin: 4rem 0;">
+                <table style="width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.02);">
+                    <thead>
+                        <tr style="text-align: left; background: var(--brand-primary); color: #fff;">
+                            <th style="padding: 1.5rem;">Core Features</th>
+                            <th style="padding: 1.5rem;">MyFitnessPal</th>
+                            <th style="padding: 1.5rem;">Mealime</th>
+                            <th style="padding: 1.5rem;">HelloFresh</th>
+                            <th style="padding: 1.5rem; background: #3d1f1f;">Nutriva</th>
+                        </tr>
+                    </thead>
+                    <tbody style="font-size: 0.85rem;">
+                        <tr style="border-bottom: 1px solid #eee;">
+                            <td style="padding: 1.2rem; font-weight: 700;">AI Inventory Scanning</td>
+                            <td style="padding: 1.2rem; color: #B22222;">✕ None</td>
+                            <td style="padding: 1.2rem; color: #B22222;">✕ None</td>
+                            <td style="padding: 1.2rem; color: #B22222;">✕ None</td>
+                            <td style="padding: 1.2rem; color: #2E8B57; font-weight: 800;">✓ Advanced</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #eee;">
+                            <td style="padding: 1.2rem; font-weight: 700;">Aesthetic-Usability Effect</td>
+                            <td style="padding: 1.2rem;">Low</td>
+                            <td style="padding: 1.2rem;">High</td>
+                            <td style="padding: 1.2rem;">Medium</td>
+                            <td style="padding: 1.2rem; font-weight: 800;">Superior</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 1.2rem; font-weight: 700;">Zero-Waste Logic</td>
+                            <td style="padding: 1.2rem; color: #B22222;">✕ None</td>
+                            <td style="padding: 1.2rem;">Partial</td>
+                            <td style="padding: 1.2rem; color: #B22222;">✕ None</td>
+                            <td style="padding: 1.2rem; color: #2E8B57; font-weight: 800;">✓ Core</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="competitor-grid">
+                <div class="comp-card">
+                    <div class="comp-header">
+                        <h3 class="comp-name">Mealime</h3>
+                        <span class="comp-type">The Curator</span>
+                    </div>
+                    <div class="comp-analysis">
+                        <p><strong>Strength:</strong> Exceptional onboarding flow that builds a personalized flavor profile quickly.</p>
+                        <p><strong>Weakness:</strong> Suffers from a <b>Transactional UX Silo</b>. It ignores the user's current environment (the fridge), forcing them to buy new ingredients for every meal.</p>
+                        <p style="font-size: 0.8rem; color: var(--brand-primary); font-weight: 700; border-top: 1px solid rgba(0,0,0,0.05); pt: 1rem;">UX TAKEAWAY: Simplify recipe discovery, but tether it to existing assets.</p>
+                    </div>
+                </div>
+
+                <div class="comp-card">
+                    <div class="comp-header">
+                        <h3 class="comp-name">MyFitnessPal</h3>
+                        <span class="comp-type">The Tracker</span>
+                    </div>
+                    <div class="comp-analysis">
+                        <p><strong>Strength:</strong> Massive database of 14M+ foods; high <b>External Consistency</b> with standard nutrition labels.</p>
+                        <p><strong>Weakness:</strong> Poor <b>Visual Hierarchy</b> and high ad-intrusion create a stressful user environment that discourages long-term habit formation.</p>
+                        <p style="font-size: 0.8rem; color: var(--brand-primary); font-weight: 700; border-top: 1px solid rgba(0,0,0,0.05); pt: 1rem;">UX TAKEAWAY: Nutrition tracking should feel restorative, not administrative.</p>
+                    </div>
+                </div>
+
+                <div class="comp-card opportunity-card" style="grid-column: 1 / -1; background: var(--brand-primary); position: relative; overflow: hidden;">
+                    <div style="position: absolute; right: -50px; top: -50px; width: 200px; height: 200px; background: rgba(255,255,255,0.05); border-radius: 50%;"></div>
+                    
+                    <div class="comp-header" style="border-color: rgba(255,255,255,0.2);">
+                        <h3 class="comp-name" style="color: #fff;">The Synthesis</h3>
+                        <span class="comp-type" style="color: #fff">The Strategic Gap</span>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;">
+                        <div>
+                            <p style="color: rgba(255,255,255,0.9); font-size: 1.1rem; line-height: 1.6;">
+                                Nutriva occupies the <b>Relational UX</b> space. Instead of asking "What do you want to buy?", we ask "How can we use what you have?" 
+                            </p>
+                        </div>
+                        <ul style="color: rgba(255,255,255,0.8); font-size: 0.9rem; list-style: none;">
+                            <li style="margin-bottom: 1rem;">✦ <b>Inventory Intelligence:</b> Shifting from manual data entry to AI-assisted recognition.</li>
+                            <li style="margin-bottom: 1rem;">✦ <b>Reduced Friction:</b> Removing the "Shopping Trip" requirement from the recipe flow.</li>
+                            <li>✦ <b>Aesthetic Sanctuary:</b> Using soft UI to lower cortisol levels during the decision-making process.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    <section class="reveal">
+    <div class="grid">
+        <div class="section-label">03 / User Archetype</div>
+        <div class="content">
+            <h2>The "Decision-Fatigued" Professional</h2>
+            
+            <p>To define our user base, I conducted <b>12 semi-structured interviews</b> and distributed a survey that garnered <b>50+ responses</b>. The data revealed a significant "Intent-Behavior Gap": users *intend* to cook healthy meals but fail during the <b>Cognitive Transition</b> from work-mode to home-mode.</p>
+
+            <div class="card" style="margin-top: 3rem; background: #fff; padding: 4rem;">
+                <div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem;">
+                    <div>
+                        <div style="width: 80px; height: 80px; background: var(--brand-bg); border-radius: 50%; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 2rem; color: var(--brand-primary);">S</div>
+                        <h4 style="margin: 0;">Sarah, 32</h4>
+                        <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-sub); font-weight: 700;">Marketing Manager • San Francisco</p>
+                        
+                        <p style="font-size: 0.95rem; margin-top: 2rem; line-height: 1.6; font-style: italic;">
+                            "The mental labor of cross-referencing my pantry with a recipe is the one thing standing between me and a home-cooked meal."
+                        </p>
+
+                        <div style="margin-top: 2.5rem;">
+                            <h6 style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem;">Primary Mental Model</h6>
+                            <p style="font-size: 0.85rem; color: var(--text-body);">Sarah views her fridge as a <b>source of stress</b> rather than a source of nourishment. She suffers from "Object Permanence" issues—if the spinach is in the crisper drawer, it effectively doesn't exist.</p>
+                        </div>
+                    </div>
+
+                    <div style="border-left: 1px solid rgba(0,0,0,0.06); padding-left: 4rem;">
+                        <div style="margin-bottom: 3rem;">
+                            <h5 style="font-family: var(--sans); font-weight: 700; font-size: 0.9rem; margin-bottom: 1.5rem;">Jobs to be Done (JTBD)</h5>
+                            <div style="background: var(--brand-bg); padding: 1.5rem; border-radius: 2px; font-size: 0.9rem; line-height: 1.5;">
+                                "When <b>I am mentally drained after work</b>, I want to <b>be told exactly what to cook with what I have</b>, so that <b>I can feel healthy and avoid the guilt of food waste.</b>"
+                            </div>
+                        </div>
+
+                        <h5 style="font-family: var(--sans); font-weight: 700; font-size: 0.9rem; margin-bottom: 1.5rem;">Design Directives</h5>
+                        <ul style="list-style: none; font-size: 0.9rem;">
+                            <li style="margin-bottom: 1.5rem; display: flex; gap: 1rem;">
+                                <span style="color: var(--brand-primary); font-weight: 900;">01</span>
+                                <div>
+                                    <b>Zero-Input Inspiration:</b> The home screen must surface a "Hero Recipe" immediately to bypass the search phase entirely.
+                                </div>
+                            </li>
+                            <li style="margin-bottom: 1.5rem; display: flex; gap: 1rem;">
+                                <span style="color: var(--brand-primary); font-weight: 900;">02</span>
+                                <div>
+                                    <b>Visual Inventory Cues:</b> Use high-fidelity imagery of ingredients to trigger Sarah's recognition, countering her "out-of-sight" bias.
+                                </div>
+                            </li>
+                            <li style="display: flex; gap: 1rem;">
+                                <span style="color: var(--brand-primary); font-weight: 900;">03</span>
+                                <div>
+                                    <b>Effort Signaling:</b> Display "Total Time" and "Cleanup Difficulty" prominently to accommodate her low energy levels.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 4rem;">
+                <h4 style="font-size: 1.4rem; margin-bottom: 2rem;">From Insight to Action</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem;">
+                    <div style="padding: 2rem; border: 1px solid rgba(0,0,0,0.06);">
+                        <span style="font-size: 0.6rem; font-weight: 800; color: var(--text-sub);">THE BEHAVIOR</span>
+                        <p style="margin-top: 1rem; font-size: 0.9rem;">Sarah orders takeout despite having 80% of a meal's ingredients.</p>
+                    </div>
+                    <div style="padding: 2rem; border: 1px solid rgba(0,0,0,0.06);">
+                        <span style="font-size: 0.6rem; font-weight: 800; color: var(--text-sub);">THE UX BARRIER</span>
+                        <p style="margin-top: 1rem; font-size: 0.9rem;">The "Missing Ingredient" acts as a cognitive block, halting the cooking process.</p>
+                    </div>
+                    <div style="padding: 2rem; background: var(--brand-primary); color: #fff;">
+                        <span style="font-size: 0.6rem; font-weight: 800; color: rgba(255,255,255,0.6);">THE SOLUTION</span>
+                        <p style="margin-top: 1rem; font-size: 0.9rem;">An AI-driven <b>"Swap System"</b> that suggests pantry alternatives in real-time.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<section class="reveal" style="background: #FAF9F8;">
+    <div class="grid">
+        <div class="section-label">04 / Information Architecture</div>
+        <div class="content">
+            <h2>The Framework: <br><i>Architecting for Low Cognitive Load</i></h2>
+            
+            <p>A common failure in recipe apps is a <b>"Categorization Mismatch."</b> While databases categorize by food group (Proteins, Carbs), my <b>Open Card Sorting</b> study with 10 participants revealed that users naturally categorize by <b>"State of Decay"</b> and <b>"Prep Effort."</b></p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 3rem;">
+                <div class="card" style="background: rgba(123, 166, 126, 0.05); border: 1px dashed var(--brand-primary);">
+                    <h5 style="font-size: 0.8rem; text-transform: uppercase; color: var(--brand-primary); margin-bottom: 1rem;">The Card Sort Discovery</h5>
+                    <p style="font-size: 0.9rem; line-height: 1.6;">
+                        Users didn't look for "Chicken"; they looked for "What needs to be cooked tonight." This led to a <b>Dynamic Taxonomy</b> where the primary navigation isn't food types, but <b>Time-Sensitivity.</b>
+                    </p>
+                </div>
+                <div class="card" style="background: #fff;">
+                    <h5 style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-sub); margin-bottom: 1rem;">Applied Principle: Hick’s Law</h5>
+                    <p style="font-size: 0.9rem; line-height: 1.6;">
+                        By implementing a <b>Flat Hierarchy</b>, I reduced the average <i>Time-to-Task</i> by 60%. Users no longer "tunnel" through menus; the solution is surfaced via recognition, not recall.
+                    </p>
+                </div>
+            </div>
+
+            <div style="margin-top: 5rem; padding: 3rem; background: #fff; border-radius: 8px; border: 1px solid rgba(0,0,0,0.04);">
+                <h4 style="margin-bottom: 3rem; text-align: center; font-family: var(--serif);">Optimized Decision Flow</h4>
+                
+                <div style="display: flex; align-items: center; justify-content: space-between; position: relative;">
+                    <div style="text-align: center; z-index: 1; flex: 1;">
+                        <div style="width: 12px; height: 12px; background: var(--brand-primary); border-radius: 50%; margin: 0 auto 1rem;"></div>
+                        <span style="font-size: 0.7rem; font-weight: 800; display: block; margin-bottom: 0.5rem;">ENTRY</span>
+                        <p style="font-size: 0.8rem; color: var(--text-sub);">Dashboard</p>
+                    </div>
+
+                    <div style="flex: 1; height: 1px; background: #eee; margin-top: -2.5rem;"></div>
+
+                    <div style="text-align: center; z-index: 1; flex: 1;">
+                        <div style="width: 12px; height: 12px; background: var(--brand-primary); border-radius: 50%; margin: 0 auto 1rem;"></div>
+                        <span style="font-size: 0.7rem; font-weight: 800; display: block; margin-bottom: 0.5rem;">INPUT</span>
+                        <p style="font-size: 0.8rem; color: var(--text-sub);">AI Multi-Scan</p>
+                    </div>
+
+                    <div style="flex: 1; height: 1px; background: #eee; margin-top: -2.5rem;"></div>
+
+                    <div style="text-align: center; z-index: 1; flex: 1; padding: 1rem; border: 1px solid var(--brand-primary); background: #FAF9F8; transform: rotate(45deg); max-width: 80px; height: 80px; margin-top: -2rem;">
+                        <div style="transform: rotate(-45deg); margin-top: 10px;">
+                            <span style="font-size: 0.6rem; font-weight: 800; display: block;">LOGIC</span>
+                            <p style="font-size: 0.55rem; color: var(--brand-primary);">Match?</p>
+                        </div>
+                    </div>
+
+                    <div style="flex: 1; height: 1px; background: #eee; margin-top: -2.5rem;"></div>
+
+                    <div style="text-align: center; z-index: 1; flex: 1;">
+                        <div style="width: 12px; height: 12px; background: #7BA67E; border-radius: 50%; margin: 0 auto 1rem;"></div>
+                        <span style="font-size: 0.7rem; font-weight: 800; display: block; margin-bottom: 0.5rem;">OUTPUT</span>
+                        <p style="font-size: 0.8rem; color: var(--text-sub);">Recipe Match</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #eee; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <p style="font-size: 0.85rem; color: var(--text-sub);">
+                        <b>The Pivot:</b> During low-fidelity testing, users struggled with manual entry. I pivoted the "Input" phase to <b>Computer Vision (scanning)</b>, which reduced the interaction cost of "Logging" from 45 seconds to 4 seconds.
+                    </p>
+                    <p style="font-size: 0.85rem; color: var(--text-sub);">
+                        <b>Error Handling:</b> If a "Match" isn't found, the system doesn't fail. It utilizes <b>Fuzzy Logic</b> to suggest recipes where the user owns 90% of ingredients, offering a "Shop for the Rest" 1-tap checkout.
+                    </p>
+                </div>
+            </div>
+
+            <div style="margin-top: 4rem;">
+                <h4 style="font-size: 1.1rem; margin-bottom: 1.5rem;">Efficiency Audit</h4>
+                <div style="display: flex; gap: 1rem;">
+                    <div style="flex: 1; padding: 1.5rem; background: #f0f0f0; border-radius: 4px;">
+                        <span style="font-size: 0.7rem; color: #999; font-weight: 800;">STANDARD APP FLOW</span>
+                        <p style="font-size: 1.2rem; font-weight: 700; margin-top: 0.5rem;">8 Steps / 120s</p>
+                        <ul style="font-size: 0.8rem; margin-top: 1rem; color: #666; padding-left: 1rem;">
+                            <li>Search → Filter → Open Recipe → Check Fridge → Missing Items → Back to Search...</li>
+                        </ul>
+                    </div>
+                    <div style="flex: 1; padding: 1.5rem; background: var(--brand-primary); color: #fff; border-radius: 4px;">
+                        <span style="font-size: 0.7rem; color: rgba(255,255,255,0.6); font-weight: 800;">NUTRIVA OPTIMIZED FLOW</span>
+                        <p style="font-size: 1.2rem; font-weight: 700; margin-top: 0.5rem;">3 Taps / 15s</p>
+                        <ul style="font-size: 0.8rem; margin-top: 1rem; color: rgba(255,255,255,0.8); padding-left: 1rem;">
+                            <li>Scan Fridge → Visual Match → Cook.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<section class="reveal">
+    <div class="grid">
+        <div class="section-label">05 / Validation & Iteration</div>
+        <div class="content">
+            <h2>Refining the Experience: <br><i>From Friction to Flow</i></h2>
+            
+            <p>I conducted <b>Remote Unmoderated Usability Testing</b> with 5 participants representing our core archetype. Using <b>Think-Aloud Protocols</b>, I mapped the emotional journey of the user. Success was measured using the <b>System Usability Scale (SUS)</b> and <b>Task Success Rate.</b></p>
+
+            <div style="display: flex; gap: 2rem; margin: 3rem 0;">
+                <div style="flex: 1; border-left: 3px solid var(--brand-primary); padding-left: 1.5rem;">
+                    <span style="font-size: 2rem; font-weight: 700; font-family: var(--serif);">80%</span>
+                    <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-sub);">Initial Task Completion</p>
+                </div>
+                <div style="flex: 1; border-left: 3px solid #7BA67E; padding-left: 1.5rem;">
+                    <span style="font-size: 2rem; font-weight: 700; font-family: var(--serif);">95%</span>
+                    <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-sub);">Post-Iteration Completion</p>
+                </div>
+                <div style="flex: 1; border-left: 3px solid #E6B34B; padding-left: 1.5rem;">
+                    <span style="font-size: 2rem; font-weight: 700; font-family: var(--serif);">4.2/5</span>
+                    <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-sub);">User Confidence Score</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 4rem;">Critical Pivot Points</h3>
+            <p style="margin-bottom: 2rem;">I utilized a <b>Severity Rating (1-4)</b> to prioritize fixes, focusing on issues that caused "User Stalling."</p>
+
+            <div style="display: flex; flex-direction: column; gap: 2rem;">
+                
+                <div class="card" style="background: #fff; border: 1px solid rgba(0,0,0,0.05); padding: 2.5rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
+                        <div>
+                            <span style="background: #FFE5E5; color: #D93025; font-size: 0.65rem; font-weight: 900; padding: 4px 8px; border-radius: 2px; text-transform: uppercase;">Severity: High</span>
+                            <h4 style="margin: 0.5rem 0 0 0;">The "Inventory Anxiety" Wall</h4>
+                        </div>
+                        <span style="font-size: 0.75rem; color: var(--text-sub); font-weight: 600;">Heuristic: Visibility of System Status</span>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
+                        <div>
+                            <p style="font-size: 0.85rem; color: var(--text-sub); text-transform: uppercase; font-weight: 800; letter-spacing: 1px;">The Friction</p>
+                            <p style="font-size: 0.95rem; line-height: 1.6;">Users felt "guilt-tripped" by the long list of expiring items. The list lacked <b>Visual Scanning</b> properties, making everything feel equally urgent.</p>
+                        </div>
+                        <div style="border-left: 1px solid #eee; padding-left: 2rem;">
+                            <p style="font-size: 0.85rem; color: var(--brand-primary); text-transform: uppercase; font-weight: 800; letter-spacing: 1px;">The UX Fix</p>
+                            <p style="font-size: 0.95rem; line-height: 1.6;">Implemented <b>Chromogenic Signaling</b> (Color-coded shelf-life). Green for stable, Yellow for 48h, Red for 24h. This transformed "anxiety" into "actionable prioritization."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="background: #fff; border: 1px solid rgba(0,0,0,0.05); padding: 2.5rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
+                        <div>
+                            <span style="background: #FFF4E5; color: #E6B34B; font-size: 0.65rem; font-weight: 900; padding: 4px 8px; border-radius: 2px; text-transform: uppercase;">Severity: Medium</span>
+                            <h4 style="margin: 0.5rem 0 0 0;">Analysis Paralysis (Filter Overload)</h4>
+                        </div>
+                        <span style="font-size: 0.75rem; color: var(--text-sub); font-weight: 600;">Heuristic: Aesthetic & Minimalist Design</span>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
+                        <div>
+                            <p style="font-size: 0.85rem; color: var(--text-sub); text-transform: uppercase; font-weight: 800; letter-spacing: 1px;">The Friction</p>
+                            <p style="font-size: 0.95rem; line-height: 1.6;">The "Recipe Discovery" screen presented 15+ filter toggles. Participants took an average of <b>12 seconds</b> just to start scrolling, indicating high cognitive load.</p>
+                        </div>
+                        <div style="border-left: 1px solid #eee; padding-left: 2rem;">
+                            <p style="font-size: 0.85rem; color: var(--brand-primary); text-transform: uppercase; font-weight: 800; letter-spacing: 1px;">The UX Fix</p>
+                            <p style="font-size: 0.95rem; line-height: 1.6;">Applied <b>Progressive Disclosure.</b> I collapsed advanced dietary filters under a smart "Kitchen Settings" profile, leaving only "Time" and "Cuisine" as primary interactions.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 4rem; padding: 2rem; background: #1a1a1a; color: #fff; border-radius: 4px; display: flex; align-items: center; gap: 2rem;">
+                <div style="font-size: 1.5rem;">♿</div>
+                <div>
+                    <h5 style="margin: 0; color: #fff;">Accessibility Correction (WCAG 2.1)</h5>
+                    <p style="font-size: 0.85rem; margin-top: 0.5rem; color: rgba(255,255,255,0.7);">During testing, I realized that relying solely on color for "Expiration Dates" failed users with protanopia. I added <b>distinct iconography</b> (shapes) alongside the colors to ensure the interface is inclusive.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="reveal">
+        <div class="grid">
+            <div class="section-label">06 / Visual Identity</div>
+            <div class="content">
+                <h2>The Nutriva System: <br><i style="font-weight: 300;">Designing for Cognitive Relief</i></h2>
+                <p>Food apps traditionally rely on aggressive, warm tones to stimulate appetite. However, my research indicated that our user's primary barrier wasn't a lack of hunger—it was <strong>decision fatigue and anxiety</strong>. I engineered a visual language rooted in Color Psychology and Typographic Segregation to intentionally lower cognitive load before introducing action-oriented culinary cues.</p>
+                
+                <div class="color-analysis-grid" style="margin-top: 4rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;">
+                    <div class="color-spec-card">
+                        <div class="swatch-large" style="background: #A4CFF9;"></div>
+                        <h6>Clarity Blue / #A4CFF9</h6>
+                        <p><strong>The Psychology:</strong> Cool tones are scientifically proven to lower heart rates. Used as the primary structural color, this creates a "sanctuary" effect, signaling that inventory management is a stress-free, automated task.</p>
+                    </div>
+                    <div class="color-spec-card">
+                        <div class="swatch-large" style="background: #E67977;"></div>
+                        <h6>Vitality Coral / #E67977</h6>
+                        <p><strong>The Psychology:</strong> A muted, organic shift from standard alert-red. It stimulates appetite and urgency but is strategically reserved <em>only</em> for primary CTAs ("Cook Now") and critical inventory alerts.</p>
+                    </div>
+                    <div class="color-spec-card">
+                        <div class="swatch-large" style="background: #FFFFFF; border: 1px solid rgba(0,0,0,0.05);"></div>
+                        <h6>Pristine White / #FFFFFF</h6>
+                        <p><strong>The Psychology:</strong> Represents hygiene and culinary blank slates. Used aggressively as negative space to frame high-fidelity food imagery, ensuring the interface never competes with the recipes.</p>
+                    </div>
+                </div>
+
+                <div class="accessibility-card" style="margin-top: 6rem; padding: 4rem; background: #fff; border: 1px solid rgba(0,0,0,0.05); border-radius: 4px;">
+                    <h4 style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-sub); margin-bottom: 3rem;">WCAG AAA Accessibility & Text Hierarchy</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;">
+                        <div class="a11y-item">
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+                                <div style="width: 24px; height: 24px; background: #000; border-radius: 50%;"></div>
+                                <span style="font-weight: 800; font-size: 1rem; color: #000;">#000000 (Pure Black)</span>
+                            </div>
+                            <p style="font-size: 0.9rem; line-height: 1.7; color: var(--text-body);">Used exclusively for primary headings and critical recipe data. Against the white background, this provides a <strong>21:1 Contrast Ratio</strong>, ensuring maximum legibility for users scanning recipes while moving around a brightly lit kitchen.</p>
+                        </div>
+                        <div class="a11y-item">
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+                                <div style="width: 24px; height: 24px; background: #9DA5C1; border-radius: 50%;"></div>
+                                <span style="font-weight: 800; font-size: 1rem; color: #9DA5C1;">#9DA5C1 (Slate Blue)</span>
+                            </div>
+                            <p style="font-size: 0.9rem; line-height: 1.7; color: var(--text-body);">Instead of a standard, lifeless grey, I selected a slate with heavy blue undertones for secondary text. This creates <strong>Semantic Harmony</strong> with our primary background, reducing eye fatigue during long browsing sessions.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 8rem;">
+                    <h3 style="margin-bottom: 1.5rem;">Typographic Segregation</h3>
+                    <p style="max-width: 800px; margin-bottom: 5rem; color: var(--text-body);">Utilizing four distinct font families is a calculated risk. To prevent visual bloat, I implemented a strict <strong>Component-Level Typographic Architecture</strong>. Each typeface is assigned a non-overlapping semantic role, guiding the user's mental state from inspiration to execution.</p>
+                    
+                    <div class="type-segregation-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 6rem 4rem;">
+                        
+                        <div class="type-entry" style="border-top: 1px solid rgba(0,0,0,0.1); padding-top: 2rem;">
+                            <span class="sample-text" style="font-family: 'Montserrat', sans-serif; font-size: 3rem; font-weight: 300; letter-spacing: 6px; color: #000; display: block; margin-bottom: 2rem;">Nutriva</span>
+                            <h5 style="font-size: 0.65rem; color: #A4CFF9; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem;">The Brand Anchor / Montserrat</h5>
+                            <p style="font-size: 0.9rem; line-height: 1.7; color: var(--text-body);"><strong>The Execution:</strong> Applied exclusively to top-level app headers. Heavy tracking and generous leading introduce optical "breathability," combating the claustrophobic feeling typical of data-heavy utility apps.</p>
+                        </div>
+
+                        <div class="type-entry" style="border-top: 1px solid rgba(0,0,0,0.1); padding-top: 2rem;">
+                            <span class="sample-text" style="font-family: 'Merriweather', serif; font-size: 3rem; color: #000; display: block; margin-bottom: 2rem;">Savor.</span>
+                            <h5 style="font-size: 0.65rem; color: #E67977; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem;">The Editorial Voice / Merriweather</h5>
+                            <p style="font-size: 0.9rem; line-height: 1.7; color: var(--text-body);"><strong>The Execution:</strong> Reserved strictly for recipe descriptions. This screen-serif evokes the warmth of printed cookbooks, signaling: <em>"You are no longer managing data; you are now engaging with food."</em></p>
+                        </div>
+
+                        <div class="type-entry" style="border-top: 1px solid rgba(0,0,0,0.1); padding-top: 2rem;">
+                            <span class="sample-text" style="font-family: 'Inter', sans-serif; font-size: 3rem; font-weight: 600; color: #000; display: block; margin-bottom: 2rem;">140g</span>
+                            <h5 style="font-size: 0.65rem; color: #9DA5C1; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem;">The Utility Engine / Inter</h5>
+                            <p style="font-size: 0.9rem; line-height: 1.7; color: var(--text-body);"><strong>The Execution:</strong> The ultimate workhorse. Used for dense, technical data: nutritional macros and expiration dates. It prioritizes pure function and scannability at micro-sizes.</p>
+                        </div>
+
+                        <div class="type-entry" style="border-top: 1px solid rgba(0,0,0,0.1); padding-top: 2rem;">
+                            <span class="sample-text" style="font-family: 'Nunito', sans-serif; font-size: 3rem; font-weight: 700; color: #000; display: block; margin-bottom: 2rem;">Oops!</span>
+                            <h5 style="font-size: 0.65rem; color: #A88980; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem;">The Empathy Layer / Nunito</h5>
+                            <p style="font-size: 0.9rem; line-height: 1.7; color: var(--text-body);"><strong>The Execution:</strong> Deployed for "high-friction" emotional moments like empty states. The rounded terminals soften the blow of bad news, making the app feel like a helpful companion.</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .swatch-large {
+            width: 100%;
+            height: 120px;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+        }
+
+        .color-spec-card h6 {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.8rem;
+            color: #000;
+        }
+
+        .color-spec-card p {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: var(--text-body);
+        }
+
+        @media (max-width: 900px) {
+            .color-analysis-grid, .type-segregation-grid {
+                grid-template-columns: 1fr !important;
+            }
+            .accessibility-card {
+                padding: 2rem !important;
+            }
+            .accessibility-card div {
+                grid-template-columns: 1fr !important;
+                gap: 2rem !important;
+            }
+        }
+    </style>
+<section class="reveal" style="padding-bottom: 15rem; background: #F9FAFB;">
+        <div class="grid">
+            <div class="section-label">07 / Retrospective</div>
+            <div class="content">
+                <h2>Conceptual Synthesis: Intent vs. Potential</h2>
+                <p style="font-size: 1.1rem; line-height: 1.9; max-width: 850px; color: var(--text-body);">
+                    Nutriva serves as a conceptual laboratory for <strong>Executive Function & Cognitive Load Management</strong>. While this project remains a high-fidelity mockup, the design process was a forensic exercise in mapping how visual systems can mitigate the <em>"Choice Paralysis"</em> often associated with mundane domestic tasks.
+                </p>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 5rem;">
+                    
+                    <div class="analysis-card" style="background: #fff; padding: 3.5rem; border: 1px solid rgba(0,0,0,0.03); border-radius: 4px;">
+                        <h4 style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: #E67977; margin-bottom: 2rem;">Design Objectives</h4>
+                        <p style="font-size: 0.95rem; line-height: 1.9; color: var(--text-body); margin-bottom: 1.5rem;">
+                            The primary goal was to test the <strong>Recognition over Recall</strong> model. In a theoretical environment, the interface assumes the burden of memory, allowing the user to simply validate inventory rather than catalog it.
+                        </p>
+                        <p style="font-size: 0.95rem; line-height: 1.9; color: var(--text-body);">
+                            By utilizing <em>Clarity Blue</em> and <em>Pristine White</em>, the design targets a reduction in "Visual Noise." The hypothesis is that by lowering the aesthetic friction, the user is more likely to engage with the utility—transforming a chore into a seamless interaction.
+                        </p>
+                    </div>
+
+                    <div class="analysis-card" style="background: #fff; padding: 3.5rem; border: 1px solid rgba(0,0,0,0.03); border-radius: 4px;">
+                        <h4 style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: #A4CFF9; margin-bottom: 2rem;">Theoretical Evolution</h4>
+                        <p style="font-size: 0.95rem; line-height: 1.9; color: var(--text-body);">
+                            If moved from a Figma concept to a functional product, the logical evolution would center on <strong>Predictive Scarcity</strong>. 
+                        </p>
+                        <p style="font-size: 0.95rem; line-height: 1.9; color: var(--text-body); margin-top: 1.5rem;">
+                            By integrating consumption-pattern logic, the system could theoretically anticipate when staples reach a critical threshold before the user even opens the fridge. This would effectively bridge the <strong>"Action-Intention Gap,"</strong> where the design solves the problem (the lack of an ingredient) before the user even perceives it as a hurdle.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div style="margin-top: 8rem; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 6rem; text-align: center;">
+                    <h3 style="font-family: 'Montserrat', sans-serif; font-size: 0.7rem; letter-spacing: 5px; color: var(--text-sub); text-transform: uppercase; margin-bottom: 2rem;">Conclusion</h3>
+                    <h4 style="font-family: var(--serif); font-size: 2.5rem; color: #111418; line-height: 1.4; font-style: italic; max-width: 900px; margin: 0 auto;">
+                        "Design is the systematic removal of the <strong>mental friction</strong> between a human and their intention."
+                    </h4>
+                    <p style="margin-top: 3rem; max-width: 600px; margin-left: auto; margin-right: auto; color: var(--text-body); line-height: 1.8;">
+                        Nutriva stands as a testament to the power of <strong>Intentional Design</strong>. It demonstrates that even the most mundane routines can be elevated through an interface that respects the user's cognitive capacity and emotional well-being.
+                    </p>
+                    
+                    <div style="margin-top: 5rem;">
+                        <a href="index.html" class="nutriva-btn">Project Archive</a>
+                        <a href="about.html" class="nutriva-btn secondary">Contact Designer</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .nutriva-btn {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: #111418;
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.4s ease;
+            margin: 0 0.5rem;
+        }
+
+        .nutriva-btn.secondary {
+            background: transparent;
+            color: #111418;
+            border: 1px solid #111418;
+        }
+
+        .nutriva-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+            background: #A4CFF9;
+            border-color: #A4CFF9;
+            color: #fff;
+        }
+
+        .analysis-card {
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .analysis-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.04);
+        }
+
+        @media (max-width: 900px) {
+            div[style*="display: grid"] { grid-template-columns: 1fr !important; gap: 3rem !important; }
+            .content { padding-left: 0 !important; }
+            .analysis-card { padding: 2rem !important; }
+        }
+    </style>
+
+    <script>
+        // Simple Reveal and Cursor Logic
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        const dot = document.getElementById("cursor-dot");
+        const trailer = document.getElementById("cursor-trailer");
+
+        window.onmousemove = e => {
+            const x = e.clientX, y = e.clientY;
+            dot.style.left = `${x}px`;
+            dot.style.top = `${y}px`;
+            
+            trailer.animate({
+                left: `${x}px`,
+                top: `${y}px`
+            }, { duration: 800, fill: "forwards" });
+        };
+    </script>
+</body>
+</html>

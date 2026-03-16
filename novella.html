@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novella | Jocelyn Martinez Portfolio</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            /* Brand Identity */
+            --brand-primary: #4C2727; /* Deep Burgundy */
+            --brand-bg: #E8E6E3;      /* Warm Paper */
+            
+            /* Typography */
+            --text-main: #000000;     /* Headers */
+            --text-body: #4A4742;     /* Body Text */
+            --text-sub: #8B827B;      /* Subtext/Muted */
+            
+            /* Layout */
+            --serif: 'Cormorant Garamond', serif;
+            --sans: 'Plus Jakarta Sans', sans-serif;
+            --section-pad: 12rem 5%;
+        }
+
+        /* High-End Texture */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.035;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        body { 
+            background-color: var(--brand-bg); 
+            color: var(--text-body); 
+            font-family: var(--sans); 
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .clickable-mockup:hover {
+            transform: translateY(-10px) scale(1.02);
+            transition: 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+
+        /* Custom Cursor Elements */
+        #cursor-dot, #cursor-trailer { 
+            position: fixed; top: 0; left: 0; border-radius: 50%; 
+            pointer-events: none; z-index: 10000; transform: translate(-50%, -50%); 
+        }
+        #cursor-dot { width: 5px; height: 5px; background: var(--text-main); }
+        #cursor-trailer { 
+            width: 35px; height: 35px; border: 1px solid var(--brand-primary); 
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1); 
+        }
+
+        /* Navigation */
+        nav { 
+            position: fixed; width: 100%; padding: 2rem 5%; 
+            display: flex; justify-content: space-between; align-items: center; 
+            z-index: 1000; mix-blend-mode: multiply;
+        }
+        .logo { font-family: var(--serif); font-size: 1.5rem; color: var(--text-main); text-decoration: none; font-weight: 600; }
+        .back-btn { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 3px; color: var(--text-main); text-decoration: none; font-weight: 700; opacity: 0.5; }
+
+        /* Typography & Grid */
+        h1, h2, h3, h4 { font-family: var(--serif); color: var(--text-main); font-weight: 300; }
+        .hero { padding: 18rem 5% 10rem; }
+        h1 { font-size: clamp(4rem, 15vw, 10rem); line-height: 0.8; margin-bottom: 3rem; }
+        h1 i { font-style: italic; color: var(--brand-primary); font-weight: 400; }
+
+        section { padding: var(--section-pad); border-top: 1px solid rgba(0,0,0,0.06); }
+        .grid { display: grid; grid-template-columns: 1.2fr 2.8fr; gap: 6rem; }
+        .section-label { 
+            font-size: 0.65rem; text-transform: uppercase; letter-spacing: 4px; 
+            font-weight: 800; color: var(--text-sub); position: sticky; top: 8rem; height: fit-content; 
+        }
+        
+        .content h2 { font-size: clamp(2.5rem, 6vw, 4.5rem); margin-bottom: 2.5rem; line-height: 1.1; }
+        .content p { font-size: 1.15rem; margin-bottom: 2rem; max-width: 800px; }
+
+        /* Interactive Analysis Cards */
+        .analysis-block { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin: 4rem 0; }
+        .card { 
+            padding: 3rem; background: #fff; border: 1px solid rgba(0,0,0,0.03); 
+            transition: 0.4s ease; border-radius: 2px;
+        }
+        .card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.04); }
+        .card h4 { font-size: 1.6rem; margin-bottom: 1rem; color: var(--brand-primary); }
+        .card p { font-size: 0.95rem; color: var(--text-body); margin: 0; }
+
+        /* SWOT Component */
+        .swot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
+        .swot-item { padding: 1.5rem; border: 1px solid rgba(0,0,0,0.1); }
+        .swot-item span { font-size: 0.6rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; display: block; margin-bottom: 0.5rem; }
+
+        /* Slider Integration */
+        .slider-wrap { position: relative; margin: 4rem 0; }
+        .slider { display: flex; gap: 2rem; overflow-x: auto; scrollbar-width: none; padding: 2rem 0; }
+        .slider::-webkit-scrollbar { display: none; }
+        .slide { flex: 0 0 350px; }
+        .slide img { width: 100%; border-radius: 4px; box-shadow: 0 30px 60px rgba(0,0,0,0.1); border: 1px solid rgba(0,0,0,0.05); }
+
+        /* Design System Visuals */
+        .swatch-group { display: flex; gap: 1rem; margin-top: 2rem; }
+        .swatch { width: 100px; height: 100px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 700; border: 1px solid rgba(0,0,0,0.05); }
+
+        /* Animations */
+        .reveal { opacity: 0; transform: translateY(50px); transition: 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 1100px) {
+            .grid { grid-template-columns: 1fr; gap: 3rem; }
+            .section-label { position: relative; top: 0; }
+            .analysis-block { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="cursor-dot"></div>
+    <div id="cursor-trailer"></div>
+
+    <nav>
+        <a href="#" class="logo">Jocelyn Martinez</a>
+        <a href="index.html" class="back-btn">Close Case Study</a>
+    </nav>
+
+    <header class="hero reveal">
+        <p style="font-size: 0.7rem; letter-spacing: 5px; color: var(--text-sub); margin-bottom: 2.5rem; font-weight: 800;">UX RESEARCH & PRODUCT DESIGN</p>
+        <h1>Novella <i>Reader</i></h1>
+        <p style="font-size: 1.4rem; max-width: 700px; margin-top: 3rem; color: var(--text-body); font-weight: 400;">
+            Solving the "Discovery Paradox" in digital reading through mood-based Information Architecture and sensory-focused UI.
+        </p>
+    </header>
+
+<section class="reveal">
+        <div class="grid">
+            <div class="section-label">01 / The Mission</div>
+            <div class="content">
+                <h2>Curation Over Commerce: A Design Intervention</h2>
+                
+                <p>Digital reading platforms have largely stagnated, evolving into high-friction marketplaces that prioritize "The Transaction" over "The Reader." Current industry leaders are plagued by <b>legacy UI clutter</b>—interfaces that are over-saturated with "Top 10" banners and aggressive marketing carousels that reflect commercial bias rather than personal connection. Novella was conceived as a design intervention: a minimalist, premium sanctuary that strips away visual noise to restore the intimacy of the reading experience.</p>
+                
+                <p><strong>The Strategic Goal:</strong> To replace the outdated "Storefront" model with a <b>"Sanctuary" model</b>—leveraging a sleek, modern aesthetic that prioritizes the reader's emotional state through <b>Affective Discovery</b> and conceptual matching.</p>
+
+                <div class="analysis-block" style="margin-top: 3.5rem;">
+                    <div class="card">
+                        <h4>Eliminating Outdated Clutter</h4>
+                        <p>I moved away from the grid-heavy, thumbnail-dense layouts of the 2010s. By utilizing <b>Generous White Space</b> and a high-contrast typographic hierarchy, Novella reduces the <b>Cognitive Load</b> that typically leads to choice paralysis in competitors.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Atmospheric Personalization</h4>
+                        <p>Rather than pushing "New Releases," I proposed a discovery path based on <b>Atmospheric Markers</b>. Users navigate by the "vibe" they wish to inhabit—such as <i>Rainy Afternoon in London</i> or <i>High-Stakes Melancholy</i>—making the search process as evocative as the books themselves.</p>
+                    </div>
+                </div>
+
+                <div class="feature-concept-box" style="margin-top: 4rem; padding: 4rem; background: #FAF9F6; border-radius: 30px; border: 1px solid #EAE8E4;">
+                    <div style="max-width: 800px;">
+                        <p style="text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px; color: var(--primary); font-weight: 700; margin-bottom: 1.5rem;">Innovative Hypothesis</p>
+                        <h3 style="font-family: var(--serif); font-size: 2.2rem; margin-bottom: 1.5rem;">The "Literary Synapse" Concept</h3>
+                        <p style="font-size: 1.1rem; line-height: 1.7; color: var(--ink); opacity: 0.9;">
+                            To address the fundamental friction of "Discovery vs. Connection," I developed a conceptual matching engine titled <b>The Literary Synapse</b>. This proposed system moves beyond basic metadata, aiming to "pair" readers with authors based on <b>prose-cadence</b> and <b>emotional resonance</b>.
+                        </p>
+                        
+                        <div class="concept-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 3rem;">
+                            <div>
+                                <h5 style="margin-bottom: 10px; font-weight: 700;">Voice-First Matching</h5>
+                                <p style="font-size: 0.95rem; color: var(--grey);">A proposed algorithm that prioritizes the "Voice" of the writing—matching users who prefer minimalist prose with Hemingway-esque styles, rather than just matching by genre.</p>
+                            </div>
+                            <div>
+                                <h5 style="margin-bottom: 10px; font-weight: 700;">The 5-Minute "Trial Run"</h5>
+                                <p style="font-size: 0.95rem; color: var(--grey);">A conceptual UX flow where users engage in a "Blind Trial." This allows a reader to experience a curated excerpt without seeing the cover or title, ensuring a pure emotional match with the text before purchase.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 3rem; font-style: italic; color: var(--grey); font-size: 0.9rem;">
+                    *Note: The "Literary Synapse" and "Trial Run" features are currently in the conceptual design phase, serving as a vision for the future of hyper-personalized digital libraries.
+                </div>
+
+            </div>
+        </div>
+    </section>
+<section class="reveal" style="background: #F4F2F0;">
+        <div class="grid">
+            <div class="section-label">02 / Competitive Audit</div>
+            <div class="content">
+                <h2>Benchmarking the Giants</h2>
+                <p>To understand why the digital reading experience feels broken, I conducted a heuristic evaluation of three industry leaders: <i>Kindle, Goodreads,</i> and <i>Libby</i>. I evaluated them based on <strong>Visual Noise</strong> (cognitive load), <strong>Discovery Friction</strong> (how hard it is to find a book), and <strong>Immersion</strong> (the reading environment itself).</p>
+                
+                <p style="font-style: italic; color: var(--text-sub); margin-bottom: 3rem; font-size: 0.95rem;">Conclusion: Most apps suffer from "Utility Over Aesthetic." They function perfectly as storefronts or databases, but fail to provide a sanctuary for readers.</p>
+                
+                <div class="competitor-grid">
+                    
+                    <div class="comp-card">
+                        <div class="comp-header">
+                            <h3 class="comp-name">Kindle</h3>
+                            <span class="comp-type">The Storefront</span>
+                        </div>
+                        <div class="comp-metrics">
+                            <div class="metric-row"><span>Visual Noise:</span> <span class="metric-value high">High</span></div>
+                            <div class="metric-row"><span>Discovery Friction:</span> <span class="metric-value med">Medium</span></div>
+                            <div class="metric-row"><span>Immersion:</span> <span class="metric-value low">Low</span></div>
+                        </div>
+                        <div class="comp-analysis">
+                            <h6>UX Breakdown</h6>
+                            <p><strong>Strength:</strong> A frictionless purchasing funnel and the massive Amazon ecosystem (WhisperSync).</p>
+                            <p><strong>Weakness:</strong> The interface is highly transactional. The home screen utilizes dark patterns to push "Kindle Unlimited" subscriptions and sponsored books, leading to severe cognitive overload before the user even opens a book.</p>
+                        </div>
+                    </div>
+
+                    <div class="comp-card">
+                        <div class="comp-header">
+                            <h3 class="comp-name">Goodreads</h3>
+                            <span class="comp-type">The Database</span>
+                        </div>
+                        <div class="comp-metrics">
+                            <div class="metric-row"><span>Visual Noise:</span> <span class="metric-value high">High</span></div>
+                            <div class="metric-row"><span>Discovery Friction:</span> <span class="metric-value high">High</span></div>
+                            <div class="metric-row"><span>Immersion:</span> <span class="metric-value none">N/A (No Reader)</span></div>
+                        </div>
+                        <div class="comp-analysis">
+                            <h6>UX Breakdown</h6>
+                            <p><strong>Strength:</strong> Unmatched community social proof and a comprehensive cataloging system.</p>
+                            <p><strong>Weakness:</strong> Suffers from a severely outdated Web 2.0 Information Architecture. Finding a book requires navigating through cluttered, text-heavy lists. Reviews are prioritized over the book's synopsis, influencing user bias immediately.</p>
+                        </div>
+                    </div>
+
+                    <div class="comp-card">
+                        <div class="comp-header">
+                            <h3 class="comp-name">Libby</h3>
+                            <span class="comp-type">The Library</span>
+                        </div>
+                        <div class="comp-metrics">
+                            <div class="metric-row"><span>Visual Noise:</span> <span class="metric-value low">Low</span></div>
+                            <div class="metric-row"><span>Discovery Friction:</span> <span class="metric-value high">High</span></div>
+                            <div class="metric-row"><span>Immersion:</span> <span class="metric-value med">Medium</span></div>
+                        </div>
+                        <div class="comp-analysis">
+                            <h6>UX Breakdown</h6>
+                            <p><strong>Strength:</strong> A clean, accessible interface with a highly intuitive onboarding process (using a physical library card).</p>
+                            <p><strong>Weakness:</strong> Discovery is severely limited by local library inventory. The UX introduces "Availability Anxiety" users often find a book they want, only to be met with a 12-week waitlist, halting the user journey abruptly.</p>
+                        </div>
+                    </div>
+
+                    <div class="comp-card opportunity-card">
+                        <div class="comp-header" style="border-color: rgba(255,255,255,0.2);">
+                            <h3 class="comp-name" style="color: #fff;">The Opportunity</h3>
+                            <span class="comp-type" style="color: #fff">The Gap in the Market</span>
+                        </div>
+                        <div class="comp-analysis">
+                            <p style="color: #fff; font-size: 1.05rem; line-height: 1.6;">
+                                Readers are currently forced to use a fractured ecosystem: they use Goodreads to discover, Libby to borrow, and Kindle to read. 
+                            </p>
+                            <ul style="color: rgba(255,255,255,0.8); margin-top: 1.5rem; padding-left: 1.2rem; font-size: 0.9rem; line-height: 1.8;">
+                                <li>Novella merges discovery and reading into one seamless, aesthetic-driven environment.</li>
+                                <li>Replaces anxiety-inducing storefront UI with calm, mood-based filtering.</li>
+                                <li>Prioritizes typography and white space over algorithmic "Recommended for You" carousels.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .competitor-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .comp-card {
+            background: #fff;
+            padding: 3rem;
+            border-radius: 4px;
+            border: 1px solid rgba(0,0,0,0.04);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+            transition: transform 0.3s ease;
+        }
+
+        .comp-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .comp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .comp-name {
+            font-family: var(--serif);
+            font-size: 2rem;
+            color: var(--text-main);
+        }
+
+        .comp-type {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--brand-primary);
+            font-weight: 800;
+        }
+
+        .comp-metrics {
+            background: rgba(0,0,0,0.02);
+            padding: 1.5rem;
+            border-radius: 4px;
+            margin-bottom: 2rem;
+        }
+
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-main);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .metric-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .metric-value.high { color: #B22222; } /* Red for negative high friction */
+        .metric-value.med { color: #B8860B; }  /* Gold/Orange */
+        .metric-value.low { color: #2E8B57; }  /* Green for good low friction */
+        .metric-value.none { color: var(--text-sub); }
+
+        .comp-analysis h6 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-sub);
+            margin-bottom: 1rem;
+        }
+
+        .comp-analysis p {
+            font-size: 0.9rem;
+            line-height: 1.7;
+            color: var(--text-body);
+            margin-bottom: 1rem;
+        }
+
+        .comp-analysis p strong {
+            color: var(--brand-primary);
+        }
+
+        /* The Opportunity Card Styling */
+        .opportunity-card {
+            background: var(--brand-primary);
+            border: none;
+        }
+
+        @media (max-width: 900px) {
+            .competitor-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+   <section class="reveal">
+        <div class="grid">
+            <div class="section-label">03 / User Personas</div>
+            <div class="content">
+                <h2>Psychographics Over Demographics</h2>
+                <p>Traditional reading apps filter users by genre preference ("Sci-Fi" vs. "Romance"). Novella filters by <strong>emotional intent</strong>. To build a truly modern discovery engine, I developed personas based on behavioral archetypes and psychological typologies rather than just age and occupation.</p>
+                
+                <div class="persona-deep-grid">
+                    
+                    <div class="persona-card-deep" style="border-top: 4px solid var(--brand-primary);">
+                        <div class="persona-header">
+                            <div>
+                                <span class="archetype-tag">The Intuitive Escapist</span>
+                                <h3 style="margin-top: 0.5rem; color: #000; font-size: 2rem;">Elena, 26</h3>
+                                <p style="font-size: 0.85rem; color: var(--text-sub); text-transform: uppercase; letter-spacing: 1px;">Data Analyst • High Screen Fatigue</p>
+                            </div>
+                            <div class="typology-box">
+                                <span>INFJ</span>
+                                <span>Type 4 (Sx/Sp)</span>
+                            </div>
+                        </div>
+                        
+                        <p class="persona-quote">"I don't just want to read a book; I want to live inside its atmosphere. I need to find stories that match my exact emotional state without wading through algorithmic junk."</p>
+                        
+                        <div class="persona-details">
+                            <div class="detail-column">
+                                <h6>Core Frustrations</h6>
+                                <ul>
+                                    <li><strong>The Echo Chamber:</strong> Algorithms constantly suggesting the same 10 mainstream bestsellers.</li>
+                                    <li><strong>Visual Noise:</strong> Cluttered UI, ads, and star-ratings that break the immersion of the reading space.</li>
+                                    <li><strong>Broad Tagging:</strong> "Fantasy" is too broad; she is looking for "Melancholic, low-magic, political intrigue."</li>
+                                </ul>
+                            </div>
+                            <div class="detail-column">
+                                <h6>UX Feature Translation</h6>
+                                <ul>
+                                    <li><strong>The "Vibe" Matrix:</strong> Replaced standard genres with an emotional slider (e.g., Cozy vs. Tense).</li>
+                                    <li><strong>Focus Mode:</strong> A UI that strips away metadata (reviews, page counts) once she enters the reader to prioritize the text.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="persona-card-deep" style="border-top: 4px solid #4A4742;">
+                        <div class="persona-header">
+                            <div>
+                                <span class="archetype-tag" style="background: #4A4742; color: #fff;">The Structured Curator</span>
+                                <h3 style="margin-top: 0.5rem; color: #000; font-size: 2rem;">Marcus, 31</h3>
+                                <p style="font-size: 0.85rem; color: var(--text-sub); text-transform: uppercase; letter-spacing: 1px;">Systems Architect • Commuter</p>
+                            </div>
+                            <div class="typology-box">
+                                <span>INTJ</span>
+                                <span>Type 5w6</span>
+                            </div>
+                        </div>
+                        
+                        <p class="persona-quote">"I treat my library like a personal database. I want my highlights organized, my reading goals tracked invisibly, and the typography to be flawless."</p>
+                        
+                        <div class="persona-details">
+                            <div class="detail-column">
+                                <h6>Core Frustrations</h6>
+                                <ul>
+                                    <li><strong>Poor Architecture:</strong> Apps that make it difficult to organize books into custom, nested shelves or tags.</li>
+                                    <li><strong>Lost Annotations:</strong> Highlighting systems that are clunky or impossible to export efficiently.</li>
+                                    <li><strong>Lack of Control:</strong> Inability to finely tune line-height, margins, and serif weights.</li>
+                                </ul>
+                            </div>
+                            <div class="detail-column">
+                                <h6>UX Feature Translation</h6>
+                                <ul>
+                                    <li><strong>Personal Archive:</strong> Implemented "Variant A" (the grid layout) specifically for his saved library for maximum utility.</li>
+                                    <li><strong>Typography Engine:</strong> Added granular, accessibility-compliant typographic controls.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .persona-deep-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 4rem;
+            margin-top: 4rem;
+        }
+
+        .persona-card-deep {
+            background: #fff;
+            padding: 3.5rem;
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+
+        .persona-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .archetype-tag {
+            background: var(--brand-primary);
+            color: #fff;
+            padding: 6px 14px;
+            font-size: 0.65rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-radius: 2px;
+            display: inline-block;
+        }
+
+        .typology-box {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .typology-box span {
+            border: 1px solid var(--text-sub);
+            color: var(--text-sub);
+            padding: 4px 10px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            border-radius: 50px;
+        }
+
+        .persona-quote {
+            font-family: var(--serif);
+            font-size: 1.4rem;
+            font-style: italic;
+            color: var(--brand-primary);
+            line-height: 1.5;
+            margin-bottom: 3rem;
+            padding-left: 1.5rem;
+            border-left: 2px solid var(--brand-bg);
+        }
+
+        .persona-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .detail-column h6 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-main);
+            margin-bottom: 1.2rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding-bottom: 0.5rem;
+        }
+
+        .detail-column ul {
+            list-style: none;
+        }
+
+        .detail-column ul li {
+            font-size: 0.95rem;
+            color: var(--text-body);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            position: relative;
+            padding-left: 1.2rem;
+        }
+
+        .detail-column ul li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--brand-primary);
+            font-weight: bold;
+        }
+
+        @media (max-width: 800px) {
+            .persona-details {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .persona-card-deep {
+                padding: 2rem;
+            }
+        }
+    </style>
+<section class="reveal">
+        <div class="grid">
+            <div class="section-label">04 / Visual Identity</div>
+            <div class="content">
+                <h2>The Sensory Interface</h2>
+                <p>Digital reading often feels sterile. For Novella, I aimed to bypass the "coldness" of standard apps by creating a <strong>Sensory Interface</strong>. Every color and typeface was selected to trigger a tactile association, mimicking the weight of paper, the scent of ink, and the texture of a leather binding.</p>
+                
+                <div style="margin-top: 4rem;">
+                    <h4 style="font-size: 1.2rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-main); margin-bottom: 2rem;">Color Psychology: The "Archive" Palette</h4>
+                    <div class="color-analysis-grid">
+                        <div class="color-block">
+                            <div class="big-swatch" style="background: #4C2727;"></div>
+                            <div class="swatch-info">
+                                <h6>#4C2727 | Heritage Burgundy</h6>
+                                <p>This isn't just a red, it's the color of oxblood leather. Psychologically, it conveys <strong>authority, history, and intellectual safety.</strong> It serves as our anchor, grounding the digital experience in tradition.</p>
+                            </div>
+                        </div>
+                        <div class="color-block">
+                            <div class="big-swatch" style="background: #E8E6E3;"></div>
+                            <div class="swatch-info">
+                                <h6>#E8E6E3 | Warm Parchment</h6>
+                                <p>Pure white (#FFF) causes "Ocular Glare." By using a high-chroma warm grey, we reduce blue-light strain and evoke the <strong>tactile warmth of physical paper</strong>, signaling to the brain that it's time to slow down.</p>
+                            </div>
+                        </div>
+                        <div class="color-block">
+                            <div class="big-swatch" style="background: #4A4742;"></div>
+                            <div class="swatch-info">
+                                <h6>#4A4742 | Charcoal Ink</h6>
+                                <p>Used for primary text. Pure black on white is too harsh for long-form reading. This charcoal variant provides <strong>optimal contrast ratios (WCAG compliant)</strong> while appearing softer and more organic.</p>
+                            </div>
+                        </div>
+                        <div class="color-block">
+                            <div class="big-swatch" style="background: #8B827B;"></div>
+                            <div class="swatch-info">
+                                <h6>#8B827B | Muted Taupe</h6>
+                                <p>Reserved for subtext and metadata. It creates a <strong>visual hierarchy</strong> that allows the book titles to shine while keeping secondary information accessible but "quiet."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 6rem; padding: 4rem; background: #fff; border: 1px solid rgba(0,0,0,0.02);">
+                    <h4 style="font-size: 1.2rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-main); margin-bottom: 3rem;">Typographic Pairing: Elegance meets Utility</h4>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; align-items: center;">
+                        <div class="type-sample">
+                            <span class="type-label">Headings / Playfair Display</span>
+                            <h3 style="font-family: 'Playfair Display', serif; font-size: 4.5rem; line-height: 1; color: #000; font-weight: 700;">Aa</h3>
+                            <p style="font-family: 'Playfair Display', serif; font-size: 1.5rem; font-style: italic; color: var(--brand-primary);">The Editorial Choice</p>
+                        </div>
+                        <div class="type-analysis">
+                            <p><strong>Playfair Display</strong> was chosen for its high-contrast strokes and "Modern" serif classification. It evokes the prestige of 18th-century European printing. In the app, it acts as the <strong>Emotional Hook</strong>, making every book title feel like a headline in a high-end literary journal.</p>
+                        </div>
+                    </div>
+
+                    <hr style="margin: 3rem 0; border: 0; border-top: 1px solid rgba(0,0,0,0.05);">
+
+                    <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; align-items: center;">
+                        <div class="type-sample">
+                            <span class="type-label">UI & Body / Inter</span>
+                            <h3 style="font-family: 'Inter', sans-serif; font-size: 4rem; line-height: 1; color: #000; font-weight: 400; letter-spacing: -2px;">Aa</h3>
+                            <p style="font-family: 'Inter', sans-serif; font-size: 1.1rem; color: var(--text-body);">The Precision Choice</p>
+                        </div>
+                        <div class="type-analysis">
+                            <p><strong>Inter</strong> serves as the functional backbone. While Playfair provides the soul, Inter provides the <strong>clarity</strong>. It is a variable font designed specifically for computer screens, ensuring that small metadata (like page numbers and mood tags) remains legible even on low-resolution displays.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@400;600&display=swap');
+
+        .color-analysis-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+        }
+
+        .color-block {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .big-swatch {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        .swatch-info h6 {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+
+        .swatch-info p {
+            font-size: 0.85rem;
+            line-height: 1.5;
+            margin: 0;
+            color: var(--text-body);
+        }
+
+        .type-label {
+            display: block;
+            font-size: 0.6rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--text-sub);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .type-analysis p {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: var(--text-body);
+        }
+
+        .type-analysis strong {
+            color: var(--brand-primary);
+        }
+
+        @media (max-width: 800px) {
+            .color-analysis-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+<section class="reveal">
+    <div class="grid">
+        <div class="section-label">05 / High-Fidelity UI</div>
+        <div class="content">
+            <h2>The Mockup</h2>
+            <p>I focused on high-touch targets and "One-Handed Navigation", placing critical controls within the natural reach of the user's thumb.</p>
+            
+            <div class="slider-container" style="position: relative; margin: 3rem 0; width: 100%;">
+                
+                <button onclick="moveSlider(-1)" style="position: absolute; left: -20px; top: 50%; transform: translateY(-50%); z-index: 100; background: white; border: 2px solid #002C54; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.15);">←</button>
+                
+                <button onclick="moveSlider(1)" style="position: absolute; right: -20px; top: 50%; transform: translateY(-50%); z-index: 100; background: white; border: 2px solid #002C54; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.15);">→</button>
+
+                <div id="scrollWrapper" style="display: flex; gap: 20px; overflow-x: auto; scroll-behavior: smooth; scroll-snap-type: x mandatory; scrollbar-width: none; -ms-overflow-style: none; padding: 10px 0;">
+                    
+                    <div class="mockup-slide" onclick="openZoom(this)" style="flex: 0 0 calc(33.333% - 14px); scroll-snap-align: start; cursor: zoom-in;">
+                        <img src="Novella/mainmenu.png" alt="Mockup 1" style="width: 100%; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.1);">
+                    </div>
+                    <div class="mockup-slide" onclick="openZoom(this)" style="flex: 0 0 calc(33.333% - 14px); scroll-snap-align: start; cursor: zoom-in;">
+                        <img src="Novella/onboarding.png" alt="Mockup 2" style="width: 100%; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.1);">
+                    </div>
+                    <div class="mockup-slide" onclick="openZoom(this)" style="flex: 0 0 calc(33.333% - 14px); scroll-snap-align: start; cursor: zoom-in;">
+                        <img src="Novella/library.png" alt="Mockup 3" style="width: 100%; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.1);">
+                    </div>
+                    <div class="mockup-slide" onclick="openZoom(this)" style="flex: 0 0 calc(33.333% - 14px); scroll-snap-align: start; cursor: zoom-in;">
+                        <img src="Novella/booksummary.png" alt="Mockup 4" style="width: 100%; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.1);">
+                    </div>
+                    <div class="mockup-slide" onclick="openZoom(this)" style="flex: 0 0 calc(33.333% - 14px); scroll-snap-align: start; cursor: zoom-in;">
+                        <img src="Novella/booksummary2.png" alt="Mockup 5" style="width: 100%; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.1);">
+                    </div>
+                    <div class="mockup-slide" onclick="openZoom(this)" style="flex: 0 0 calc(33.333% - 14px); scroll-snap-align: start; cursor: zoom-in;">
+                        <img src="Novella/author.png" alt="Mockup 6" style="width: 100%; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.1);">
+                    </div>
+                    <div class="mockup-slide" onclick="openZoom(this)" style="flex: 0 0 calc(33.333% - 14px); scroll-snap-align: start; cursor: zoom-in;">
+                        <img src="Novella/search.png" alt="Mockup 7" style="width: 100%; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.1);">
+                    </div>
+                    <div class="mockup-slide" onclick="openZoom(this)" style="flex: 0 0 calc(33.333% - 14px); scroll-snap-align: start; cursor: zoom-in;">
+                        <img src="Novella/bookmatch.png" alt="Mockup 8" style="width: 100%; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.1);">
+                    </div>
+
+                </div>
+            </div>
+            
+            <p style="color: var(--text-sub); font-size: 0.9rem;"><strong>Key Interaction:</strong> The "Vibe Carousel" allows users to swipe through moods (e.g., Melancholic, Ethereal, Suspenseful) which updates the recommendations in real-time using a custom filtering algorithm.</p>
+        </div>
+    </div>
+</section>
+
+<div id="fullScreenLightbox" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); z-index: 10000; justify-content: center; align-items: center; cursor: zoom-out;" onclick="this.style.display='none'">
+    <img id="enlargedImg" src="" style="max-width: 90%; max-height: 90%; border-radius: 8px; box-shadow: 0 0 50px rgba(0,0,0,1);">
+</div>
+
+<style>
+    /* Hide scrollbars for Webkit browsers */
+    #scrollWrapper::-webkit-scrollbar { display: none; }
+    
+    /* Hover effect for polish */
+    .mockup-slide img { transition: transform 0.3s ease; }
+    .mockup-slide:hover img { transform: translateY(-5px); }
+</style>
+
+<section class="reveal">
+        <div class="grid">
+            <div class="section-label">06 / Layout Strategy</div>
+            <div class="content">
+                <h2>Information Architecture vs. Visual Immersion</h2>
+                <p>When transitioning Novella to the web, I faced a "Canvas Dilemma." Desktop screens offer vast space that often leads designers to over-complicate. I explored two distinct directions: one focused on <strong>feature-parity</strong> and another on <strong>psychological decompression.</strong></p>
+
+                <div class="ab-container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 4rem;">
+                    
+                    <div class="ab-variant">
+                        <div style="margin-bottom: 2rem;">
+                            <span style="border: 1px solid var(--text-sub); color: var(--text-sub); padding: 4px 12px; font-size: 0.6rem; font-weight: 800; letter-spacing: 2px;">VARIANT A</span>
+                            <h4 style="margin-top: 1.5rem; color: #000;">The Information-Dense Grid</h4>
+                        </div>
+                        <div class="variant-img clickable-mockup" onclick="openFullview(this.querySelector('img').src)" style="border: 1px solid rgba(0,0,0,0.05); border-radius: 4px; overflow: hidden; background: #fff; cursor: zoom-in;">
+                            <img src="Novella/webpage1.png" style="width: 100%; display: block;" alt="Grid Layout">
+                        </div>
+                        <div style="margin-top: 2rem;">
+                            <h5 style="font-size: 0.7rem; letter-spacing: 1px; color: var(--text-sub); margin-bottom: 1rem; text-transform: uppercase;">Organizational Logic</h5>
+                            <ul style="font-size: 0.9rem; color: var(--text-body); padding-left: 1rem; line-height: 1.8;">
+                                <li><strong>Scanning Pattern:</strong> Utilizes a standard **F-Pattern** for high scannability.</li>
+                                <li><strong>Functionality:</strong> Closely mirrors mobile app features "in-your-face" for immediate access.</li>
+                                <li><strong>The Goal:</strong> Designed for high-speed management of large personal libraries.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="ab-variant">
+                        <div style="margin-bottom: 2rem;">
+                            <span style="background: var(--brand-primary); color: #fff; padding: 4px 12px; font-size: 0.6rem; font-weight: 800; letter-spacing: 2px;">VARIANT B</span>
+                            <h4 style="margin-top: 1.5rem; color: #000;">The "Editorial" Spotlight</h4>
+                        </div>
+                        <div class="variant-img clickable-mockup" onclick="openFullview(this.querySelector('img').src)" style="border: 1px solid rgba(0,0,0,0.05); border-radius: 4px; overflow: hidden; background: #1A1A1A; cursor: zoom-in;">
+                            <img src="Novella/webpage2.png" style="width: 100%; display: block;" alt="Editorial Layout">
+                        </div>
+                        <div style="margin-top: 2rem;">
+                            <h5 style="font-size: 0.7rem; letter-spacing: 1px; color: var(--text-sub); margin-bottom: 1rem; text-transform: uppercase;">Organizational Logic</h5>
+                            <ul style="font-size: 0.9rem; color: var(--text-body); padding-left: 1rem; line-height: 1.8;">
+                                <li><strong>Visual Hierarchy:</strong> Implements a **Z-Pattern** to reduce choice paralysis.</li>
+                                <li><strong>Gestalt Principle:</strong> Uses Proximity and Scale to create intentional "Focus Zones."</li>
+                                <li><strong>The Goal:</strong> Prioritizes an emotional connection to a single book over the utility of a list.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 6rem; padding: 5rem; background: #fff; border: 1px solid rgba(0,0,0,0.02); box-shadow: 0 30px 60px rgba(0,0,0,0.02);">
+                    <h3 style="font-family: var(--serif); font-size: 2.5rem; margin-bottom: 3rem; color: #000;">Design Synthesis: Why B Won</h3>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;">
+                        <div>
+                            <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem;">
+                                Ultimately, I moved forward with <strong>Variant B</strong>. While Variant A was more "efficient" at showing volume, it failed the brand’s mission of providing a sanctuary for readers.
+                            </p>
+                            <p style="font-size: 0.95rem; color: var(--text-sub); border-left: 3px solid var(--brand-primary); padding-left: 1.5rem; font-style: italic;">
+                                "The design objective wasn't to build a better spreadsheet of books, but to recreate the feeling of walking into a quiet, curated boutique library."
+                            </p>
+                        </div>
+                        
+                        <div style="font-size: 0.95rem; line-height: 1.9;">
+                            <p style="margin-bottom: 1.5rem;">
+                                <strong style="color: var(--brand-primary); display: block; margin-bottom: 0.5rem; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1px;">01. The Aesthetic-Usability Effect</strong>
+                                Users perceive aesthetically pleasing designs as more usable. Variant B’s editorial layout reduces "Interface Friction" by making the user feel calm. Variant A, while functional, felt "loud" and cluttered, which triggers micro-stress in users looking to unwind.
+                            </p>
+                            <p style="margin-bottom: 1.5rem;">
+                                <strong style="color: var(--brand-primary); display: block; margin-bottom: 0.5rem; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1px;">02. Cognitive Load & Hick's Law</strong>
+                                Variant A suffered from <em>Choice Paralysis</em>. By forcing all features and dozens of covers into the immediate view, the user has to work to decide where to look. Variant B uses negative space to "give the user permission" to focus on a singular recommendation.
+                            </p>
+                            <p>
+                                <strong style="color: var(--brand-primary); display: block; margin-bottom: 0.5rem; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1px;">03. Intentional Friction</strong>
+                                I intentionally chose a "User-Friendly" editorial approach over an "Efficiency" approach. For a reading app, <em>slowing down</em> the user journey is actually a feature, not a bug.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+
+<div id="lightbox" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; justify-content: center; align-items: center; cursor: zoom-out;" onclick="this.style.display='none'">
+    <img id="lightbox-img" src="" style="max-width: 90%; max-height: 90%; border-radius: 8px; box-shadow: 0 0 40px rgba(0,0,0,0.5);">
+</div>
+    <style>
+    /* Hide scrollbar for cleaner look while keeping functionality */
+    .slider-wrap::-webkit-scrollbar {
+        display: none;
+    }
+    .slider-wrap {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    .slide img:hover {
+        transform: scale(1.02);
+    }
+</style>
+
+  <section class="reveal" style="border-bottom: none; padding-bottom: 20rem;">
+        <div class="grid">
+            <div class="section-label">07 / Final Reflection</div>
+            <div class="content">
+                <h2>The Concept of Atmospheric UX</h2>
+                <p>Novella was born from a singular hypothesis: <strong>Digital reading platforms have sacrificed the "soul" of the library for the efficiency of the warehouse.</strong> As a self-directed concept and mockup, this case study allowed for an unfiltered exploration of how high-end aesthetic design can actually improve functional user retention and emotional well-being.</p>
+                
+                <div style="margin-top: 5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;">
+                    <div>
+                        <h4 style="font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px; color: var(--brand-primary); margin-bottom: 1.5rem;">The "Friction" Paradox</h4>
+                        <p style="font-size: 0.95rem; line-height: 1.9; color: var(--text-body);">
+                            In standard UX circles, friction is the enemy. We are taught to reduce clicks at all costs. However, during the design of Novella, I discovered a <strong>Paradox of Friction</strong>. For an app centered on mindfulness and escapism, the "speed" of an Amazon-style interface is actually a deterrent. By intentionally slowing down the discovery process through editorial layouts (Variant B), the interface signals to the user’s parasympathetic nervous system that the "work" day is over and the "reading" experience has begun.
+                        </p>
+                    </div>
+                    <div>
+                        <h4 style="font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px; color: var(--brand-primary); margin-bottom: 1.5rem;">The Ethics of the "Vibe"</h4>
+                        <p style="font-size: 0.95rem; line-height: 1.9; color: var(--text-body);">
+                            Unlike modern algorithms that trap users in "Filter Bubbles" (showing them only what they have already liked), the theoretical engine for Novella focuses on <strong>Mood-State Discovery</strong>. This is a more ethical approach to personalization—it respects the user’s current emotional capacity rather than just their past purchasing data. Designing for "vibe" rather than "genre" encourages a diverse literary diet.
+                        </p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 8rem; padding: 5rem; background: #fff; border: 1px solid rgba(0,0,0,0.02); box-shadow: 0 40px 80px rgba(0,0,0,0.03);">
+                    <h3 style="font-family: var(--serif); font-size: 2.5rem; color: #000; margin-bottom: 3rem;">Technical Evolution & Future Scoping</h3>
+                    <p style="margin-bottom: 4rem; max-width: 800px;">If this concept were to move from Figma to production, the next phase of development would focus on the intersection of <strong>Accessibility and Neural-Aesthetics.</strong></p>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem;">
+                        <div class="future-card">
+                            <span class="step-num">01</span>
+                            <h6>Variable Font Customization</h6>
+                            <p>Moving beyond static type to implement <strong>Variable Fonts</strong> that allow users to adjust not just size, but 'optical size' and 'grade' to account for dyslexia or varying levels of visual fatigue.</p>
+                        </div>
+                        <div class="future-card">
+                            <span class="step-num">02</span>
+                            <h6>Biometric Synchronization</h6>
+                            <p>An experimental exploration into <strong>Dark Mode automation</strong> that syncs the UI's color temperature (#E8E6E3 to Midnight) with the user's local circadian rhythm for optimal melatonin protection.</p>
+                        </div>
+                        <div class="future-card">
+                            <span class="step-num">03</span>
+                            <h6>API Interoperability</h6>
+                            <p>Developing a "Universal Library" API that allows Novella to act as an <strong>Aesthetic Skin</strong> for other services (Libby, Project Gutenberg), proving that the interface can exist independently of the content source.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 10rem; border-left: 2px solid var(--brand-primary); padding-left: 4rem;">
+                    <h4 style="font-family: var(--serif); font-size: 2.2rem; color: #000; font-style: italic; margin-bottom: 2rem;">"Design is not just what it looks like and feels like. Design is how it makes you feel about yourself."</h4>
+                    <p style="max-width: 700px; font-size: 1.05rem; line-height: 2; color: var(--text-body);">
+                        Novella remains a conceptual testament to the power of <strong>Atmospheric Design</strong>. It challenges the industry standard that utility must be cold and that beauty is a distraction. In this project, beauty <em>is</em> the utility. It is the bridge that carries the user from a world of notifications into a world of stories.
+                    </p>
+                    <div style="margin-top: 4rem;">
+                        <a href="index.html" class="manifesto-cta">Project Archive</a>
+                        <a href="about.html" class="manifesto-cta secondary">About the Process</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .future-card {
+            position: relative;
+        }
+        .step-num {
+            font-size: 0.6rem;
+            font-weight: 900;
+            color: var(--brand-primary);
+            letter-spacing: 2px;
+            display: block;
+            margin-bottom: 1rem;
+        }
+        .future-card h6 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #000;
+            margin-bottom: 1rem;
+        }
+        .future-card p {
+            font-size: 0.85rem;
+            line-height: 1.8;
+            color: var(--text-sub);
+        }
+        .manifesto-cta {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--brand-primary);
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-right: 1.5rem;
+            transition: 0.3s ease;
+        }
+        .manifesto-cta.secondary {
+            background: transparent;
+            color: var(--brand-primary);
+            border: 1px solid var(--brand-primary);
+        }
+        .manifesto-cta:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(76, 39, 39, 0.15);
+        }
+    </style>
+
+    <style>
+        .variant-img {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: zoom-in;
+        }
+        .variant-img:hover {
+            transform: translateY(-12px) scale(1.03);
+        }
+        .ab-variant ul li {
+            margin-bottom: 1rem;
+        }
+        .ab-variant ul li strong {
+            color: var(--brand-primary);
+        }
+    </style>
+
+    <style>
+        .variant-img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .ab-variant h4 {
+            font-size: 1.4rem;
+            color: var(--text-main);
+        }
+        @media (max-width: 800px) {
+            .ab-container { grid-template-columns: 1fr !important; }
+        }
+    </style>
+
+    <footer style="padding: 10rem 5%; text-align: center; border-top: 1px solid rgba(0,0,0,0.05);">
+        <p style="font-size: 0.65rem; letter-spacing: 4px; font-weight: 800; color: var(--text-sub);">NEXT PROJECT</p>
+        <a href="#" style="font-family: var(--serif); font-size: clamp(2rem, 5vw, 4rem); color: var(--text-main); text-decoration: none; margin-top: 2rem; display: block;">NEXT PROJECT →</a>
+    </footer>
+
+    <script>
+
+// FIX: Function to handle scroll clicking
+    function moveSlider(direction) {
+        const container = document.getElementById('scrollWrapper');
+        // We move by the width of the container
+        const widthToScroll = container.offsetWidth; 
+        container.scrollBy({
+            left: widthToScroll * direction,
+            behavior: 'smooth'
+        });
+    }
+
+    // FIX: Function for Lightbox click
+    function openZoom(element) {
+        const lightbox = document.getElementById('fullScreenLightbox');
+        const displayImg = document.getElementById('enlargedImg');
+        const sourceImg = element.querySelector('img').src;
+        
+        displayImg.src = sourceImg;
+        lightbox.style.display = 'flex';
+    }
+        function openFullview(src) {
+            const modal = document.getElementById('fullview-modal');
+            const fullImg = document.getElementById('fullview-img');
+            fullImg.src = src;
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Stop scrolling
+        }
+
+        function closeFullview() {
+            const modal = document.getElementById('fullview-modal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+        // Cursor Movement
+        const dot = document.getElementById('cursor-dot');
+        const trailer = document.getElementById('cursor-trailer');
+        let mX = 0, mY = 0, tX = 0, tY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mX = e.clientX; mY = e.clientY;
+            dot.style.left = mX + 'px';
+            dot.style.top = mY + 'px';
+        });
+
+        function animateTrailer() {
+            tX += (mX - tX) * 0.15;
+            tY += (mY - tY) * 0.15;
+            trailer.style.left = tX + 'px';
+            trailer.style.top = tY + 'px';
+            requestAnimationFrame(animateTrailer);
+        }
+        animateTrailer();
+
+        // Intersection Observer for Reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Interaction scale for trailer
+        document.querySelectorAll('a, .card, .swatch, .slide').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                trailer.style.transform = 'translate(-50%, -50%) scale(2)';
+                trailer.style.background = 'rgba(76, 39, 39, 0.05)';
+            });
+            el.addEventListener('mouseleave', () => {
+                trailer.style.transform = 'translate(-50%, -50%) scale(1)';
+                trailer.style.background = 'transparent';
+            });
+        });
+    </script>
+</body>
+</html>

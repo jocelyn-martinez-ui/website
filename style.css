@@ -1,0 +1,360 @@
+/* General Body Styling */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Lexend', sans-serif;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+/* Background Styling */
+body {
+    background-image: url('bg.png'); /* Background image */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    transition: background-color 0.5s ease;
+}
+
+/* Centered Intro Section */
+header {
+    height: 100vh; /* Full viewport height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Title Styling */
+h1 {
+    font-weight: 200;
+    text-transform: lowercase;
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+/* Intro Styling */
+.intro {
+    font-weight: 150;
+    font-size: 0.9rem;
+    max-width: 350px;
+    line-height: 1.6;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+/* Down Arrow */
+.down-arrow {
+    font-size: 2rem;
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    animation: fadeIn 2s ease-in-out 2s forwards;
+    cursor: pointer;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Top Bar Styling */
+.top-bar {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.top-bar ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+}
+
+.top-bar li {
+    display: inline;
+}
+
+.top-bar a {
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 1rem;
+    color: black;
+    transition: color 0.3s ease-in-out;
+}
+
+/* Pink hover effect */
+.top-bar a:hover {
+    color: #ff66b2; /* Same pink color */
+}
+
+/* Projects Section */
+.projects {
+    width: 80%;
+    max-width: 1000px;
+    margin: 50px auto;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 100px; /* Increased spacing between projects */
+    padding-top: 50px; /* Ensures spacing between header and projects */
+}
+
+/* Project Layout - Text on Left, Image on Right */
+.project {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 30px; /* Added more padding for spacing */
+    border-radius: 10px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.project-text {
+    flex: 1;
+    text-align: left;
+}
+
+.project h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.project p {
+    font-size: 1rem;
+    color: gray;
+    margin: 5px 0 0 0;
+}
+
+/* Ensure all text uses the Lexend font */
+h1, h4, p {
+    font-family: 'Lexend', sans-serif;
+}
+
+/* Match 'HOLLAND WALKING TOUR' to 'hello there...' and 'jocelyn martinez' */
+h4 {
+    font-weight: 400; /* Same as h1 */
+    text-transform: uppercase; /* Keeps it capitalized */
+    font-size: 1.0rem; /* Adjust based on preference */
+    margin: 0;
+}
+
+/* Ensure consistency for all text */
+p {
+    font-weight: 150; /* Matches intro text */
+    font-size: 0.9rem;
+    color: gray;
+}
+
+/* Pink hover effect on text */
+.project:hover h4 {
+    color: #ff66b2; /* Soft pink color */
+    transition: color 0.3s ease-in-out;
+}
+
+.project-image {
+    flex: 1;
+    max-width: 50%;
+    height: auto;
+    border-radius: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .project {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .project-text {
+        text-align: center;
+    }
+
+    .project-image {
+        max-width: 100%;
+    }
+}
+
+/* Remove background image for this page */
+.overview-container {
+    max-width: 800px;
+    margin: 100px auto;
+    padding: 25px;
+    border: 2px solid #ff66b2; /* Pink outline */
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.8); /* Keeps the soft effect */
+    backdrop-filter: blur(10px);
+    text-align: left;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Make text black and smaller */
+.overview-container h1 {
+    font-size: 1.5rem; /* Smaller */
+    font-weight: 700; /* Bold */
+    color: black; 
+}
+
+.overview-container p {
+    font-size: 0.9rem; /* Smaller text */
+    color: black; /* Black text */
+    line-height: 1.5;
+}
+
+.solution-container {
+    max-width: 800px;
+    margin: 100px auto;
+    padding: 25px;
+    border: 2px solid #ff66b2; /* Pink outline */
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.8); /* Keeps the soft effect */
+    backdrop-filter: blur(10px);
+    text-align: left;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Make text black and smaller */
+.solution-container h1 {
+    font-size: 1.5rem; /* Smaller */
+    font-weight: 700; /* Bold */
+    color: black; 
+}
+
+.solution-container p {
+    font-size: 0.9rem; /* Smaller text */
+    color: black; /* Black text */
+    line-height: 1.5;
+}
+
+
+.keyideas {
+    max-width: 800px;
+    margin: 100px auto;
+    padding: 25px;
+    border: 2px solid #ff66b2; /* Pink outline */
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.8); /* Keeps the soft effect */
+    backdrop-filter: blur(10px);
+    text-align: left;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.role-image-wrapper {
+    position: relative;
+    text-align: center;
+    margin: 0 auto 30px;
+    max-width: 100%;
+}
+
+.role-image {
+    width: 40%;
+    height: auto;
+    border-radius: 10px;
+    display: block;
+}
+
+.image-title {
+    margin-top: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 15px;
+    transform: translate(-50%, -50%);
+    font-family: 'Lexend', sans-serif;
+    font-size: 2.5rem;
+    color: black;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+
+/* Make text black and smaller */
+.keyideas h1 {
+    font-size: 1.5rem; /* Smaller */
+    font-weight: 700; /* Bold */
+    color: black; 
+}
+
+.keyideas p {
+    font-size: 0.9rem; /* Smaller text */
+    color: black; /* Black text */
+    line-height: 1.5;
+}
+
+/* Pink Filled Box for Role/Duration/Tools */
+.role-container {
+    background: #ff66b2; /* Solid pink */
+    color: white; /* White text */
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 600px; /* Adjusted width */
+    margin: 30px auto;
+    text-align: center;
+}
+
+/* Row for Labels (Role, Duration, Tools Used) */
+.role-header {
+    display: flex;
+    justify-content: space-between; /* Spreads out labels */
+    font-weight: 700; /* Bold */
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+/* Row for Details (Actual Information) */
+.role-info {
+    display: flex;
+    justify-content: space-between; /* Aligns with headers */
+    font-size: 0.85rem;
+}
+
+/* Ensures equal spacing */
+.role-header p,
+.role-info p {
+    flex: 1; /* Equal width */
+    margin: 0;
+    color: white;
+}
+/* Remove underline and default link styles inside project divs */
+/* Remove underline and inherit color for project links */
+.project a {
+    text-decoration: none;
+    color: inherit; /* Inherits color from parent text */
+    display: flex; /* Ensures layout stays intact */
+    align-items: center;
+    gap: 40px;
+}
+
+/* Ensure hover effect remains */
+.project a:hover h4 {
+    color: #ff66b2; /* Soft pink hover effect */
+}
+
+.frosted-box {
+    max-width: 800px;
+    margin: 100px auto;
+    padding: 25px;
+    border: 2px solid #ff66b2;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    text-align: left;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}

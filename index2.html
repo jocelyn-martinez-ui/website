@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holland Walking Tour | Jocelyn Martinez</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            /* Portfolio Identity */
+            --bg: #FDFBF7; 
+            --ink: #2A2A2A; 
+            --primary: #A88980; 
+            --primary-dark: #8A6E66;
+            --accent: #D4BDB5;
+            --grey: #888888;
+
+            /* Project Specific Design System */
+            --holland-teal: #008080;
+            --holland-sky: rgba(178, 235, 242, 0.6);
+            --holland-stone: #D7D6D6;
+            --text-main: #2C333E;
+            --text-muted: #929FB3;
+
+                        /* Diagram Colors */
+            --flow-green: #B5E8B3;
+            --flow-blue: #B3D1FF;
+            --flow-purple: #E6D9FF;
+            --flow-yellow: #FFF2B3;
+
+            --serif: 'Cormorant Garamond', serif;
+            --sans: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        /* High-end Film Grain */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.025;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        html { scroll-behavior: smooth; }
+        
+        body { 
+            background-color: var(--bg);
+            color: var(--ink); 
+            font-family: var(--sans); 
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            font-size: 16px; /* Accessibility baseline */
+        }
+
+        /* Custom Cursor */
+        #cursor-dot, #cursor-trailer {
+            position: fixed;
+            top: 0; left: 0;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+        }
+        #cursor-dot { width: 6px; height: 6px; background: var(--ink); transition: width 0.3s; }
+        #cursor-trailer { width: 30px; height: 30px; border: 1px solid var(--primary); transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1); }
+
+        /* Reveal Animation */
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.25, 1, 0.5, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        nav {
+            position: fixed;
+            width: 100%;
+            padding: 2.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+        .logo { font-family: var(--serif); font-size: 1.6rem; font-style: italic; color: var(--ink); text-decoration: none; }
+        .back-link { text-transform: uppercase; font-size: 0.65rem; letter-spacing: 3px; color: var(--ink); text-decoration: none; font-weight: 600; opacity: 0.6; transition: 0.4s; }
+
+        /* Hero */
+        .hero { padding: 15rem 5% 5rem; }
+        h1 { font-family: var(--serif); font-size: clamp(3.5rem, 10vw, 8rem); font-weight: 300; line-height: 0.9; margin-bottom: 2rem; }
+        h1 i { font-style: italic; color: var(--holland-teal); }
+
+        .hero-details { display: flex; gap: 4rem; margin-top: 3rem; }
+        .detail-item h5 { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 2px; color: var(--grey); margin-bottom: 0.5rem; }
+        .detail-item p { font-size: 0.9rem; font-weight: 500; }
+
+        
+        /* NEW: Persona Cards */
+        .persona-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        .persona-card {
+            background: #fff;
+            padding: 3rem;
+            border: 1px solid rgba(0,0,0,0.05);
+            border-radius: 4px;
+        }
+        .persona-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .persona-avatar {
+            width: 80px; height: 80px;
+            background: var(--holland-sky);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-family: var(--serif); font-size: 2rem; color: var(--holland-teal);
+        }
+        .persona-info h4 { font-family: var(--serif); font-size: 1.8rem; font-weight: 400; }
+        .persona-tags { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+        .tag { font-size: 0.6rem; padding: 4px 10px; border: 1px solid var(--accent); border-radius: 100px; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* NEW: Competitive Matrix Table */
+        .analysis-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+        .analysis-table th {
+            text-align: left;
+            padding: 1.5rem;
+            border-bottom: 2px solid var(--ink);
+            font-family: var(--serif);
+            font-size: 1.2rem;
+        }
+        .analysis-table td {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            vertical-align: top;
+        }
+        .check { color: var(--holland-teal); font-weight: bold; }
+ 
+        /* Content Sections */
+        section { padding: 10rem 5%; border-top: 1px solid rgba(42, 42, 42, 0.05); }
+        .grid { display: grid; grid-template-columns: 1fr 2.5fr; gap: 5rem; }
+        
+        .section-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 3px; font-weight: 600; color: var(--grey); display: flex; align-items: center; gap: 1rem; position: sticky; top: 10rem; height: fit-content; }
+        .section-label::after { content: ""; display: block; width: 40px; height: 1px; background: var(--primary); }
+
+        .content h2 { font-family: var(--serif); font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 300; line-height: 1.1; margin-bottom: 2rem; }
+        .content p { font-size: 1.15rem; line-height: 1.8; color: var(--text-main); margin-bottom: 2rem; max-width: 900px; }
+
+        /* Stakeholder Grid */
+        .stakeholder-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; }
+        .stakeholder-card { padding: 2rem; border: 1px solid rgba(42, 42, 42, 0.05); border-radius: 4px; background: #fff; }
+        .stakeholder-card h4 { font-family: var(--serif); font-style: italic; font-size: 1.4rem; margin-bottom: 0.5rem; color: var(--holland-teal); }
+        .stakeholder-card p { font-size: 0.85rem; line-height: 1.5; color: var(--text-muted); }
+
+        /* Affinity Mapping Re-creation */
+        
+        .affinity-board { background: #f0f0f0; padding: 4rem 2rem; border-radius: 12px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem; }
+        .affinity-column { display: flex; flex-direction: column; gap: 1.5rem; }
+        .affinity-label { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: var(--grey); border-bottom: 1px solid var(--grey); padding-bottom: 1rem; }
+        .sticky-note { padding: 1.5rem; border-radius: 2px; box-shadow: 3px 3px 10px rgba(0,0,0,0.05); font-size: 0.85rem; line-height: 1.4; transform: rotate(-1deg); transition: 0.3s; }
+        .sticky-note:nth-child(even) { transform: rotate(1.5deg); }
+        .sticky-note:hover { transform: scale(1.05) rotate(0); z-index: 10; }
+        .yellow { background: #FFF9C4; }
+        .blue { background: #E1F5FE; }
+        .green { background: #E8F5E9; }
+
+        /* Flow Diagrams */
+        .diagram-box { border: 1px solid rgba(42, 42, 42, 0.1); padding: 4rem 2rem; border-radius: 8px; margin: 2rem 0 4rem; background: #fff; overflow-x: auto; }
+        
+        .legend-container { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .legend-item { display: flex; align-items: center; gap: 0.75rem; font-size: 0.8rem; font-weight: 600; color: var(--grey); }
+        
+        .flow-wrapper { display: flex; flex-direction: column; gap: 2rem; min-width: 800px; }
+        .flow-row { display: flex; align-items: center; gap: 1rem; }
+        .flow-row.center { justify-content: center; }
+        
+        /* Diagram Shapes */
+        .shape { display: flex; align-items: center; justify-content: center; text-align: center; font-size: 0.75rem; font-weight: 700; color: var(--ink); padding: 1rem; position: relative; line-height: 1.3; }
+        
+        .shape-oval { background: var(--flow-green); border-radius: 50px; min-width: 120px; height: 60px; box-shadow: 0 4px 10px rgba(181, 232, 179, 0.4); }
+        .shape-rect { background: var(--flow-blue); min-width: 140px; height: 70px; }
+        .shape-para { background: var(--flow-purple); min-width: 150px; height: 70px; clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%); padding: 1rem 1.5rem; }
+        .shape-diamond { background: var(--flow-yellow); min-width: 140px; height: 140px; clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); padding: 2.5rem; }
+        
+        .legend-shape { width: 60px; height: 40px; min-width: auto; padding: 0; box-shadow: none; }
+        .legend-shape.shape-diamond { width: 50px; height: 50px; }
+        
+        /* Arrows */
+        .arrow { font-size: 1.5rem; color: var(--ink); font-weight: 300; display: flex; align-items: center; justify-content: center; width: 40px; }
+        .arrow-line { height: 2px; background: var(--ink); width: 40px; position: relative; }
+        .arrow-line::after { content: ''; position: absolute; right: -2px; top: -4px; border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-left: 8px solid var(--ink); }
+
+        /* Design System Section */
+        .swatch-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+        .swatch { height: 160px; border-radius: 8px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; font-size: 0.75rem; font-weight: 700; border: 1px solid rgba(0,0,0,0.03); }
+
+        footer { padding: 10rem 5% 5rem; text-align: center; border-top: 1px solid rgba(42, 42, 42, 0.05); }
+        .footer-cta { font-family: var(--serif); font-size: clamp(2rem, 5vw, 4rem); text-decoration: none; color: var(--ink); transition: 0.4s; }
+        .footer-cta:hover { color: var(--holland-teal); font-style: italic; }
+
+  /* --- Added Mockup Display Styles --- */
+/* --- High-Fidelity Mockup Grid --- */
+
+
+/* --- Mockup Slider & Lightbox Styles --- */
+/* --- Optimized Slider UI --- */
+/* --- Optimized Slider UI (No Cut-off) --- */
+.slider-container {
+    position: relative;
+    margin: 2rem 0;
+    width: 100%;
+    /* This allows the slider to exist without breaking the page width */
+    max-width: 100%; 
+    overflow: hidden; 
+    border-radius: 16px;
+}
+
+.mockup-slider {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    gap: 1rem;
+    padding: 1rem;
+    width: 100%;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.slider-item {
+    /* Shows exactly 3 images on desktop */
+    flex: 0 0 calc(33.33% - 1rem); 
+    min-width: 200px;
+}
+
+.slider-item img {
+    width: 100%;
+    height: auto;
+    max-height: 450px;
+    object-fit: contain;
+    border-radius: 12px;
+}
+
+/* Moving Arrows INSIDE the container so they don't cut off */
+.slider-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    /* Glassmorphism look */
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1000;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.slider-nav:hover {
+    background: var(--ink);
+    color: white;
+}
+
+/* Adjusted positions to be inside the box */
+.nav-prev { left: 15px; } 
+.nav-next { right: 15px; }
+
+/* Hide scrollbars */
+.mockup-slider::-webkit-scrollbar { display: none; }
+
+.slider-item {
+    /* (100% of the visible container / 3) minus the gaps */
+    flex: 0 0 calc(33.33% - 1rem); 
+    min-width: 200px; /* Prevents them from getting too squished on smaller windows */
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.slider-item img {
+    width: 100%;
+    height: auto;
+    max-height: 450px; /* Constrains height to keep the page length manageable */
+    object-fit: contain;
+    border-radius: 14px;
+    display: block;
+}
+
+/* Ensure the parent grid doesn't break */
+.content {
+    max-width: 100%;
+    overflow: hidden; /* Prevents child elements from leaking out */
+}
+
+/* Fix Arrow Directions & Styling */
+.slider-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background: var(--bg);
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 100;
+    font-weight: bold;
+    color: var(--ink);
+    transition: all 0.3s ease;
+}
+
+.slider-nav:hover {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.nav-prev { left: -20px; } /* Arrow pointing left */
+.nav-next { right: -20px; } /* Arrow pointing right */
+
+/* Lightbox Modal */
+#lightbox {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(253, 251, 247, 0.98); /* Matching your --bg color [cite: 3] */
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 11000;
+    cursor: zoom-out;
+}
+
+#lightbox img {
+    max-height: 85vh;
+    max-width: 90%;
+    border-radius: 16px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+}
+
+.close-lightbox {
+    position: absolute;
+    top: 30px; right: 40px;
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--ink);
+}
+
+.design-specs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 3rem;
+    margin-top: 5rem;
+    padding-top: 3rem;
+    border-top: 1px solid rgba(42, 42, 42, 0.1);
+}
+
+.spec-item h6 {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--primary-dark);
+    margin-bottom: 1rem;
+}
+
+.spec-item p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--ink);
+    opacity: 0.8;
+}
+
+.color-palette {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.color-swatch {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+        @media (max-width: 1100px) {
+            .grid { grid-template-columns: 1fr; gap: 3rem; }
+            .section-label { position: relative; top: 0; }
+            .affinity-board { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="cursor-dot"></div>
+    <div id="cursor-trailer"></div>
+
+    <nav>
+        <a href="index.html" class="logo">Jocelyn</a>
+        <a href="index.html#portfolio" class="back-link">← Close Archive</a>
+    </nav>
+
+    <header class="hero reveal">
+        <p style="font-size: 0.7rem; letter-spacing: 4px; color: var(--grey); margin-bottom: 1rem;">CASE STUDY / 01</p>
+        <h1>Holland <i>Walking</i> Tour</h1>
+        <div class="hero-details">
+            <div class="detail-item">
+                <h5>Role</h5>
+                <p>Programmer / UX Intern</p>
+            </div>
+            <div class="detail-item">
+                <h5>Objective</h5>
+                <p>Modernize Heritage Tourism</p>
+            </div>
+            <div class="detail-item">
+                <h5>Year</h5>
+                <p>2025</p>
+            </div>
+        </div>
+    </header>
+
+    <section class="overview reveal">
+        <div class="grid">
+            <div class="section-label">The Mission</div>
+            <div class="content">
+                <h2>Bridging the gap between a static past and a digital future.</h2>
+                <p>The Holland Walking Tour App modernizes the way tourists experience Holland, Michigan. By transforming a static, physical map into an interactive and user-friendly digital platform, the app enhances accessibility, engagement, and convenience for visitors of all ages.</p>
+                <p>At its core, each element was designed with simplicity, clarity, and scalability in mind, ensuring both ease of use and future growth opportunities beyond the Tulip Festival.</p>
+                
+                <div class="stakeholder-grid">
+                    <div class="stakeholder-card">
+                        <h4>Tourism Board</h4>
+                        <p>Focus: Modernizing walking tours to attract visitors year-round, not just during seasonal peak events.</p>
+                    </div>
+                    <div class="stakeholder-card">
+                        <h4>Tulip Time Festival</h4>
+                        <p>Focus: High-traffic event logistics and providing real-time navigation for dense crowds.</p>
+                    </div>
+                    <div class="stakeholder-card">
+                        <h4>Library Archivist</h4>
+                        <p>Focus: Maintaining accuracy of the local landmarks database and cultural storytelling.</p>
+                    </div>
+                    <div class="stakeholder-card">
+                        <h4>Supervising Professor</h4>
+                        <p>Focus: Collaborating on the project framework, database design, and technical viability.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="personas reveal">
+        <div class="grid">
+            <div class="section-label">Archetypes</div>
+            <div class="content">
+                <h2>Who are we building for?</h2>
+                <p>Our research identified two core user groups with vastly different technical comfort levels but a shared desire for discovery.</p>
+                
+                <div class="persona-grid">
+                    <div class="persona-card">
+                        <div class="persona-header">
+                            <div class="persona-avatar">E</div>
+                            <div class="persona-info">
+                                <h4>Eleanor</h4>
+                                <div class="persona-tags">
+                                    <span class="tag">Local Senior</span>
+                                    <span class="tag">History Buff</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p style="font-size: 0.9rem; color: var(--text-muted);">"I want to learn about the architecture without squinting at a tiny paper map in the sun."</p>
+                        <ul style="margin-top: 1rem; font-size: 0.85rem; list-style-position: inside; color: var(--text-main);">
+                            <li>Needs high-contrast text.</li>
+                            <li>Prefers clear, linear paths.</li>
+                        </ul>
+                    </div>
+
+                    <div class="persona-card">
+                        <div class="persona-header">
+                            <div class="persona-avatar">L</div>
+                            <div class="persona-info">
+                                <h4>Liam</h4>
+                                <div class="persona-tags">
+                                    <span class="tag">Young Visitor</span>
+                                    <span class="tag">Spontaneous</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p style="font-size: 0.9rem; color: var(--text-muted);">"I want to find the best photo spots and coffee shops nearby without a rigid schedule."</p>
+                        <ul style="margin-top: 1rem; font-size: 0.85rem; list-style-position: inside; color: var(--text-main);">
+                            <li>Needs "Custom Route" flexibility.</li>
+                            <li>Values social-friendly "hidden gems."</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="research reveal">
+        <div class="grid">
+            <div class="section-label">User Insights</div>
+            <div class="content">
+                <h2>Affinity Mapping</h2>
+                <p>To synthesize insights from 28 participants—including local seniors (55–70), younger visitors (20–35), and city collaborators—I conducted an affinity mapping exercise to organize recurring patterns of behavior and frustration.</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-circle"><span>11</span><label>Local Seniors</label></div>
+                    <div class="stat-circle"><span>12</span><label>Young Visitors</label></div>
+                    <div class="stat-circle"><span>05</span><label>City Collaborators</label></div>
+                </div>
+
+                <div class="affinity-board">
+                    <div class="affinity-column">
+                        <div class="affinity-label">Accessibility Concerns</div>
+                        <div class="sticky-note yellow">"Paper maps are too small to read in the bright sun."</div>
+                        <div class="sticky-note yellow">"I get lost or skip landmarks because the routes aren't clear."</div>
+                        <div class="sticky-note yellow">"Not knowing how long the tour will take or where rest stops are."</div>
+                    </div>
+                    <div class="affinity-column">
+                        <div class="affinity-label">User Needs</div>
+                        <div class="sticky-note blue">"I want to feel like I’m discovering the city, not following instructions."</div>
+                        <div class="sticky-note blue">"Needs to be simple enough for my grandparents to use."</div>
+                        <div class="sticky-note blue">"Option to view tour duration, distance, and level of difficulty."</div>
+                    </div>
+                    <div class="affinity-column">
+                        <div class="affinity-label">City Identity</div>
+                        <div class="sticky-note green">"Technology should enhance heritage, not replace it."</div>
+                        <div class="sticky-note green">"We want to feature hidden gems, not just the main street."</div>
+                        <div class="sticky-note green">"I want to feel like a local. Or just reconnect with the city's charm."</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="strategy reveal">
+        <div class="grid">
+            <div class="section-label">User Task & Flow</div>
+            <div class="content">
+                <h2>Architecting the Journey</h2>
+                <p>To ensure the application was scalable and intuitive, I mapped out the primary paths users would take, accounting for both pre-defined heritage tours and custom discovery routes.</p>
+                
+                <div class="diagram-box">
+                    <div class="legend-container">
+                        <div class="legend-item"><div class="shape shape-oval legend-shape"></div> Start/End</div>
+                        <div class="legend-item"><div class="shape shape-rect legend-shape"></div> Page/Section</div>
+                        <div class="legend-item"><div class="shape shape-para legend-shape"></div> System Process</div>
+                        <div class="legend-item"><div class="shape shape-diamond legend-shape"></div> User Input</div>
+                    </div>
+
+                    <h3 style="font-family: var(--serif); font-size: 1.5rem; font-style: italic; margin-bottom: 2rem; color: var(--holland-teal);">Primary User Flow</h3>
+                    <div class="flow-wrapper">
+                        <div class="flow-row">
+                            <div class="shape shape-oval">Start App</div>
+                            <div class="arrow-line"></div>
+                            <div class="shape shape-diamond">Choose Tour Type<br>(Pre-Defined or<br>Custom)</div>
+                            <div class="arrow-line"></div>
+                            <div class="shape shape-para">System Displays<br>Tour Overview</div>
+                            <div class="arrow-line"></div>
+                            <div class="shape shape-rect">User Starts Tour</div>
+                            <div class="arrow-line"></div>
+                            <div class="shape shape-para">System Displays<br>Directions and<br>Detects Stops</div>
+                            <div class="arrow-line"></div>
+                            <div class="shape shape-para">At Each Stop:<br>Popup Info<br>Card Appears</div>
+                            <div class="arrow">↓</div>
+                            <div class="shape shape-oval">End of Tour</div>
+                        </div>
+                        
+                        <div class="flow-row" style="padding-left: 200px;">
+                            <div class="arrow" style="transform: rotate(90deg) translateX(-40px); margin-right: 1rem;">↳</div>
+                            <div class="shape shape-para">System Displays<br>Customization Page:<br>Scroll Through Site Cards</div>
+                            <div class="arrow-line"></div>
+                            <div class="shape shape-rect">User Selects<br>Preferred Stops</div>
+                            <div class="arrow-line"></div>
+                            <div class="shape shape-para">System Updates<br>Route + Estimated<br>Duration</div>
+                            <div class="arrow" style="margin-left: 1rem;">⤴</div>
+                            <span style="font-size: 0.75rem; color: var(--grey); font-weight: 600;">(Returns to Starts Tour)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="diagram-box">
+                    <h3 style="font-family: var(--serif); font-size: 1.5rem; font-style: italic; margin-bottom: 2rem; color: var(--holland-teal);">Task Flow: Create a Custom Tour</h3>
+                    <div class="flow-wrapper">
+                        <div class="flow-row">
+                            <div class="shape shape-oval">Start App</div>
+                            <div class="arrow-line"></div>
+                            <div class="shape shape-rect">Home Screen<br>Appears</div>
+                            <div class="arrow-line"></div>
+                            <div class="shape shape-diamond">Choose Tour Type<br>(Pre-Defined or<br>Custom)</div>
+                            <div class="arrow-line"></div>
+                            <div class="shape shape-rect">Select Custom Tour</div>
+                        </div>
+                        <div class="flow-row" style="justify-content: flex-end; padding-right: 40px;">
+                            <div class="arrow">↓</div>
+                        </div>
+                        <div class="flow-row" style="justify-content: flex-end; flex-direction: row-reverse;">
+                            <div class="shape shape-diamond">Select Stops</div>
+                            <div class="arrow" style="transform: rotate(180deg);">→</div>
+                            <div class="shape shape-para">System Saves<br>Selected Stops</div>
+                            <div class="arrow" style="transform: rotate(180deg);">→</div>
+                            <div class="shape shape-rect">View Tour<br>Overview Page</div>
+                            <div class="arrow" style="transform: rotate(180deg);">→</div>
+                            <div class="shape shape-oval">END</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="diagram-box">
+                    <h3 style="font-family: var(--serif); font-size: 1.5rem; font-style: italic; margin-bottom: 2rem; color: var(--holland-teal);">Task Flow: Guided Tour</h3>
+                    <div class="flow-wrapper">
+                        <div class="flow-row">
+                            <div class="shape shape-oval">Start App</div>
+                            <div class="arrow-line"></div>
+                            <div class="shape shape-rect">Home Screen<br>Appears</div>
+                            <div class="arrow-line"></div>
+                            <div class="shape shape-diamond">Choose Tour Type<br>(Pre-Defined or<br>Custom)</div>
+                            <div class="arrow-line"></div>
+                            <div class="shape shape-rect">Select Custom Tour</div>
+                        </div>
+                        <div class="flow-row" style="justify-content: flex-end; padding-right: 40px;">
+                            <div class="arrow">↓</div>
+                        </div>
+                        <div class="flow-row" style="justify-content: flex-end; flex-direction: row-reverse;">
+                            <div class="shape shape-rect">Tour Overview Page</div>
+                            <div class="arrow" style="transform: rotate(180deg);">→</div>
+                            <div class="shape shape-rect">Start Tour<br>(Map Page)</div>
+                            <div class="arrow" style="transform: rotate(180deg);">→</div>
+                            <div class="shape shape-para">Navigation Active</div>
+                            <div class="arrow" style="transform: rotate(180deg);">→</div>
+                            <div class="shape shape-diamond">Story Pop-up<br>Triggered</div>
+                        </div>
+                        <div class="flow-row" style="padding-left: 20px;">
+                            <div class="arrow">↓</div>
+                        </div>
+                        <div class="flow-row">
+                            <div class="shape shape-rect">User Reads Story</div>
+                            <div class="arrow-line"></div>
+                            <div class="shape shape-rect">Continue Story<br>(Is tour finished?)</div>
+                            <div class="arrow-line"></div>
+                            <div style="font-size: 0.75rem; font-weight: bold; margin-right: -10px;">Yes</div>
+                            <div class="arrow-line"></div>
+                            <div class="shape shape-oval">End Tour</div>
+                        </div>
+                        <div class="flow-row" style="padding-left: 230px; margin-top: -10px;">
+                            <div class="arrow" style="transform: rotate(-90deg);">→</div>
+                            <span style="font-size: 0.75rem; font-weight: bold;">No (Loops to Navigation Active)</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="design-system reveal">
+        <div class="grid">
+            <div class="section-label">Design System</div>
+            <div class="content">
+                <h2>Visual Harmony & Accessibility</h2>
+                <p>A successful experience is intuitive and readable in sunlight. To achieve this, I implemented a design system that prioritizes contrast and legibility for an intergenerational audience.</p>
+                
+                <p><strong>Typography Logic:</strong> We utilized a <strong>minimum 16px body font</strong> across the entire application. This was a non-negotiable requirement to ensure older users, often exploring in harsh outdoor lighting, could navigate without confusion or eye strain.</p>
+                
+                <div class="swatch-container">
+                    <div class="swatch" style="background: #008080; color: #fff;">
+                        <span>HERITAGE TEAL</span>
+                        <span>#008080</span>
+                    </div>
+                    <div class="swatch" style="background: #B2EBF2; opacity: 0.6; color: var(--text-main);">
+                        <span>SKY MIST (60%)</span>
+                        <span>#B2EBF2</span>
+                    </div>
+                    <div class="swatch" style="background: #D7D6D6; color: var(--text-main);">
+                        <span>STONE GREY</span>
+                        <span>#D7D6D6</span>
+                    </div>
+                    <div class="swatch" style="background: #2C333E; color: #fff;">
+                        <span>SLATE TEXT</span>
+                        <span>#2C333E</span>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 3rem; border-left: 2px solid var(--holland-teal); padding-left: 2rem;">
+                    <h4 style="font-family: var(--serif); font-style: italic; font-size: 1.5rem; margin-bottom: 1rem;">The Reasoning</h4>
+                    <p style="font-size: 1rem;">The teal was selected to anchor the app in Holland’s coastal and Dutch heritage. The Slate (#2C333E) and Muted Blue (#929FB3) text palette provides high contrast ratios that meet WCAG accessibility standards, ensuring the app remains usable for everyone from tech-savvy teenagers to seniors.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <section class="conclusion reveal">
+        <div class="grid">
+            <div class="section-label">Reflection</div>
+            <div class="content">
+                <h2>Closing Thoughts</h2>
+                <p>Transitioning from a Computer Science background to UX design on this project taught me that technical perfection is meaningless if it isn't human-centric. My primary takeaway was the concept of **"Invisible Accessibility."**</p>
+                
+                <p>By designing for the most restricted user (the senior exploring in direct sunlight), the experience became better for the most casual user (the distracted student on their phone). Moving forward, I aim to continue building tools that don't just "work," but feel like a natural extension of the user's environment.</p>
+                
+                <p><strong>Success Metric:</strong> Success is measured not just by app downloads, but by increased foot traffic to the "hidden gems" identified by the Business Association and positive feedback from the Library Archivist on the preservation of our city's stories.</p>
+            </div>
+        </div>
+    </section>
+<section class="reveal">
+    <div class="grid">
+        <div class="section-label">Interface Design</div>
+        <div class="content">
+            <h2>Refining the Visual Language</h2>
+            <p>To bridge Holland’s rich history with modern usability, I developed a design system rooted in accessibility. I focused on a "Teal and Cream" palette to evoke both the water-bound nature of the city and the warmth of its local community. <b>Click any screen to view in detail.</b></p>
+            
+            <div class="slider-container">
+    <div class="slider-nav nav-prev" id="prevBtn">⟵</div> 
+    <div class="slider-nav nav-next" id="nextBtn">⟶</div>
+    
+    <div class="mockup-slider" id="mockupSlider">
+        <div class="slider-item"><img src="Holland Walking Tour/MockupIMG1.png" alt="Screen 1"></div>
+        <div class="slider-item"><img src="Holland Walking Tour/MockupIMG2.png" alt="Screen 2"></div>
+        <div class="slider-item"><img src="Holland Walking Tour/MockupIMG3.png" alt="Screen 3"></div>
+        <div class="slider-item"><img src="Holland Walking Tour/MockupIMG4.png" alt="Screen 4"></div>
+        <div class="slider-item"><img src="Holland Walking Tour/MockupIMG5.png" alt="Screen 5"></div>
+        <div class="slider-item"><img src="Holland Walking Tour/MockupIMG6.png" alt="Screen 6"></div>
+        <div class="slider-item"><img src="Holland Walking Tour/MockupIMG7.png" alt="Screen 7"></div>
+        <div class="slider-item"><img src="Holland Walking Tour/MockupIMG8.png" alt="Screen 8"></div>
+        <div class="slider-item"><img src="Holland Walking Tour/MockupIMG9.png" alt="Screen 9"></div>
+    </div>
+</div>
+
+            <div class="design-specs">
+                <div class="spec-item">
+                    <h6>Accessibility First</h6>
+                    <p>Utilized AA-compliant contrast ratios and a minimum 16pt font size to ensure legibility in bright, outdoor conditions.</p>
+                </div>
+                <div class="spec-item">
+                    <h6>Visual Identity</h6>
+                    <div class="color-palette">
+                        <div class="color-swatch" style="background: #008080;" title="Holland Teal"></div>
+                        <div class="color-swatch" style="background: #FDFBF7;" title="Paper Cream"></div>
+                        <div class="color-swatch" style="background: #A88980;" title="Dusty Rose"></div>
+                    </div>
+                </div>
+                <div class="spec-item">
+                    <h6>Interactions</h6>
+                    <p>Designed with large 44x44px touch targets to reduce errors during active walking tours.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="lightbox">
+    <span class="close-lightbox">&times;</span>
+    <img id="lightboxImg" src="" alt="Enlarged view">
+</div>
+
+    <footer>
+        <p style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 3px; color: var(--grey); margin-bottom: 2rem;">Next Case Study</p>
+        <a href="#" class="footer-cta">Digital Scent Consultant →</a>
+    </footer>
+
+    <script>
+        // --- Carousel & Lightbox Logic ---
+
+// Updated Slider Logic
+const slider = document.getElementById('mockupSlider');
+const nextBtn = document.getElementById('nextBtn');
+const prevBtn = document.getElementById('prevBtn');
+
+nextBtn.addEventListener('click', () => {
+    // Scrolls exactly one "view" of the slider
+    const scrollAmount = slider.clientWidth;
+    slider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+});
+
+prevBtn.addEventListener('click', () => {
+    const scrollAmount = slider.clientWidth;
+    slider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+});
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightboxImg');
+
+// Handle Sliding with the arrows
+nextBtn.addEventListener('click', () => {
+    slider.scrollBy({ left: 320, behavior: 'smooth' });
+});
+
+prevBtn.addEventListener('click', () => {
+    slider.scrollBy({ left: -320, behavior: 'smooth' });
+});
+
+// Handle Opening Lightbox
+document.querySelectorAll('.slider-item img').forEach(img => {
+    img.addEventListener('click', () => {
+        lightbox.style.display = 'flex';
+        lightboxImg.src = img.src;
+        document.body.style.overflow = 'hidden'; // Stop background scroll
+    });
+});
+
+// Handle Closing Lightbox
+lightbox.addEventListener('click', () => {
+    lightbox.style.display = 'none';
+    document.body.style.overflow = 'auto'; // Resume scroll
+});
+        const cursorDot = document.getElementById('cursor-dot');
+        const cursorTrailer = document.getElementById('cursor-trailer');
+        let mouseX = 0, mouseY = 0, trailerX = 0, trailerY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX; mouseY = e.clientY;
+            cursorDot.style.left = `${mouseX}px`;
+            cursorDot.style.top = `${mouseY}px`;
+        });
+
+        function animate() {
+            trailerX += (mouseX - trailerX) * 0.15;
+            trailerY += (mouseY - trailerY) * 0.15;
+            cursorTrailer.style.left = `${trailerX}px`;
+            cursorTrailer.style.top = `${trailerY}px`;
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        function reveal() {
+            document.querySelectorAll(".reveal").forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight - 100) {
+                    el.classList.add("active");
+                }
+            });
+        }
+        window.addEventListener("scroll", reveal);
+        reveal();
+
+        document.querySelectorAll('a, .stakeholder-card, .stat-circle, .sticky-note').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursorTrailer.style.width = '60px';
+                cursorTrailer.style.height = '60px';
+                cursorTrailer.style.background = 'rgba(168, 137, 128, 0.1)';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursorTrailer.style.width = '30px';
+                cursorTrailer.style.height = '30px';
+                cursorTrailer.style.background = 'transparent';
+            });
+        });
+    </script>
+</body>
+</html>

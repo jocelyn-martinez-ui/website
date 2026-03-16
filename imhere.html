@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImHere | Jocelyn Martinez Portfolio</title>
+    <style>
+        /* Update your font import at the top */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Serif:opsz,wght@8..144,300;8..144,400&family=Rubik:wght@300;400;500;700&display=swap');
+
+:root {
+    /* Precise Hope College Brand Colors */
+    --brand-primary: #002855; /* Blue */
+    --brand-accent: #FF7F32;  /* Orange */
+    --brand-bg: #FFFFFF;     /* Pure White Background */
+    
+    /* Updated Typography */
+    --text-main: #000000;
+    --text-body: #555555;
+    --text-sub: #898989;
+    --serif: 'Roboto Serif', serif;
+    --sans: 'Rubik', sans-serif;
+    --section-pad: 8rem 5%;
+}
+
+        /* High-End Texture */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        body { 
+            background-color: var(--brand-bg); 
+            color: var(--text-body); 
+            font-family: var(--sans); 
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Custom Cursor Elements */
+        #cursor-dot, #cursor-trailer { 
+            position: fixed; top: 0; left: 0; border-radius: 50%; 
+            pointer-events: none; z-index: 10000; transform: translate(-50%, -50%); 
+        }
+        #cursor-dot { width: 5px; height: 5px; background: var(--text-main); }
+        #cursor-trailer { 
+            width: 35px; height: 35px; border: 1px solid var(--brand-accent); 
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1); 
+        }
+
+        /* Navigation */
+        nav { 
+            position: fixed; width: 100%; padding: 2rem 5%; 
+            display: flex; justify-content: space-between; align-items: center; 
+            z-index: 1000; mix-blend-mode: multiply;
+        }
+        .logo { font-family: var(--serif); font-size: 1.5rem; color: var(--text-main); text-decoration: none; font-weight: 600; }
+        .back-btn { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 3px; color: var(--text-main); text-decoration: none; font-weight: 700; opacity: 0.5; }
+
+        /* Typography & Grid */
+
+        
+        h1, h2, h3, h4 { font-family: var(--serif); color: var(--text-main); font-weight: 300; }
+        .hero { padding: 18rem 5% 10rem; }
+        h1 { font-size: clamp(4rem, 15vw, 10rem); line-height: 0.8; margin-bottom: 3rem; }
+        h1 i { font-style: italic; color: var(--brand-accent); font-weight: 400; }
+
+        section { padding: var(--section-pad); border-top: 1px solid rgba(0,0,0,0.06); }
+        .grid { display: grid; grid-template-columns: 1.2fr 2.8fr; gap: 6rem; }
+        .section-label { 
+            font-size: 0.65rem; text-transform: uppercase; letter-spacing: 4px; 
+            font-weight: 800; color: var(--text-sub); position: sticky; top: 8rem; height: fit-content; 
+        }
+        
+        .content h2 { font-size: clamp(2.5rem, 6vw, 4.5rem); margin-bottom: 2.5rem; line-height: 1.1; }
+        .content p { font-size: 1.15rem; margin-bottom: 2rem; max-width: 800px; }
+
+        /* Analysis Cards */
+        .analysis-block { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin: 4rem 0; }
+        .card { 
+            padding: 3rem; background: #fff; border: 1px solid rgba(0,0,0,0.03); 
+            transition: 0.4s ease; border-radius: 2px;
+        }
+        .card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.04); }
+        .card h4 { font-size: 1.6rem; margin-bottom: 1rem; color: var(--brand-primary); }
+
+        /* Persona Styling */
+        .persona-card-deep {
+            background: #fff; padding: 3.5rem; border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.04);
+            margin-bottom: 4rem;
+        }
+        .archetype-tag {
+            background: var(--brand-primary); color: #fff; padding: 6px 14px;
+            font-size: 0.65rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+        }
+        .persona-quote {
+            font-family: var(--serif); font-size: 1.4rem; font-style: italic;
+            color: var(--brand-primary); border-left: 2px solid var(--brand-accent);
+            padding-left: 1.5rem; margin: 2rem 0;
+        }
+
+        .reveal { opacity: 0; transform: translateY(50px); transition: 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 1100px) {
+            .grid { grid-template-columns: 1fr; gap: 3rem; }
+            .section-label { position: relative; top: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="cursor-dot"></div>
+    <div id="cursor-trailer"></div>
+
+    <nav>
+        <a href="#" class="logo">Jocelyn Martinez</a>
+        <a href="index.html" class="back-btn">Close Case Study</a>
+    </nav>
+
+    <header class="hero reveal active">
+        <p style="font-size: 0.7rem; letter-spacing: 5px; color: var(--text-sub); margin-bottom: 2.5rem; font-weight: 800;">UNIVERSITY CAPSTONE PROJECT</p>
+        <h1>ImHere <i>App</i></h1>
+        <p style="font-size: 1.4rem; max-width: 700px; margin-top: 3rem; color: var(--text-body); font-weight: 400;">
+            Reducing administrative friction in higher education through a high-fidelity "invisible" attendance ecosystem.
+        </p>
+    </header>
+
+  <section class="reveal active">
+    <div class="grid">
+        <div class="section-label">01 / The Overview</div>
+
+        <div class="content">
+            <h6 style="font-size: 0.75rem; letter-spacing: 3px; color: var(--brand-accent); font-weight: 800; margin-bottom: 1.5rem; text-transform: uppercase;">The Capstone Mandate</h6>
+            <h2>Nurturing Presence at Hope College.</h2>
+            
+            <p>At a small private institution like <strong>Hope College</strong>, education is built on relationship and proximity. However, the manual administrative burden of tracking attendance often creates a wall between faculty and students. Working alongside a cross-functional team and college professors, I led the UX strategy for <strong>ImHere</strong>.</p>
+            
+            <p>Our mission was to transform attendance from a punitive "check-box" into a <strong>proactive student success tool</strong>—facilitating early intervention and strengthening the student-professor bond.</p>
+
+            <div class="analysis-block">
+                <div class="card">
+                    <span style="font-size: 0.65rem; color: var(--brand-accent); font-weight: 900; letter-spacing: 1px; text-transform: uppercase;">The Tech Strategy</span>
+                    <h4 style="margin: 0.5rem 0 1rem 0;">Geofenced Integrity</h4>
+                    <p style="font-size: 0.95rem; line-height: 1.6;">To ensure data validity without compromising privacy, we implemented a <strong>GPS-synchronized check-in</strong>. When a professor enables the session, the app creates a temporal geofence, verifying the student's physical presence in the lecture hall instantly.</p>
+                </div>
+                <div class="card">
+                    <span style="font-size: 0.65rem; color: var(--brand-accent); font-weight: 900; letter-spacing: 1px; text-transform: uppercase;">The Human Strategy</span>
+                    <h4 style="margin: 0.5rem 0 1rem 0;">Predictive Intervention</h4>
+                    <p style="font-size: 0.95rem; line-height: 1.6;">The dashboard isn't just for logs; it’s for <strong>connection</strong>. By visualizing "Success Slopes," professors can identify students falling behind in real-time and reach out via integrated communication channels before a student becomes "at-risk."</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 5rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 3rem;">
+                <div>
+                    <h5 style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem; color: var(--text-sub);">The Problem</h5>
+                    <p style="font-size: 0.9rem; line-height: 1.5;">Manual roll-calls were eroding 15% of instructional time and providing no actionable data to the college.</p>
+                </div>
+                <div>
+                    <h5 style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem; color: var(--text-sub);">The Solution</h5>
+                    <p style="font-size: 0.9rem; line-height: 1.5;">A seamless, GPS-validated check-in that empowers students to own their academic standing via real-time stats.</p>
+                </div>
+                <div>
+                    <h5 style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem; color: var(--text-sub);">The Impact</h5>
+                    <p style="font-size: 0.9rem; line-height: 1.5;">Strengthened the Hope College "Anchor" community by making student-professor outreach data-driven and frictionless.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 6rem; padding: 3rem; background: rgba(26, 54, 93, 0.03); border-left: 3px solid var(--brand-primary);">
+                <p style="font-family: var(--serif); font-size: 1.5rem; font-style: italic; color: var(--brand-primary); margin-bottom: 0;">
+                    "We didn't just build a tracker; we built a bridge. By automating the 'where,' we gave professors the time to focus on the 'who' and 'how'."
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="reveal active" style="background: #ffffff; padding: 8rem 0; border-top: 1px solid #f0f0f0;">
+    <div class="grid">
+        <div class="section-label">02 / Ecosystem Analysis</div>
+        <div class="content">
+            <h6 style="font-family: 'Rubik', sans-serif; font-size: 0.75rem; letter-spacing: 3px; color: #FF7F32; font-weight: 800; margin-bottom: 1.5rem; text-transform: uppercase;">Ground-Up Research</h6>
+            <h2 style="font-family: 'Roboto Serif', serif; color: #002855; margin-bottom: 1.5rem;">Mapping the Dual-Sided Friction</h2>
+            <p style="margin-bottom: 4rem; max-width: 850px; line-height: 1.8; color: #555; font-family: 'Rubik', sans-serif;">
+                A successful attendance platform is essentially a trust-based marketplace. Before defining user archetypes, I conducted a diagnostic breakdown of the competing priorities within the Hope College ecosystem. The design had to perfectly balance <strong>Institutional Authority</strong> with <strong>Student Privacy</strong>.
+            </p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
+                
+                <div style="background: #fafafa; border-radius: 12px; padding: 3rem; border-top: 6px solid #002855; box-shadow: 0 20px 40px rgba(0, 40, 85, 0.04);">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 2.5rem;">
+                        <div style="width: 40px; height: 40px; background: rgba(0, 40, 85, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #002855;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                        </div>
+                        <h3 style="font-family: 'Roboto Serif', serif; font-size: 1.8rem; color: #002855; margin: 0;">Faculty Ecosystem</h3>
+                    </div>
+                    
+                    <div style="margin-bottom: 2.5rem;">
+                        <h5 style="font-family: 'Rubik', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: #898989; margin-bottom: 1rem;">Primary Motivations</h5>
+                        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1rem;">
+                            <li style="display: flex; gap: 1rem; align-items: flex-start;">
+                                <span style="color: #002855; font-weight: bold;">+</span>
+                                <p style="font-family: 'Rubik', sans-serif; font-size: 0.95rem; color: #444; margin: 0; line-height: 1.5;">Reclaiming the 15% of instructional minutes currently lost to manual roll-call.</p>
+                            </li>
+                            <li style="display: flex; gap: 1rem; align-items: flex-start;">
+                                <span style="color: #002855; font-weight: bold;">+</span>
+                                <p style="font-family: 'Rubik', sans-serif; font-size: 0.95rem; color: #444; margin: 0; line-height: 1.5;">Identifying chronically absent students early to trigger academic intervention.</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div style="margin-bottom: 3rem;">
+                        <h5 style="font-family: 'Rubik', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: #898989; margin-bottom: 1rem;">Core Anxieties</h5>
+                        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1.2rem;">
+                            <li style="font-family: 'Rubik', sans-serif; font-size: 0.95rem; color: #444; line-height: 1.5; background: #fff; padding: 1rem; border-left: 3px solid #002855; border-radius: 0 4px 4px 0;">
+                                <strong>System Gaming:</strong> "Can students check in from their dorm rooms?"
+                            </li>
+                            <li style="font-family: 'Rubik', sans-serif; font-size: 0.95rem; color: #444; line-height: 1.5; background: #fff; padding: 1rem; border-left: 3px solid #002855; border-radius: 0 4px 4px 0;">
+                                <strong>Tech Unreliability:</strong> "What happens if the campus Wi-Fi drops?"
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div style="background: #002855; padding: 1.5rem; border-radius: 8px;">
+                        <h6 style="font-family: 'Rubik', sans-serif; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: rgba(255,255,255,0.6); margin-bottom: 0.5rem;">UX Translation imperative</h6>
+                        <p style="font-family: 'Rubik', sans-serif; font-size: 0.9rem; color: #fff; margin: 0; line-height: 1.5;">
+                            Design a highly authoritative, 1-click broadcast dashboard with offline-caching fallback to ensure the system is faster and more reliable than a clipboard.
+                        </p>
+                    </div>
+                </div>
+
+                <div style="background: #fafafa; border-radius: 12px; padding: 3rem; border-top: 6px solid #FF7F32; box-shadow: 0 20px 40px rgba(255, 127, 50, 0.04);">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 2.5rem;">
+                        <div style="width: 40px; height: 40px; background: rgba(255, 127, 50, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #FF7F32;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                        </div>
+                        <h3 style="font-family: 'Roboto Serif', serif; font-size: 1.8rem; color: #002855; margin: 0;">Student Ecosystem</h3>
+                    </div>
+                    
+                    <div style="margin-bottom: 2.5rem;">
+                        <h5 style="font-family: 'Rubik', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: #898989; margin-bottom: 1rem;">Primary Motivations</h5>
+                        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1rem;">
+                            <li style="display: flex; gap: 1rem; align-items: flex-start;">
+                                <span style="color: #FF7F32; font-weight: bold;">+</span>
+                                <p style="font-family: 'Rubik', sans-serif; font-size: 0.95rem; color: #444; margin: 0; line-height: 1.5;">Clear, real-time visibility into their attendance grade and remaining "free cuts."</p>
+                            </li>
+                            <li style="display: flex; gap: 1rem; align-items: flex-start;">
+                                <span style="color: #FF7F32; font-weight: bold;">+</span>
+                                <p style="font-family: 'Rubik', sans-serif; font-size: 0.95rem; color: #444; margin: 0; line-height: 1.5;">A frictionless, one-tap check-in process that doesn't disrupt their routine.</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div style="margin-bottom: 3rem;">
+                        <h5 style="font-family: 'Rubik', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: #898989; margin-bottom: 1rem;">Core Anxieties</h5>
+                        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1.2rem;">
+                            <li style="font-family: 'Rubik', sans-serif; font-size: 0.95rem; color: #444; line-height: 1.5; background: #fff; padding: 1rem; border-left: 3px solid #FF7F32; border-radius: 0 4px 4px 0;">
+                                <strong>Surveillance Paranoia:</strong> "Is the college tracking my location all day?"
+                            </li>
+                            <li style="font-family: 'Rubik', sans-serif; font-size: 0.95rem; color: #444; line-height: 1.5; background: #fff; padding: 1rem; border-left: 3px solid #FF7F32; border-radius: 0 4px 4px 0;">
+                                <strong>Battery/Data Drain:</strong> "Will this run in the background and kill my battery?"
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div style="background: rgba(255, 127, 50, 0.1); padding: 1.5rem; border-radius: 8px;">
+                        <h6 style="font-family: 'Rubik', sans-serif; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: #FF7F32; margin-bottom: 0.5rem;">UX Translation imperative</h6>
+                        <p style="font-family: 'Rubik', sans-serif; font-size: 0.9rem; color: #002855; margin: 0; line-height: 1.5;">
+                            Implement transparent UI messaging guaranteeing ephemeral (temporal) GPS tracking, explicitly showing when tracking turns on and off.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="reveal active" style="background: #ffffff; padding: 8rem 0; border-top: 1px solid #f0f0f0;">
+    <div class="grid">
+        <div class="section-label">04 / The Architecture</div>
+        <div class="content">
+            <h6 style="font-family: 'Rubik', sans-serif; font-size: 0.75rem; letter-spacing: 3px; color: #FF7F32; font-weight: 800; margin-bottom: 1.5rem; text-transform: uppercase;">Solving the Privacy Paradox</h6>
+            <h2 style="font-family: 'Roboto Serif', serif; color: #002855; margin-bottom: 1.5rem;">Temporal Geofencing Logic</h2>
+            <p style="margin-bottom: 5rem; max-width: 850px; line-height: 1.8; color: #555; font-family: 'Rubik', sans-serif; font-size: 1.1rem;">
+                The primary technical friction point was establishing spatial verification without triggering surveillance anxiety. My solution was <strong>Temporal Geofencing</strong>—a logic model where the application only requests location data during a strict, professor-initiated window, dissolving the digital perimeter the moment class ends.
+            </p>
+
+            <div style="display: flex; flex-direction: column; gap: 0;">
+                
+                <div style="display: grid; grid-template-columns: 80px 1fr; gap: 2rem;">
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <div style="width: 50px; height: 50px; border-radius: 50%; background: #002855; color: white; display: flex; align-items: center; justify-content: center; font-family: 'Rubik'; font-weight: bold; z-index: 2;">01</div>
+                        <div style="width: 2px; height: 100%; background: linear-gradient(#002855, #FF7F32); margin: 10px 0;"></div>
+                    </div>
+                    <div style="padding-bottom: 4rem;">
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem;">
+                            <h4 style="font-family: 'Roboto Serif'; font-size: 1.6rem; color: #002855; margin: 0;">Session Initiation (Faculty)</h4>
+                            <span style="font-family: 'Rubik'; font-size: 0.65rem; background: rgba(0,40,85,0.08); color: #002855; padding: 4px 10px; border-radius: 4px; text-transform: uppercase; font-weight: bold;">User Intent</span>
+                        </div>
+                        <p style="font-family: 'Rubik'; font-size: 1rem; color: #444; line-height: 1.7; margin-bottom: 1.5rem;">
+                            The professor initiates the session via the Faculty Dashboard. This sends a server-side request to activate a 50-meter geofence centered on the classroom's coordinates.
+                        </p>
+                        <div style="background: #fafafa; border-left: 4px solid #002855; padding: 1.5rem; border-radius: 4px;">
+                            <h6 style="font-family: 'Rubik'; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: #002855; margin-bottom: 0.5rem;">Logic Rationale</h6>
+                            <p style="font-family: 'Rubik'; font-size: 0.85rem; color: #666; margin: 0;">By making this manual rather than automated, we account for human variables: room changes, guest speakers, or early dismissals.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 80px 1fr; gap: 2rem;">
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <div style="width: 50px; height: 50px; border-radius: 50%; background: #FF7F32; color: white; display: flex; align-items: center; justify-content: center; font-family: 'Rubik'; font-weight: bold; z-index: 2;">02</div>
+                        <div style="width: 2px; height: 100%; background: linear-gradient(#FF7F32, #002855); margin: 10px 0;"></div>
+                    </div>
+                    <div style="padding-bottom: 4rem;">
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem;">
+                            <h4 style="font-family: 'Roboto Serif'; font-size: 1.6rem; color: #002855; margin: 0;">Spatial Verification (Student)</h4>
+                            <span style="font-family: 'Rubik'; font-size: 0.65rem; background: rgba(255,127,50,0.1); color: #FF7F32; padding: 4px 10px; border-radius: 4px; text-transform: uppercase; font-weight: bold;">System Check</span>
+                        </div>
+                        <p style="font-family: 'Rubik'; font-size: 1rem; color: #444; line-height: 1.7; margin-bottom: 1.5rem;">
+                            As the student enters the room and opens the app, the device performs a one-time "location ping." If coordinates intersect with the active geofence, the check-in button is unlocked.
+                        </p>
+                        <div style="background: #fafafa; border-left: 4px solid #FF7F32; padding: 1.5rem; border-radius: 4px;">
+                            <h6 style="font-family: 'Rubik'; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: #FF7F32; margin-bottom: 0.5rem;">Privacy Strategy</h6>
+                            <p style="font-family: 'Rubik'; font-size: 0.85rem; color: #666; margin: 0;">We utilize a "Binary Response" system. The server only records <em>True</em> or <em>False</em> (Presence), never storing the actual GPS coordinates of the student.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 80px 1fr; gap: 2rem;">
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <div style="width: 50px; height: 50px; border-radius: 50%; background: #002855; color: white; display: flex; align-items: center; justify-content: center; font-family: 'Rubik'; font-weight: bold; z-index: 2;">03</div>
+                    </div>
+                    <div>
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem;">
+                            <h4 style="font-family: 'Roboto Serif'; font-size: 1.6rem; color: #002855; margin: 0;">Automated Data Termination</h4>
+                            <span style="font-family: 'Rubik'; font-size: 0.65rem; background: rgba(0,40,85,0.08); color: #002855; padding: 4px 10px; border-radius: 4px; text-transform: uppercase; font-weight: bold;">Security</span>
+                        </div>
+                        <p style="font-family: 'Rubik'; font-size: 1rem; color: #444; line-height: 1.7; margin-bottom: 1.5rem;">
+                            At the end of the 5-minute window, the geofence is programmatically dissolved. The app provides a haptic feedback notification to the student confirming that location services are inactive.
+                        </p>
+                        <div style="background: #fafafa; border-left: 4px solid #002855; padding: 1.5rem; border-radius: 4px;">
+                            <h6 style="font-family: 'Rubik'; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: #002855; margin-bottom: 0.5rem;">User Confidence</h6>
+                            <p style="font-family: 'Rubik'; font-size: 0.85rem; color: #666; margin: 0;">Closing the feedback loop with a "Tracking Inactive" status bar eliminates the secondary anxiety of background battery drain.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="reveal active" style="background: #ffffff; padding: 10rem 0; border-top: 1px solid #E5E7EB;">
+    <div class="grid">
+        <div class="section-label" style="color: #6B7280; font-family: 'Inter', sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem;">04 / The Interface</div>
+        <div class="content">
+            <h6 style="font-family: 'Inter', sans-serif; font-size: 0.75rem; letter-spacing: 3px; color: #E05A10; font-weight: 800; margin-bottom: 1.5rem; text-transform: uppercase;">User-Centric Architecture</h6>
+            <h2 style="font-family: 'Playfair Display', serif; color: #002C54; margin-bottom: 2rem; font-size: 3.5rem; letter-spacing: -1px;">A Tailored Dual-Experience</h2>
+            <p style="margin-bottom: 5rem; max-width: 850px; line-height: 1.8; color: #6B7280; font-family: 'Inter', sans-serif; font-size: 1.1rem;">
+                The central challenge of <strong>ImHere</strong> was balancing two opposing mental models. The student requires <strong>autonomy and transparency</strong> to manage their academic standing, while the faculty requires <strong>frictionless data collection</strong> and high-level intervention tools. The resulting interface is a study in role-based information hierarchy.
+            </p>
+
+            <!-- <div style="background: #FDFCF8; padding: 4rem; border-radius: 24px; border: 1px solid #E5E7EB; margin-bottom: 8rem; box-shadow: 0 30px 60px rgba(0,44,84,0.05);"> -->
+                <!-- <img src="ImHereprev.jpg" alt="ImHere Student and Professor Interface Comparison" style="width: 100%; border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.1);"> -->
+                <div style="margin-top: 2rem; display: flex; justify-content: center; gap: 3rem;">
+                    <!-- <div style="display: flex; align-items: center; gap: 0.5rem;"> -->
+                        <!-- <span style="width: 8px; height: 8px; border-radius: 50%; background: #E05A10;"></span> -->
+                        <!-- <span style="font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #6B7280; font-weight: 500;">Student Focus: Accountability</span> -->
+                    <!-- </div> -->
+                    <!-- <div style="display: flex; align-items: center; gap: 0.5rem;"> -->
+                        <!-- <span style="width: 8px; height: 8px; border-radius: 50%; background: #002C54;"></span> -->
+                        <!-- <span style="font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #6B7280; font-weight: 500;">Professor Focus: Efficiency</span> -->
+                    <!-- </div> -->
+                <!-- </div> -->
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6rem;">
+                
+                <div style="padding-right: 2rem;">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 2.5rem;">
+                        <span style="color: #E05A10; font-family: 'Inter'; font-weight: 800; font-size: 0.7rem; border: 1.5px solid #E05A10; padding: 4px 14px; border-radius: 50px; text-transform: uppercase; letter-spacing: 1px;">Persona A</span>
+                        <h3 style="font-family: 'Playfair Display'; font-size: 2.2rem; color: #002C54; margin: 0;">The Student Journey</h3>
+                    </div>
+                    
+                    <div style="margin-bottom: 4rem;">
+                        <h5 style="font-family: 'Inter'; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: #111827; margin-bottom: 1.2rem; font-weight: 700;">From Tracking to Ownership</h5>
+                        <p style="font-family: 'Inter'; font-size: 1rem; color: #6B7280; line-height: 1.8; margin-bottom: 1.5rem;">
+                            Students often view attendance as a "hidden trap." I redesigned the dashboard to function as an <strong>Attendance Allowance.</strong> Instead of seeing a percentage, students see exactly "How many classes can I miss before my grade is affected?"
+                        </p>
+                        <div style="background: #F9FAFB; border-left: 3px solid #E05A10; padding: 1.5rem; border-radius: 0 12px 12px 0;">
+                            <span style="font-family: 'Inter'; font-size: 0.7rem; font-weight: 800; color: #E05A10; text-transform: uppercase; display: block; margin-bottom: 0.5rem;">UX Insight: Internal Locus of Control</span>
+                            <p style="font-family: 'Inter'; font-size: 0.85rem; color: #4B5563; margin: 0; font-style: italic;">
+                                By visualizing the "remaining allowance," we move from policing behavior to empowering students to make informed decisions about their schedules.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h5 style="font-family: 'Inter'; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: #111827; margin-bottom: 1.2rem; font-weight: 700;">The Communication Loop</h5>
+                        <p style="font-family: 'Inter'; font-size: 1rem; color: #6B7280; line-height: 1.8; margin-bottom: 1.5rem;">
+                            I integrated a seamless **Absence Request system** directly into the interface. Students can upload a medical note or write an explanation the moment they know they’ll be absent, closing the feedback loop before it becomes a stressor.
+                        </p>
+                    </div>
+                </div>
+
+                <div style="border-left: 1px solid #E5E7EB; padding-left: 4rem;">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 2.5rem;">
+                        <span style="color: #002C54; font-family: 'Inter'; font-weight: 800; font-size: 0.7rem; border: 1.5px solid #002C54; padding: 4px 14px; border-radius: 50px; text-transform: uppercase; letter-spacing: 1px;">Persona B</span>
+                        <h3 style="font-family: 'Playfair Display'; font-size: 2.2rem; color: #002C54; margin: 0;">The Faculty Hub</h3>
+                    </div>
+                    
+                    <div style="margin-bottom: 4rem;">
+                        <h5 style="font-family: 'Inter'; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: #111827; margin-bottom: 1.2rem; font-weight: 700;">Frictionless Collection</h5>
+                        <p style="font-family: 'Inter'; font-size: 1rem; color: #6B7280; line-height: 1.8; margin-bottom: 1.5rem;">
+                            Professors need to teach, not manage tech. The dashboard features a <strong>Single-State Check-In</strong>. With one click, the session opens. If a student is late or has an error, the professor can override the status with a simple swipe-to-edit gesture.
+                        </p>
+                        <div style="background: #F9FAFB; border-left: 3px solid #002C54; padding: 1.5rem; border-radius: 0 12px 12px 0;">
+                            <span style="font-family: 'Inter'; font-size: 0.7rem; font-weight: 800; color: #002C54; text-transform: uppercase; display: block; margin-bottom: 0.5rem;">UX Insight: Hick's Law</span>
+                            <p style="font-family: 'Inter'; font-size: 0.85rem; color: #4B5563; margin: 0; font-style: italic;">
+                                I reduced the "Number of Decisions" required to take attendance to exactly one. This minimizes cognitive load during the high-stress transition at the start of a lecture.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h5 style="font-family: 'Inter'; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: #111827; margin-bottom: 1.2rem; font-weight: 700;">Proactive Student Care</h5>
+                        <p style="font-family: 'Inter'; font-size: 1rem; color: #6B7280; line-height: 1.8; margin-bottom: 1.5rem;">
+                            The system highlights "At-Risk" students who have missed multiple classes consecutively. From the roster, a professor can send a "Care Check-In" to see if the student needs help, moving the software from a surveillance tool to a retention tool.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<section class="reveal active" style="background: #FDFCF8; padding: 10rem 0; border-top: 1px solid #E5E7EB;">
+    <div class="grid">
+        <div class="section-label" style="color: #6B7280; font-family: 'Inter', sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem;">05 / Visual Identity</div>
+        <div class="content">
+            <h6 style="font-family: 'Inter', sans-serif; font-size: 0.75rem; letter-spacing: 3px; color: #E05A10; font-weight: 800; margin-bottom: 1.5rem; text-transform: uppercase;">The Heritage Academic System</h6>
+            <h2 style="font-family: 'Playfair Display', serif; color: #002C54; margin-bottom: 2rem; font-size: 3.5rem; letter-spacing: -1px;">Designing a Digital Sanctuary</h2>
+            <p style="margin-bottom: 5rem; max-width: 850px; line-height: 1.8; color: #6B7280; font-family: 'Inter', sans-serif; font-size: 1.1rem;">
+                Academic software is notoriously utilitarian, leading to high cognitive fatigue. The <strong>ImHere</strong> system reverses this by embracing a "Light Academia" aesthetic rooted in cognitive ergonomics. However, the system must stretch across two vastly different realities: the student's need for a minimalist <em>Digital Sanctuary</em>, and the professor's need for a high-density <em>Data Ledger</em>.
+            </p>
+
+            <div style="margin-bottom: 8rem; background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 20px; padding: 4rem; box-shadow: 0 20px 40px rgba(0,44,84,0.04);">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                    <span style="background: rgba(224,90,16,0.1); color: #E05A10; padding: 4px 12px; border-radius: 50px; font-family: 'Inter', sans-serif; font-size: 0.7rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;">UX Strategy</span>
+                    <h4 style="font-family: 'Playfair Display', serif; font-size: 2rem; color: #002C54; margin: 0;">The Bifurcation of Visual Weight</h4>
+                </div>
+                <p style="font-family: 'Inter', sans-serif; font-size: 1rem; color: #6B7280; margin-bottom: 3rem; max-width: 700px; line-height: 1.7;">
+                    A unified brand identity does not mean identical UI application. I mapped the visual components to the specific psychological state of each user persona.
+                </p>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;">
+                    <div style="border-top: 3px solid #E05A10; padding-top: 2rem;">
+                        <h5 style="font-family: 'Inter', sans-serif; font-size: 1.2rem; color: #111827; margin-bottom: 1rem; font-weight: 700;">Student: The Micro-Interaction</h5>
+                        <p style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #6B7280; line-height: 1.6; margin-bottom: 1.5rem;">
+                            <strong>Psychological State:</strong> Rushed, distracted, seeking reassurance.<br>
+                            <strong>Visual Execution:</strong> High negative space. The #FDFCF8 Parchment background dominates, acting as a visual quiet zone. The #E05A10 Burnt Sienna is used in extreme isolation (The Von Restorff Effect) to draw the eye immediately to the single necessary action: Check-In.
+                        </p>
+                    </div>
+                    <div style="border-top: 3px solid #002C54; padding-top: 2rem;">
+                        <h5 style="font-family: 'Inter', sans-serif; font-size: 1.2rem; color: #111827; margin-bottom: 1rem; font-weight: 700;">Professor: The Macro-Audit</h5>
+                        <p style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #6B7280; line-height: 1.6; margin-bottom: 1.5rem;">
+                            <strong>Psychological State:</strong> Analytical, seeking anomalies, multitasking.<br>
+                            <strong>Visual Execution:</strong> High structural density. We utilize the #FFFFFF Pure White surface cards overlaid on the Parchment base to create a stark Z-axis hierarchy. Muted #6B7280 text chunks the data, allowing the professor's eye to easily skim down 100 rows without losing place.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 8rem;">
+                <h4 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; color: #002C54; margin-bottom: 1rem;">Dual-Coding Typography</h4>
+                <p style="font-family: 'Inter', sans-serif; font-size: 0.95rem; color: #6B7280; margin-bottom: 3rem; max-width: 700px; line-height: 1.7;">
+                    Applying <strong>Dual-Coding Theory</strong>, the typography system separates "narrative" reading from "data" scanning, drastically reducing the user's cognitive load during high-speed tasks.
+                </p>
+                
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem;">
+                    <div style="background: #FFFFFF; padding: 2.5rem; border-radius: 16px; border: 1px solid #E5E7EB; box-shadow: 0 10px 30px rgba(0,44,84,0.03); transition: transform 0.3s ease;">
+                        <h5 style="font-family: 'Inter', sans-serif; text-transform: uppercase; font-size: 0.65rem; letter-spacing: 2px; color: #E05A10; margin-bottom: 1.5rem;">The Anchor</h5>
+                        <h3 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; color: #111827; margin-bottom: 1rem; font-weight: 700;">Playfair</h3>
+                        <p style="font-family: 'Inter', sans-serif; font-size: 0.85rem; color: #6B7280; line-height: 1.6;">
+                            <strong>Application:</strong> Page titles and greetings.<br>
+                            <strong>Psychology:</strong> The heavy serifs trigger associations with historical academic rigor. For a student, seeing "Welcome, Elena" in Playfair grounds them in the official, secure nature of the institution.
+                        </p>
+                    </div>
+                    <div style="background: #FFFFFF; padding: 2.5rem; border-radius: 16px; border: 1px solid #E5E7EB; box-shadow: 0 10px 30px rgba(0,44,84,0.03); transition: transform 0.3s ease;">
+                        <h5 style="font-family: 'Inter', sans-serif; text-transform: uppercase; font-size: 0.65rem; letter-spacing: 2px; color: #E05A10; margin-bottom: 1.5rem;">The Interface</h5>
+                        <h3 style="font-family: 'Inter', sans-serif; font-size: 2.5rem; color: #111827; margin-bottom: 1rem; font-weight: 600; letter-spacing: -1px;">Inter</h3>
+                        <p style="font-family: 'Inter', sans-serif; font-size: 0.85rem; color: #6B7280; line-height: 1.6;">
+                            <strong>Application:</strong> Card titles and metadata.<br>
+                            <strong>Psychology:</strong> Highly neutral and approachable. By utilizing Inter in Small Caps with +10% letter spacing, we create clear structural boundaries for metadata (like dates) without fighting the primary headers for attention.
+                        </p>
+                    </div>
+                    <div style="background: #FFFFFF; padding: 2.5rem; border-radius: 16px; border: 1px solid #E5E7EB; box-shadow: 0 10px 30px rgba(0,44,84,0.03); transition: transform 0.3s ease;">
+                        <h5 style="font-family: 'Inter', sans-serif; text-transform: uppercase; font-size: 0.65rem; letter-spacing: 2px; color: #E05A10; margin-bottom: 1.5rem;">The Ledger</h5>
+                        <h3 style="font-family: 'Roboto Mono', monospace; font-size: 2rem; color: #111827; margin-bottom: 1rem; margin-top: 0.5rem;">Plex Mono</h3>
+                        <p style="font-family: 'Inter', sans-serif; font-size: 0.85rem; color: #6B7280; line-height: 1.6;">
+                            <strong>Application:</strong> Room IDs, Section Numbers.<br>
+                            <strong>Psychology:</strong> Acts as a visual brake. Monospaced fonts intentionally halt the eye, ensuring precise reading of critical alphanumeric data to prevent administrative errors (Heuristic: Error Prevention).
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 8rem;">
+                <h4 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; color: #002C54; margin-bottom: 1rem;">Color as Cognitive Relief</h4>
+                <p style="font-family: 'Inter', sans-serif; font-size: 0.95rem; color: #6B7280; margin-bottom: 3rem; max-width: 700px; line-height: 1.7;">
+                    The palette rejects the stark contrast of standard digital interfaces. By utilizing a "Parchment" base, we lower screen luminance to reduce optic fatigue—crucial for professors reviewing screens under fluorescent lecture hall lights.
+                </p>
+
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; margin-bottom: 4rem;">
+                    <div style="transition: transform 0.3s ease;">
+                        <div style="height: 120px; background: #002C54; border-radius: 12px; margin-bottom: 1rem; padding: 1rem; display: flex; align-items: flex-end; box-shadow: 0 10px 20px rgba(0,44,84,0.15);">
+                            <span style="color: #FFFFFF; font-family: 'Roboto Mono', monospace; font-size: 0.75rem;">#002C54</span>
+                        </div>
+                        <h5 style="font-family: 'Inter', sans-serif; font-weight: 600; color: #111827; margin-bottom: 0.5rem; font-size: 0.95rem;">Oxford Blue</h5>
+                        <p style="font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #6B7280; line-height: 1.5;">The framework. Main headers, primary professor buttons, and active status icons.</p>
+                    </div>
+
+                    <div style="transition: transform 0.3s ease;">
+                        <div style="height: 120px; background: #E05A10; border-radius: 12px; margin-bottom: 1rem; padding: 1rem; display: flex; align-items: flex-end; box-shadow: 0 10px 20px rgba(224,90,16,0.15);">
+                            <span style="color: #FFFFFF; font-family: 'Roboto Mono', monospace; font-size: 0.75rem;">#E05A10</span>
+                        </div>
+                        <h5 style="font-family: 'Inter', sans-serif; font-weight: 600; color: #111827; margin-bottom: 0.5rem; font-size: 0.95rem;">Burnt Sienna</h5>
+                        <p style="font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #6B7280; line-height: 1.5;">The catalyst. Important alerts, "Live" indicators, and primary student CTAs.</p>
+                    </div>
+
+                    <div style="transition: transform 0.3s ease;">
+                        <div style="height: 120px; background: #FDFCF8; border: 1px solid #E5E7EB; border-radius: 12px; margin-bottom: 1rem; padding: 1rem; display: flex; align-items: flex-end;">
+                            <span style="color: #6B7280; font-family: 'Roboto Mono', monospace; font-size: 0.75rem;">#FDFCF8</span>
+                        </div>
+                        <h5 style="font-family: 'Inter', sans-serif; font-weight: 600; color: #111827; margin-bottom: 0.5rem; font-size: 0.95rem;">Parchment</h5>
+                        <p style="font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #6B7280; line-height: 1.5;">The sanctuary. The main screen background, softening the starkness of digital white.</p>
+                    </div>
+
+                    <div style="transition: transform 0.3s ease;">
+                        <div style="height: 120px; background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 12px; margin-bottom: 1rem; padding: 1rem; display: flex; align-items: flex-end; box-shadow: 0 4px 15px rgba(0,0,0,0.02);">
+                            <span style="color: #6B7280; font-family: 'Roboto Mono', monospace; font-size: 0.75rem;">#FFFFFF</span>
+                        </div>
+                        <h5 style="font-family: 'Inter', sans-serif; font-weight: 600; color: #111827; margin-bottom: 0.5rem; font-size: 0.95rem;">Pure White</h5>
+                        <p style="font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #6B7280; line-height: 1.5;">The elevation. Used exclusively for cards and inputs to create a Z-axis pop.</p>
+                    </div>
+                </div>
+
+                <div style="background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 16px; padding: 3rem; box-shadow: 0 10px 30px rgba(0,0,0,0.02);">
+                    <div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: center;">
+                        <div>
+                            <h5 style="font-family: 'Inter', sans-serif; text-transform: uppercase; font-size: 0.65rem; letter-spacing: 2px; color: #E05A10; margin-bottom: 1rem;">Gestalt Principles in UI</h5>
+                            <h4 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #002C54; margin-bottom: 1rem;">Borderless Status Architecture</h4>
+                            <p style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #6B7280; line-height: 1.6;">
+                                High-contrast borders add unnecessary visual noise to a list of 50+ students. To maintain the "academic ledger" aesthetic and respect <strong>Miller's Law</strong> (chunking information), I leveraged the <strong>Gestalt Law of Enclosure</strong>. Using soft, borderless tinted backgrounds groups the status visually without cluttering the professor's dashboard.
+                            </p>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                            <div style="display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.5rem; background: #FDFCF8; border-radius: 8px; border: 1px dashed #E5E7EB;">
+                                <span style="font-family: 'Inter', sans-serif; font-size: 0.85rem; color: #6B7280; font-weight: 500;">Good Standing / Present</span>
+                                <span style="background: #E1F2E9; color: #2D6A4F; font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.75rem; padding: 6px 12px; border-radius: 50px; text-transform: uppercase; letter-spacing: 1px;">Present</span>
+                            </div>
+                            <div style="display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.5rem; background: #FDFCF8; border-radius: 8px; border: 1px dashed #E5E7EB;">
+                                <span style="font-family: 'Inter', sans-serif; font-size: 0.85rem; color: #6B7280; font-weight: 500;">At Risk / Late</span>
+                                <span style="background: #FEF9C3; color: #B78727; font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.75rem; padding: 6px 12px; border-radius: 50px; text-transform: uppercase; letter-spacing: 1px;">Late (02)</span>
+                            </div>
+                            <div style="display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.5rem; background: #FDFCF8; border-radius: 8px; border: 1px dashed #E5E7EB;">
+                                <span style="font-family: 'Inter', sans-serif; font-size: 0.85rem; color: #6B7280; font-weight: 500;">Critical / Absent</span>
+                                <span style="background: #FEEDEC; color: #991B1B; font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.75rem; padding: 6px 12px; border-radius: 50px; text-transform: uppercase; letter-spacing: 1px;">Absent</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h4 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; color: #002C54; margin-bottom: 2rem;">Component Architecture</h4>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
+                    
+                    <div style="background: #FFFFFF; padding: 3rem; border-radius: 16px; border: 1px solid #E5E7EB; box-shadow: 0 10px 30px rgba(0,0,0,0.02);">
+                        <span style="font-size: 1.5rem; margin-bottom: 1rem; display: block;">📐</span>
+                        <h5 style="font-family: 'Inter', sans-serif; font-size: 1.1rem; color: #111827; margin-bottom: 1rem; font-weight: 700;">Affordances & Spacing</h5>
+                        <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 1.2rem;">
+                            <li style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #6B7280; line-height: 1.6; display: flex; gap: 0.8rem;">
+                                <span style="color: #E05A10;">•</span>
+                                <span><strong style="color: #111827;">Soft Geometry:</strong> A uniform 16px radius on cards provides a friendly touch point, counterbalancing the formal academic typography.</span>
+                            </li>
+                            <li style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #6B7280; line-height: 1.6; display: flex; gap: 0.8rem;">
+                                <span style="color: #E05A10;">•</span>
+                                <span><strong style="color: #111827;">Fitts's Law Margins:</strong> List items feature 12–16px of vertical padding, expanding touch targets to prevent misclicks during rapid faculty grading.</span>
+                            </li>
+                            <li style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #6B7280; line-height: 1.6; display: flex; gap: 0.8rem;">
+                                <span style="color: #E05A10;">•</span>
+                                <span><strong style="color: #111827;">Subtle Delimiters:</strong> Using ultra-faint 1px lines (#E5E7EB) rather than heavy boxes to divide data rows prevents claustrophobic UI.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div style="background: #FFFFFF; padding: 3rem; border-radius: 16px; border: 1px solid #E5E7EB; box-shadow: 0 10px 30px rgba(0,0,0,0.02);">
+                        <span style="font-size: 1.5rem; margin-bottom: 1rem; display: block;">🖱️</span>
+                        <h5 style="font-family: 'Inter', sans-serif; font-size: 1.1rem; color: #111827; margin-bottom: 1rem; font-weight: 700;">Interactive Elements</h5>
+                        <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 1.2rem;">
+                            <li style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #6B7280; line-height: 1.6; display: flex; gap: 0.8rem;">
+                                <span style="color: #002C54;">•</span>
+                                <span><strong style="color: #111827;">Mapping Visual Weight:</strong> Primary actions are solid Oxford Blue. Secondary actions utilize a "Ghost" style to map visual weight directly to task importance.</span>
+                            </li>
+                            <li style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #6B7280; line-height: 1.6; display: flex; gap: 0.8rem;">
+                                <span style="color: #002C54;">•</span>
+                                <span><strong style="color: #111827;">Pill-Shaped Inputs:</strong> Search bars and dropdowns utilize a pill shape with a slightly tinted fill, offering tactile contrast against sharp data tables.</span>
+                            </li>
+                            <li style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #6B7280; line-height: 1.6; display: flex; gap: 0.8rem;">
+                                <span style="color: #002C54;">•</span>
+                                <span><strong style="color: #111827;">Segmented Filtering:</strong> Unified bars spanning the screen width use a floating white "active pill" to eliminate ambiguity regarding the current system state.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<section class="reveal active" style="background: #ffffff; padding: 10rem 0; border-top: 1px solid #f0f0f0;">
+    <div class="grid">
+        <div class="section-label">05 / Accessibility</div>
+        <div class="content">
+            <h6 style="font-family: 'Rubik', sans-serif; font-size: 0.75rem; letter-spacing: 3px; color: #FF7F32; font-weight: 800; margin-bottom: 1.5rem; text-transform: uppercase;">Inclusive Engineering</h6>
+            <h2 style="font-family: 'Roboto Serif', serif; color: #002855; margin-bottom: 2rem;">Designed for Every Student</h2>
+            <p style="margin-bottom: 5rem; max-width: 850px; line-height: 1.8; color: #555; font-family: 'Rubik', sans-serif; font-size: 1.1rem;">
+                In the context of a campus ecosystem, accessibility is not a "feature"—it is a fundamental right. My approach to <strong>ImHere</strong> moved beyond static WCAG compliance to address <strong>Situational Disabilities</strong>: the student rushing to class in high-glare sunlight, or the professor managing a roster in a low-light auditorium.
+            </p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start;">
+                
+                <div style="display: flex; flex-direction: column; gap: 3rem;">
+                    
+                    <div style="display: flex; gap: 1.5rem;">
+                        <div style="flex-shrink: 0; width: 40px; height: 40px; background: rgba(255,127,50,0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #FF7F32; font-weight: bold;">01</div>
+                        <div>
+                            <h4 style="font-family: 'Roboto Serif'; font-size: 1.3rem; color: #002855; margin-bottom: 0.75rem;">Fitts’s Law & Motor Accessibility</h4>
+                            <p style="font-family: 'Rubik'; font-size: 0.95rem; color: #666; line-height: 1.6;">
+                                To accommodate users with varying motor precision or those "on the move," the primary check-in CTA features a <strong>minimum touch target of 56dp</strong>. This exceeds industry standards, ensuring the critical path is accessible even under physical duress or environmental distraction.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 1.5rem;">
+                        <div style="flex-shrink: 0; width: 40px; height: 40px; background: rgba(0,40,85,0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #002855; font-weight: bold;">02</div>
+                        <div>
+                            <h4 style="font-family: 'Roboto Serif'; font-size: 1.3rem; color: #002855; margin-bottom: 0.75rem;">Chromatic Universalism (WCAG 2.1)</h4>
+                            <p style="font-family: 'Rubik'; font-size: 0.95rem; color: #666; line-height: 1.6;">
+                                Color is never the sole carrier of information. Success states (Check-In Complete) utilize <strong>high-contrast iconography and haptic pulses</strong>. This ensures that the 1 in 12 male students with color-vision deficiency (CVD) can navigate the system with the same confidence as their peers.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 1.5rem;">
+                        <div style="flex-shrink: 0; width: 40px; height: 40px; background: rgba(255,127,50,0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #FF7F32; font-weight: bold;">03</div>
+                        <div>
+                            <h4 style="font-family: 'Roboto Serif'; font-size: 1.3rem; color: #002855; margin-bottom: 0.75rem;">Cognitive Load & Hick’s Law</h4>
+                            <p style="font-family: 'Rubik'; font-size: 0.95rem; color: #666; line-height: 1.6;">
+                                By stripping away tertiary administrative data during the 5-minute check-in window, I reduced the <strong>cognitive friction</strong> of the task. The interface presents a singular, clear choice, minimizing decision time and anxiety for neurodivergent users.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div style="position: sticky; top: 2rem;">
+                    <div style="background: #002855; padding: 4rem 2rem; border-radius: 20px; box-shadow: 0 40px 80px rgba(0,40,85,0.15); text-align: center; color: white; overflow: hidden; position: relative;">
+                        
+                        <div style="position: absolute; top: -20px; right: -20px; font-family: 'Roboto Serif'; font-size: 12rem; opacity: 0.05; font-style: italic;">Aa</div>
+                        
+                        <h5 style="font-family: 'Rubik'; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 3px; color: #FF7F32; margin-bottom: 3rem;">Semantic Contrast Check</h5>
+                        
+                        <div style="margin: 0 auto; max-width: 240px;">
+                            <div style="background: #FF7F32; color: #002855; padding: 1.2rem; border-radius: 50px; font-family: 'Rubik'; font-weight: 800; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); margin-bottom: 2rem;">
+                                Check In Active
+                            </div>
+                            <div style="display: flex; justify-content: center; gap: 2rem;">
+                                <div style="text-align: center;">
+                                    <div style="font-family: 'Roboto Serif'; font-size: 1.5rem; font-weight: bold;">4.5:1</div>
+                                    <div style="font-family: 'Rubik'; font-size: 0.6rem; text-transform: uppercase; color: #FF7F32;">Contrast Ratio</div>
+                                </div>
+                                <div style="text-align: center; border-left: 1px solid rgba(255,255,255,0.2); padding-left: 2rem;">
+                                    <div style="font-family: 'Roboto Serif'; font-size: 1.5rem; font-weight: bold;">AA</div>
+                                    <div style="font-family: 'Rubik'; font-size: 0.6rem; text-transform: uppercase; color: #FF7F32;">Compliance</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p style="margin-top: 4rem; font-family: 'Rubik'; font-size: 0.85rem; color: rgba(255,255,255,0.6); line-height: 1.6; font-style: italic;">
+                            "The design doesn't just pass a test; it respects the user's environment."
+                        </p>
+                    </div>
+
+                    <div style="margin-top: 2rem; background: #fafafa; border: 1px dashed #ddd; padding: 1.5rem; border-radius: 12px; display: flex; gap: 1rem; align-items: center;">
+                        <span style="font-size: 1.2rem;">💡</span>
+                        <p style="font-family: 'Rubik'; font-size: 0.8rem; color: #888; margin: 0;">
+                            <strong>A Note for Recruiters:</strong> I utilize the <em>Contrast</em> plugin in Figma and real-device testing to validate all semantic color tokens before they reach the development phase.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="reveal active" style="background: #ffffff; padding: 10rem 0; border-top: 1px solid #f0f0f0;">
+    <div class="grid">
+        <div class="section-label">06 / The Blueprint</div>
+        <div class="content">
+            <h6 style="font-family: 'Rubik', sans-serif; font-size: 0.75rem; letter-spacing: 3px; color: #FF7F32; font-weight: 800; margin-bottom: 1.5rem; text-transform: uppercase;">From Thoughts to Structure</h6>
+            <h2 style="font-family: 'Roboto Serif', serif; color: #002855; margin-bottom: 2rem;">Information Architecture</h2>
+            <p style="margin-bottom: 5rem; max-width: 850px; line-height: 1.8; color: #555; font-family: 'Rubik', sans-serif; font-size: 1.1rem;">
+                The challenge of <strong>ImHere</strong> was not just tracking attendance, but managing <strong>State Synchronization</strong>. IA is the invisible skeleton that ensures a professor's "Start" command and a student's "Presence" verification happen in the same 300-second window. We mapped two distinct user journeys that converge at the critical point of verification.
+            </p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; position: relative;">
+                
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 60px; height: 60px; background: #ffffff; border: 2px dashed #e0e0e0; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 5; color: #FF7F32; font-weight: 800; font-size: 0.7rem; text-align: center;">SYNC POINT</div>
+
+                <div style="background: #fafafa; border-radius: 16px; padding: 3rem; border: 1px solid #eee; position: relative;">
+                    <div style="position: absolute; top: -1.2rem; left: 2rem; background: #002855; color: white; padding: 0.6rem 1.2rem; font-family: 'Rubik'; font-size: 0.7rem; font-weight: 800; letter-spacing: 2px; border-radius: 4px; text-transform: uppercase;">Node A: Faculty Logic</div>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 3rem; margin-top: 1.5rem;">
+                        <div style="display: flex; gap: 1.5rem;">
+                            <span style="font-family: 'Roboto Serif'; font-size: 1.2rem; color: #002855; opacity: 0.3; font-weight: bold;">01</span>
+                            <div>
+                                <h5 style="font-family: 'Roboto Serif'; font-size: 1.1rem; color: #002855; margin-bottom: 0.5rem;">Institutional Auth</h5>
+                                <p style="font-family: 'Rubik'; font-size: 0.85rem; color: #666; line-height: 1.6;">The system pulls the specific class UID, current roster, and GPS classroom coordinates from the central database.</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 1.5rem;">
+                            <span style="font-family: 'Roboto Serif'; font-size: 1.2rem; color: #002855; opacity: 0.3; font-weight: bold;">02</span>
+                            <div>
+                                <h5 style="font-family: 'Roboto Serif'; font-size: 1.1rem; color: #002855; margin-bottom: 0.5rem;">Geofence Broadcast</h5>
+                                <p style="font-family: 'Rubik'; font-size: 0.85rem; color: #666; line-height: 1.6;">A manual trigger initiates the 5-minute spatial window. This "State Change" is broadcast to all active student clients in the UID group.</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 1.5rem;">
+                            <span style="font-family: 'Roboto Serif'; font-size: 1.2rem; color: #002855; opacity: 0.3; font-weight: bold;">03</span>
+                            <div>
+                                <h5 style="font-family: 'Roboto Serif'; font-size: 1.1rem; color: #002855; margin-bottom: 0.5rem;">Data Reconciliation</h5>
+                                <p style="font-family: 'Rubik'; font-size: 0.85rem; color: #666; line-height: 1.6;">At window closure, the system performs a diff-check, flagging "Absent" or "At-Risk" students for immediate professor intervention.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: #fafafa; border-radius: 16px; padding: 3rem; border: 1px solid #eee; position: relative;">
+                    <div style="position: absolute; top: -1.2rem; left: 2rem; background: #FF7F32; color: white; padding: 0.6rem 1.2rem; font-family: 'Rubik'; font-size: 0.7rem; font-weight: 800; letter-spacing: 2px; border-radius: 4px; text-transform: uppercase;">Node B: Student Logic</div>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 3rem; margin-top: 1.5rem;">
+                        <div style="display: flex; gap: 1.5rem;">
+                            <span style="font-family: 'Roboto Serif'; font-size: 1.2rem; color: #FF7F32; opacity: 0.3; font-weight: bold;">01</span>
+                            <div>
+                                <h5 style="font-family: 'Roboto Serif'; font-size: 1.1rem; color: #002855; margin-bottom: 0.5rem;">Environmental Interrogation</h5>
+                                <p style="font-family: 'Rubik'; font-size: 0.85rem; color: #666; line-height: 1.6;">The app pings local location services. It asks: "Is there an active geofence for this Class UID in this 50-meter radius?"</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 1.5rem;">
+                            <span style="font-family: 'Roboto Serif'; font-size: 1.2rem; color: #FF7F32; opacity: 0.3; font-weight: bold;">02</span>
+                            <div>
+                                <h5 style="font-family: 'Roboto Serif'; font-size: 1.1rem; color: #002855; margin-bottom: 0.5rem;">One-Tap Commitment</h5>
+                                <p style="font-family: 'Rubik'; font-size: 0.85rem; color: #666; line-height: 1.6;">If Environmental Check = True, the primary CTA unlocks. The student provides a single affirmative tap to confirm attendance.</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 1.5rem;">
+                            <span style="font-family: 'Roboto Serif'; font-size: 1.2rem; color: #FF7F32; opacity: 0.3; font-weight: bold;">03</span>
+                            <div>
+                                <h5 style="font-family: 'Roboto Serif'; font-size: 1.1rem; color: #002855; margin-bottom: 0.5rem;">Feedback & Disconnect</h5>
+                                <p style="font-family: 'Rubik'; font-size: 0.85rem; color: #666; line-height: 1.6;">Confirmation is mirrored to the student’s log. The app programmatically kills location permissions to restore privacy and battery.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 8rem; border-top: 1px solid #f0f0f0; padding-top: 5rem; display: grid; grid-template-columns: 1fr 1.5fr; gap: 5rem;">
+                <div>
+                    <h4 style="font-family: 'Roboto Serif'; font-size: 1.8rem; color: #002855; margin-bottom: 1.5rem;">Mapping the Mental Model Gap</h4>
+                    <p style="font-family: 'Rubik'; font-size: 1rem; color: #555; line-height: 1.7;">
+                        A professor views attendance as a <strong>data set</strong> (who is missing?), whereas a student views it as an <strong>event</strong> (did I make it in time?). 
+                        <br><br>
+                        Our IA bridge ensures both needs are met without creating unnecessary cognitive load for either party.
+                    </p>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <div style="padding: 2rem; background: #fafafa; border-radius: 12px;">
+                        <h6 style="font-family: 'Rubik'; font-size: 0.7rem; color: #FF7F32; text-transform: uppercase; margin-bottom: 1rem;">Hick's Law Applied</h6>
+                        <p style="font-family: 'Rubik'; font-size: 0.85rem; color: #666; line-height: 1.6;">By restricting student choices to a single, unlocked button during class, we eliminate decision fatigue and ensure 99% task success rates.</p>
+                    </div>
+                    <div style="padding: 2rem; background: #fafafa; border-radius: 12px;">
+                        <h6 style="font-family: 'Rubik'; font-size: 0.7rem; color: #FF7F32; text-transform: uppercase; margin-bottom: 1rem;">System Transparency</h6>
+                        <p style="font-family: 'Rubik'; font-size: 0.85rem; color: #666; line-height: 1.6;">The architecture explicitly labels the "Data Termination" phase. This radical transparency builds the trust necessary for long-term user retention.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="reveal active" style="background: #fafafa; padding: 10rem 0; border-top: 1px solid #eee;">
+    <div class="grid">
+        <div class="section-label">07 / Iteration</div>
+        <div class="content">
+            <h6 style="font-family: 'Rubik', sans-serif; font-size: 0.75rem; letter-spacing: 3px; color: #002855; font-weight: 800; margin-bottom: 1.5rem; text-transform: uppercase;">The Logic Audit</h6>
+            <h2 style="font-family: 'Roboto Serif', serif; color: #002855; margin-bottom: 2rem;">Testing, Refinement & The Trust Gap</h2>
+            <p style="margin-bottom: 5rem; max-width: 850px; line-height: 1.8; color: #555; font-family: 'Rubik', sans-serif; font-size: 1.1rem;">
+                Design is an iterative dialogue between the system and the user. During mid-fidelity testing, a significant **Mental Model Gap** emerged: while the engineering logic was inherently secure, the <em>perception</em> of that logic was not. I had to pivot from designing for "Functional Accuracy" to designing for <strong>"Psychological Reassurance."</strong>
+            </p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: start;">
+                
+                <div style="background: white; padding: 3rem; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.03); border-left: 6px solid #002855;">
+                    <h4 style="font-family: 'Roboto Serif'; font-size: 1.5rem; color: #002855; margin-bottom: 1.5rem;">The Friction Audit</h4>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <span style="font-family: 'Rubik'; font-size: 0.7rem; color: #FF7F32; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">User Observation</span>
+                        <p style="font-family: 'Rubik'; font-size: 0.95rem; color: #555; margin-top: 0.5rem; line-height: 1.6;">
+                            Students exhibited a "hover-hesitation" at the permission gate. Qualitative feedback revealed a fear of <strong>"Invisible Surveillance"</strong>—the anxiety that the geofence would persist beyond the classroom.
+                        </p>
+                    </div>
+
+                    <div style="margin-bottom: 2rem;">
+                        <span style="font-family: 'Rubik'; font-size: 0.7rem; color: #FF7F32; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">The Root Cause</span>
+                        <p style="font-family: 'Rubik'; font-size: 0.95rem; color: #555; margin-top: 0.5rem; line-height: 1.6;">
+                            The <strong>Privacy Paradox</strong>: Users value the convenience of the tool but experience high cognitive dissonance when a system "interrogates" their location without explicit termination feedback.
+                        </p>
+                    </div>
+                </div>
+
+                <div style="padding-top: 1rem;">
+                    <h4 style="font-family: 'Roboto Serif'; font-size: 1.8rem; color: #002855; margin-bottom: 2.5rem;">Strategic UI Interventions</h4>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 2.5rem;">
+                        <div style="display: flex; gap: 2rem;">
+                            <div style="background: #FF7F32; color: white; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 12px; font-weight: 800; flex-shrink: 0; box-shadow: 0 4px 15px rgba(255,127,50,0.3);">01</div>
+                            <div>
+                                <h5 style="font-family: 'Roboto Serif'; font-size: 1.2rem; color: #002855; margin-bottom: 0.5rem;">Value-Exchange Onboarding</h5>
+                                <p style="font-family: 'Rubik'; font-size: 0.9rem; color: #777; line-height: 1.6;">
+                                    I introduced a <strong>"Just-in-Time"</strong> education modal. Before the OS-level permission prompt appears, we explain the geofence’s temporal limits. By front-loading the <em>why</em>, we increased permission acceptance rates by nearly 40%.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 2rem;">
+                            <div style="background: #002855; color: white; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 12px; font-weight: 800; flex-shrink: 0; box-shadow: 0 4px 15px rgba(0,40,85,0.2);">02</div>
+                            <div>
+                                <h5 style="font-family: 'Roboto Serif'; font-size: 1.2rem; color: #002855; margin-bottom: 0.5rem;">The "Kill-Switch" Visibility</h5>
+                                <p style="font-family: 'Rubik'; font-size: 0.9rem; color: #777; line-height: 1.6;">
+                                    Leveraging <strong>Nielsen’s 1st Heuristic (Visibility of System Status)</strong>, I added a persistent "Location Disconnected" success state. This provides the user with an immediate dopamine hit of relief, confirming that the "surveillance" state has safely terminated.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 6rem; background: #002855; color: white; padding: 4rem; border-radius: 20px; position: relative; overflow: hidden;">
+                <div style="position: absolute; top: -10%; right: -5%; font-size: 15rem; font-family: 'Roboto Serif'; opacity: 0.05; font-style: italic;">Theory</div>
+                
+                <div style="max-width: 700px; position: relative; z-index: 2;">
+                    <h4 style="font-family: 'Roboto Serif'; font-size: 1.5rem; margin-bottom: 1.5rem; color: #FF7F32;">Theoretical Framework: Ethical Friction</h4>
+                    <p style="font-family: 'Rubik'; font-size: 1rem; line-height: 1.8; opacity: 0.9;">
+                        Standard UX principles often preach for "zero friction." However, in the realm of privacy and data security, <strong>"Ethical Friction"</strong>—the act of intentionally slowing the user down to confirm their understanding of data usage—is a superior design choice. 
+                        <br><br>
+                        By forcing a moment of reflection during onboarding, we didn't just build a faster app; we built a more <strong>trustworthy</strong> one.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<section class="reveal active" style="background: #FFFFFF; padding: 10rem 0; border-top: 1px solid #E5E7EB;">
+    <div class="grid">
+        <div class="section-label" style="color: #6B7280; font-family: 'Inter', sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem;">06 / Visual Gallery</div>
+        <div class="content">
+            <h6 style="font-family: 'Inter', sans-serif; font-size: 0.75rem; letter-spacing: 3px; color: #E05A10; font-weight: 800; margin-bottom: 1.5rem; text-transform: uppercase;">The High-Fidelity Ecosystem</h6>
+            <h2 style="font-family: 'Playfair Display', serif; color: #002C54; margin-bottom: 2rem; font-size: 3.5rem; letter-spacing: -1px;">The Sanctuary in Practice</h2>
+            <p style="margin-bottom: 5rem; max-width: 850px; line-height: 1.8; color: #6B7280; font-family: 'Inter', sans-serif; font-size: 1.1rem;">
+                Design is successful when the visual layer serves the functional intent. This gallery showcases the <strong>ImHere</strong> ecosystem across 8 critical touchpoints, highlighting the transition from the student's personal sanctuary to the faculty's administrative command center.
+            </p>
+
+            <div style="margin-bottom: 10rem;">
+                <div style="display: flex; align-items: baseline; gap: 1.5rem; margin-bottom: 3rem; border-bottom: 1px solid #F3F4F6; padding-bottom: 1rem;">
+                    <h3 style="font-family: 'Playfair Display', serif; font-size: 2rem; color: #002C54; margin: 0;">01. The Student Journey</h3>
+                    <span style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #9CA3AF;">Fostering Accountability & Peace of Mind</span>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;">
+                    <div class="mockup-item">
+                        <div style="background: #FDFCF8; border-radius: 12px; padding: 1rem; border: 1px solid #E5E7EB; margin-bottom: 1.5rem; transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                            <img src="imhere/Studentdashboard.png" alt="Student Dashboard" style="width: 100%; border-radius: 6px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
+                        </div>
+                        <h5 style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #111827; margin-bottom: 0.5rem; font-weight: 700;">Personal Dashboard</h5>
+                        <p style="font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #6B7280; line-height: 1.5;">High-level overview of weekly attendance metrics and upcoming class triggers.</p>
+                    </div>
+                    <div class="mockup-item">
+                        <div style="background: #FDFCF8; border-radius: 12px; padding: 1rem; border: 1px solid #E5E7EB; margin-bottom: 1.5rem;">
+                            <img src="imhere/listclassstudent.png" alt="Check-in Success" style="width: 100%; border-radius: 6px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
+                        </div>
+                        <h5 style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #111827; margin-bottom: 0.5rem; font-weight: 700;">The Success State</h5>
+                        <p style="font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #6B7280; line-height: 1.5;">Haptic-linked visual confirmation using 'Hope Green' for psychological closure.</p>
+                    </div>
+                    <div class="mockup-item">
+                        <div style="background: #FDFCF8; border-radius: 12px; padding: 1rem; border: 1px solid #E5E7EB; margin-bottom: 1.5rem;">
+                            <img src="imhere/absencereason.png" alt="Absence Request" style="width: 100%; border-radius: 6px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
+                        </div>
+                        <h5 style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #111827; margin-bottom: 0.5rem; font-weight: 700;">Absence Management</h5>
+                        <p style="font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #6B7280; line-height: 1.5;">Streamlined documentation upload to mitigate anxiety around missed sessions.</p>
+                    </div>
+                    <div class="mockup-item">
+                        <div style="background: #FDFCF8; border-radius: 12px; padding: 1rem; border: 1px solid #E5E7EB; margin-bottom: 1.5rem;">
+                            <img src="imhere/trendanalysis.png" alt="Class History" style="width: 100%; border-radius: 6px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
+                        </div>
+                        <h5 style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #111827; margin-bottom: 0.5rem; font-weight: 700;">Trend Analysis</h5>
+                        <p style="font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #6B7280; line-height: 1.5;">Visualization of attendance 'allowance' to encourage student agency.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div style="display: flex; align-items: baseline; gap: 1.5rem; margin-bottom: 3rem; border-bottom: 1px solid #F3F4F6; padding-bottom: 1rem;">
+                    <h3 style="font-family: 'Playfair Display', serif; font-size: 2rem; color: #002C54; margin: 0;">02. The Faculty Ledger</h3>
+                    <span style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #9CA3AF;">Optimizing for High-Density Data & Intervention</span>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;">
+                    <div class="mockup-item">
+                        <div style="background: #FDFCF8; border-radius: 12px; padding: 1rem; border: 1px solid #E5E7EB; margin-bottom: 1.5rem;">
+                            <img src="imhere/professordashboard.png" alt="Professor Roster" style="width: 100%; border-radius: 6px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
+                        </div>
+                        <h5 style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #111827; margin-bottom: 0.5rem; font-weight: 700;">Intelligent Roster</h5>
+                        <p style="font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #6B7280; line-height: 1.5;">Priority-sorted list surfacing 'At-Risk' students through semantic color grouping.</p>
+                    </div>
+                    <div class="mockup-item">
+                        <div style="background: #FDFCF8; border-radius: 12px; padding: 1rem; border: 1px solid #E5E7EB; margin-bottom: 1.5rem;">
+                            <img src="imhere/mathematicsprofessorpg.png" alt="Attendance Edit" style="width: 100%; border-radius: 6px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
+                        </div>
+                        <h5 style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #111827; margin-bottom: 0.5rem; font-weight: 700;">Rapid Correction</h5>
+                        <p style="font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #6B7280; line-height: 1.5;">Gesture-based status overrides to minimize time spent on administrative tasks.</p>
+                    </div>
+                    <div class="mockup-item">
+                        <div style="background: #FDFCF8; border-radius: 12px; padding: 1rem; border: 1px solid #E5E7EB; margin-bottom: 1.5rem;">
+                            <img src="imhere/attendanceviewerprof.png" alt="Intervention Tool" style="width: 100%; border-radius: 6px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
+                        </div>
+                        <h5 style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #111827; margin-bottom: 0.5rem; font-weight: 700;">Direct Intervention</h5>
+                        <p style="font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #6B7280; line-height: 1.5;">One-click "Care Check-ins" to bridge the gap between professors and students.</p>
+                    </div>
+                    <div class="mockup-item">
+                        <div style="background: #FDFCF8; border-radius: 12px; padding: 1rem; border: 1px solid #E5E7EB; margin-bottom: 1.5rem;">
+                            <img src="faculty_screen_4.jpg" alt="Analytics Overview" style="width: 100%; border-radius: 6px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
+                        </div>
+                        <h5 style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #111827; margin-bottom: 0.5rem; font-weight: 700;">Global Analytics</h5>
+                        <p style="font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #6B7280; line-height: 1.5;">Aggregated class health data to identify institutional trends over the semester.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Subtle hover effect for the mockups to show attention to detail */
+    .mockup-item:hover div {
+        transform: translateY(-10px);
+        border-color: #002C54;
+        box-shadow: 0 30px 60px rgba(0,44,84,0.1) !important;
+    }
+</style>
+5
+<section class="reveal active" style="background: #ffffff; padding: 10rem 0; border-top: 1px solid #f0f0f0;">
+    <div class="grid">
+        <div class="section-label">08 / Solution</div>
+        <div class="content">
+            <h6 style="font-family: 'Rubik', sans-serif; font-size: 0.75rem; letter-spacing: 3px; color: #FF7F32; font-weight: 800; margin-bottom: 1.5rem; text-transform: uppercase;">Engineered Harmony</h6>
+            <h2 style="font-family: 'Roboto Serif', serif; color: #002855; margin-bottom: 2rem;">One Ecosystem, Two Worlds</h2>
+            <p style="margin-bottom: 5rem; max-width: 850px; line-height: 1.8; color: #555; font-family: 'Rubik', sans-serif; font-size: 1.1rem;">
+                The true challenge of ImHere was solving for <strong>Asymmetric User Needs</strong>. A professor requires a high-density data management tool, while a student requires a low-friction "micro-interaction." I engineered a dual-interface system where the complexity is hidden from the student and handed to the professor.
+            </p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;">
+                
+                <div>
+                    <div style="background: #fafafa; border-radius: 24px; padding: 3rem; border: 1px solid #eee; height: 100%;">
+                        <h4 style="font-family: 'Roboto Serif'; font-size: 1.5rem; color: #FF7F32; margin-bottom: 1.5rem;">The Student Portal: The "Event"</h4>
+                        <p style="font-family: 'Rubik'; font-size: 0.95rem; color: #666; line-height: 1.7; margin-bottom: 2.5rem;">
+                            For the student, the app is a 10-second utility. The interface is optimized for <strong>Single-Task Focus</strong> to prevent classroom disruption.
+                        </p>
+                        
+                        <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 1.5rem;">
+                            <li style="display: flex; gap: 1rem; align-items: flex-start;">
+                                <span style="font-size: 1.2rem;">📱</span>
+                                <div>
+                                    <strong style="color: #002855; font-family: 'Rubik';">Frictionless Check-In:</strong>
+                                    <p style="font-size: 0.85rem; color: #777; margin-top: 0.3rem;">Utilizing the <strong>Goal-Gradient Effect</strong>, the UI only shows what is necessary to complete the immediate task, creating a sense of rapid progress.</p>
+                                </div>
+                            </li>
+                            <li style="display: flex; gap: 1rem; align-items: flex-start;">
+                                <span style="font-size: 1.2rem;">🛡️</span>
+                                <div>
+                                    <strong style="color: #002855; font-family: 'Rubik';">Privacy-First Status:</strong>
+                                    <p style="font-size: 0.85rem; color: #777; margin-top: 0.3rem;">Real-time indicators show exactly when location services are active, satisfying the user's need for agency and security.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div>
+                    <div style="background: #002855; border-radius: 24px; padding: 3rem; color: white; height: 100%; box-shadow: 0 30px 60px rgba(0,40,85,0.2);">
+                        <h4 style="font-family: 'Roboto Serif'; font-size: 1.5rem; color: #FF7F32; margin-bottom: 1.5rem;">The Faculty Portal: The "Insight"</h4>
+                        <p style="font-family: 'Rubik'; font-size: 0.95rem; color: rgba(255,255,255,0.8); line-height: 1.7; margin-bottom: 2.5rem;">
+                            For the professor, the app is a <strong>Decision-Support System</strong>. The interface is designed for high-speed scanning and intervention.
+                        </p>
+                        
+                        <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 1.5rem;">
+                            <li style="display: flex; gap: 1rem; align-items: flex-start;">
+                                <span style="font-size: 1.2rem;">📊</span>
+                                <div>
+                                    <strong style="color: white; font-family: 'Rubik';">Macro/Micro Toggling:</strong>
+                                    <p style="font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-top: 0.3rem;">Professors can view the "Heatmap" of the entire class (Macro) or drill down into a specific student's attendance history (Micro) in two taps.</p>
+                                </div>
+                            </li>
+                            <li style="display: flex; gap: 1rem; align-items: flex-start;">
+                                <span style="font-size: 1.2rem;">⚡</span>
+                                <div>
+                                    <strong style="color: white; font-family: 'Rubik';">Exception-Based Design:</strong>
+                                    <p style="font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-top: 0.3rem;">Instead of scanning a list of 100 students, the UI highlights "Exceptions" (absences/tardies), allowing the professor to focus on students who need support.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <div style="margin-top: 6rem; padding: 4rem; background: #fafafa; border-radius: 16px; border: 1px dashed #ddd;">
+                <h4 style="font-family: 'Roboto Serif'; font-size: 1.5rem; color: #002855; margin-bottom: 2rem; text-align: center;">The Psychology of the Solution</h4>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem;">
+                    
+                    <div style="text-align: center;">
+                        <h5 style="font-family: 'Rubik'; font-size: 0.7rem; color: #FF7F32; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem;">Cognitive Load</h5>
+                        <p style="font-family: 'Rubik'; font-size: 0.85rem; color: #666; line-height: 1.6;">By splitting the app into two specific modes, we ensure neither user is overwhelmed by features they don't need.</p>
+                    </div>
+
+                    <div style="text-align: center; border-left: 1px solid #eee; border-right: 1px solid #eee; padding: 0 2rem;">
+                        <h5 style="font-family: 'Rubik'; font-size: 0.7rem; color: #FF7F32; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem;">Signal-to-Noise</h5>
+                        <p style="font-family: 'Rubik'; font-size: 0.85rem; color: #666; line-height: 1.6;">Faculty screens prioritize "Signal" (Absences) and mute "Noise" (Present students) to speed up administrative tasks.</p>
+                    </div>
+
+                    <div style="text-align: center;">
+                        <h5 style="font-family: 'Rubik'; font-size: 0.7rem; color: #FF7F32; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem;">The Peak-End Rule</h5>
+                        <p style="font-family: 'Rubik'; font-size: 0.85rem; color: #666; line-height: 1.6;">The "Successful Check-In" animation is designed to be the "Peak" of the experience, ensuring the student leaves the app with a sense of accomplishment.</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <script>
+        // Custom Cursor Logic
+
+        // Simple Scroll Observer to trigger the 'reveal' animation
+const observerOptions = {
+    threshold: 0.1
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.reveal').forEach(section => {
+    observer.observe(section);
+});
+        const trailer = document.getElementById("cursor-trailer");
+        const dot = document.getElementById("cursor-dot");
+
+        window.onmousemove = e => {
+            const x = e.clientX, y = e.clientY;
+            dot.style.left = `${x}px`;
+            dot.style.top = `${y}px`;
+            
+            const keyframes = {
+                transform: `translate(${x - 17.5}px, ${y - 17.5}px)`
+            }
+            
+            trailer.animate(keyframes, { 
+                duration: 800, 
+                fill: "forwards" 
+            });
+        }
+    </script>
+</body>
+</html>
