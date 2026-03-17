@@ -42,17 +42,32 @@
             font-family: var(--sans); 
             line-height: 1.7;
             overflow-x: hidden;
+            cursor: auto;
         }
 
-        /* Custom Cursor Elements */
-        #cursor-dot, #cursor-trailer { 
-            position: fixed; top: 0; left: 0; border-radius: 50%; 
-            pointer-events: none; z-index: 10000; transform: translate(-50%, -50%); 
+       #cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--brand-primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000; /* Ensure it is above everything */
+            /* THE FIX: This keeps the dot centered on your actual mouse tip */
+            transform: translate(-50%, -50%); 
+            transition: width 0.3s, height 0.3s;
         }
-        #cursor-dot { width: 5px; height: 5px; background: var(--text-main); }
-        #cursor-trailer { 
-            width: 35px; height: 35px; border: 1px solid var(--brand-accent); 
-            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1); 
+
+        #cursor-trailer {
+            width: 35px;
+            height: 35px;
+            border: 1px solid var(--brand-primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            /* Added smooth scaling for hover states */
+            transition: transform 0.2s ease, width 0.3s, height 0.3s, opacity 0.3s;
         }
 
         /* Navigation */
@@ -182,8 +197,7 @@
         </div>
     </div>
 </section>
-<section class="reveal active" style="background: #ffffff; padding: 8rem 0; border-top: 1px solid #f0f0f0;">
-    <div class="grid">
+<section class="reveal active" style="background: #ffffff; padding: 8rem 5%; border-top: 1px solid #f0f0f0;">    <div class="grid">
         <div class="section-label">02 / Ecosystem Analysis</div>
         <div class="content">
             <h6 style="font-family: 'Rubik', sans-serif; font-size: 0.75rem; letter-spacing: 3px; color: #FF7F32; font-weight: 800; margin-bottom: 1.5rem; text-transform: uppercase;">Ground-Up Research</h6>
@@ -283,7 +297,7 @@
     </div>
 </section>
 
-<section class="reveal active" style="background: #ffffff; padding: 8rem 0; border-top: 1px solid #f0f0f0;">
+  <section class="reveal active">
     <div class="grid">
         <div class="section-label">04 / The Architecture</div>
         <div class="content">
@@ -360,9 +374,9 @@
 </section>
 
 
-<section class="reveal active" style="background: #ffffff; padding: 10rem 0; border-top: 1px solid #E5E7EB;">
+  <section class="reveal active">
     <div class="grid">
-        <div class="section-label" style="color: #6B7280; font-family: 'Inter', sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem;">04 / The Interface</div>
+        <div class="section-label">04 / The Interface</div>
         <div class="content">
             <h6 style="font-family: 'Inter', sans-serif; font-size: 0.75rem; letter-spacing: 3px; color: #E05A10; font-weight: 800; margin-bottom: 1.5rem; text-transform: uppercase;">User-Centric Architecture</h6>
             <h2 style="font-family: 'Playfair Display', serif; color: #002C54; margin-bottom: 2rem; font-size: 3.5rem; letter-spacing: -1px;">A Tailored Dual-Experience</h2>
@@ -444,9 +458,9 @@
         </div>
     </div>
 </section>
-<section class="reveal active" style="background: #FDFCF8; padding: 10rem 0; border-top: 1px solid #E5E7EB;">
+  <section class="reveal active">
     <div class="grid">
-        <div class="section-label" style="color: #6B7280; font-family: 'Inter', sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem;">05 / Visual Identity</div>
+        <div class="section-label">05 / Visual Identity</div>
         <div class="content">
             <h6 style="font-family: 'Inter', sans-serif; font-size: 0.75rem; letter-spacing: 3px; color: #E05A10; font-weight: 800; margin-bottom: 1.5rem; text-transform: uppercase;">The Heritage Academic System</h6>
             <h2 style="font-family: 'Playfair Display', serif; color: #002C54; margin-bottom: 2rem; font-size: 3.5rem; letter-spacing: -1px;">Designing a Digital Sanctuary</h2>
@@ -631,7 +645,7 @@
         </div>
     </div>
 </section>
-<section class="reveal active" style="background: #ffffff; padding: 10rem 0; border-top: 1px solid #f0f0f0;">
+  <section class="reveal active">
     <div class="grid">
         <div class="section-label">05 / Accessibility</div>
         <div class="content">
@@ -718,7 +732,7 @@
     </div>
 </section>
 
-<section class="reveal active" style="background: #ffffff; padding: 10rem 0; border-top: 1px solid #f0f0f0;">
+  <section class="reveal active">
     <div class="grid">
         <div class="section-label">06 / The Blueprint</div>
         <div class="content">
@@ -818,7 +832,7 @@
     </div>
 </section>
 
-<section class="reveal active" style="background: #fafafa; padding: 10rem 0; border-top: 1px solid #eee;">
+  <section class="reveal active">
     <div class="grid">
         <div class="section-label">07 / Iteration</div>
         <div class="content">
@@ -891,9 +905,9 @@
         </div>
     </div>
 </section>
-<section class="reveal active" style="background: #FFFFFF; padding: 10rem 0; border-top: 1px solid #E5E7EB;">
+<section class="reveal active" style="background: #ffffff; padding: 8rem 5%; border-top: 1px solid #E5E7EB;">
     <div class="grid">
-        <div class="section-label" style="color: #6B7280; font-family: 'Inter', sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem;">06 / Visual Gallery</div>
+        <div class="section-label">06 / Visual Gallery</div>
         <div class="content">
             <h6 style="font-family: 'Inter', sans-serif; font-size: 0.75rem; letter-spacing: 3px; color: #E05A10; font-weight: 800; margin-bottom: 1.5rem; text-transform: uppercase;">The High-Fidelity Ecosystem</h6>
             <h2 style="font-family: 'Playfair Display', serif; color: #002C54; margin-bottom: 2rem; font-size: 3.5rem; letter-spacing: -1px;">The Sanctuary in Practice</h2>
@@ -908,28 +922,31 @@
                 </div>
                 
                 <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;">
-                    <div class="mockup-item">
-                        <div style="background: #FDFCF8; border-radius: 12px; padding: 1rem; border: 1px solid #E5E7EB; margin-bottom: 1.5rem; transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                    <div class="mockup-item" style="cursor: zoom-in;" onclick="openNutrivaLightbox('imhere/Studentdashboard.png')">
+                        <div style="background: #FDFCF8; border-radius: 12px; padding: 1rem; border: 1px solid #E5E7EB; margin-bottom: 1.5rem; transition: transform 0.4s ease;">
                             <img src="imhere/Studentdashboard.png" alt="Student Dashboard" style="width: 100%; border-radius: 6px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
                         </div>
                         <h5 style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #111827; margin-bottom: 0.5rem; font-weight: 700;">Personal Dashboard</h5>
                         <p style="font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #6B7280; line-height: 1.5;">High-level overview of weekly attendance metrics and upcoming class triggers.</p>
                     </div>
-                    <div class="mockup-item">
+
+                    <div class="mockup-item" style="cursor: zoom-in;" onclick="openNutrivaLightbox('imhere/listclassstudent.png')">
                         <div style="background: #FDFCF8; border-radius: 12px; padding: 1rem; border: 1px solid #E5E7EB; margin-bottom: 1.5rem;">
                             <img src="imhere/listclassstudent.png" alt="Check-in Success" style="width: 100%; border-radius: 6px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
                         </div>
                         <h5 style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #111827; margin-bottom: 0.5rem; font-weight: 700;">The Success State</h5>
                         <p style="font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #6B7280; line-height: 1.5;">Haptic-linked visual confirmation using 'Hope Green' for psychological closure.</p>
                     </div>
-                    <div class="mockup-item">
+
+                    <div class="mockup-item" style="cursor: zoom-in;" onclick="openNutrivaLightbox('imhere/absencereason.png')">
                         <div style="background: #FDFCF8; border-radius: 12px; padding: 1rem; border: 1px solid #E5E7EB; margin-bottom: 1.5rem;">
                             <img src="imhere/absencereason.png" alt="Absence Request" style="width: 100%; border-radius: 6px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
                         </div>
                         <h5 style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #111827; margin-bottom: 0.5rem; font-weight: 700;">Absence Management</h5>
                         <p style="font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #6B7280; line-height: 1.5;">Streamlined documentation upload to mitigate anxiety around missed sessions.</p>
                     </div>
-                    <div class="mockup-item">
+
+                    <div class="mockup-item" style="cursor: zoom-in;" onclick="openNutrivaLightbox('imhere/trendanalysis.png')">
                         <div style="background: #FDFCF8; border-radius: 12px; padding: 1rem; border: 1px solid #E5E7EB; margin-bottom: 1.5rem;">
                             <img src="imhere/trendanalysis.png" alt="Class History" style="width: 100%; border-radius: 6px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
                         </div>
@@ -946,51 +963,94 @@
                 </div>
                 
                 <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;">
-                    <div class="mockup-item">
+                    <div class="mockup-item" style="cursor: zoom-in;" onclick="openNutrivaLightbox('imhere/professordashboard.png')">
                         <div style="background: #FDFCF8; border-radius: 12px; padding: 1rem; border: 1px solid #E5E7EB; margin-bottom: 1.5rem;">
                             <img src="imhere/professordashboard.png" alt="Professor Roster" style="width: 100%; border-radius: 6px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
                         </div>
                         <h5 style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #111827; margin-bottom: 0.5rem; font-weight: 700;">Intelligent Roster</h5>
                         <p style="font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #6B7280; line-height: 1.5;">Priority-sorted list surfacing 'At-Risk' students through semantic color grouping.</p>
                     </div>
-                    <div class="mockup-item">
+
+                    <div class="mockup-item" style="cursor: zoom-in;" onclick="openNutrivaLightbox('imhere/mathematicsprofessorpg.png')">
                         <div style="background: #FDFCF8; border-radius: 12px; padding: 1rem; border: 1px solid #E5E7EB; margin-bottom: 1.5rem;">
                             <img src="imhere/mathematicsprofessorpg.png" alt="Attendance Edit" style="width: 100%; border-radius: 6px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
                         </div>
                         <h5 style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #111827; margin-bottom: 0.5rem; font-weight: 700;">Rapid Correction</h5>
                         <p style="font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #6B7280; line-height: 1.5;">Gesture-based status overrides to minimize time spent on administrative tasks.</p>
                     </div>
-                    <div class="mockup-item">
+
+                    <div class="mockup-item" style="cursor: zoom-in;" onclick="openNutrivaLightbox('imhere/attendanceviewerprof.png')">
                         <div style="background: #FDFCF8; border-radius: 12px; padding: 1rem; border: 1px solid #E5E7EB; margin-bottom: 1.5rem;">
                             <img src="imhere/attendanceviewerprof.png" alt="Intervention Tool" style="width: 100%; border-radius: 6px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
                         </div>
                         <h5 style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #111827; margin-bottom: 0.5rem; font-weight: 700;">Direct Intervention</h5>
                         <p style="font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #6B7280; line-height: 1.5;">One-click "Care Check-ins" to bridge the gap between professors and students.</p>
                     </div>
-                    <div class="mockup-item">
-                        <div style="background: #FDFCF8; border-radius: 12px; padding: 1rem; border: 1px solid #E5E7EB; margin-bottom: 1.5rem;">
-                            <img src="faculty_screen_4.jpg" alt="Analytics Overview" style="width: 100%; border-radius: 6px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
-                        </div>
-                        <h5 style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #111827; margin-bottom: 0.5rem; font-weight: 700;">Global Analytics</h5>
-                        <p style="font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #6B7280; line-height: 1.5;">Aggregated class health data to identify institutional trends over the semester.</p>
-                    </div>
                 </div>
             </div>
-
         </div>
     </div>
 </section>
 
+<div id="nutrivaLightbox" class="nutriva-lightbox" onclick="closeNutrivaLightbox()" style="display: none; position: fixed; z-index: 99999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0, 40, 84, 0.95); backdrop-filter: blur(12px); justify-content: center; align-items: center; cursor: zoom-out; opacity: 0; transition: opacity 0.4s ease;">
+    <span style="position: absolute; top: 30px; right: 40px; color: #fff; font-size: 40px; cursor: pointer; font-family: sans-serif;">&times;</span>
+    <img id="lightboxImg" src="" style="max-width: 90%; max-height: 85vh; border-radius: 12px; box-shadow: 0 50px 100px rgba(0,0,0,0.5); transform: scale(0.9); transition: transform 0.4s ease;">
+</div>
 <style>
     /* Subtle hover effect for the mockups to show attention to detail */
     .mockup-item:hover div {
         transform: translateY(-10px);
         border-color: #002C54;
         box-shadow: 0 30px 60px rgba(0,44,84,0.1) !important;
+        /* LIGHTBOX STYLES */
+    .nutriva-lightbox {
+        display: none; /* Hidden by default */
+        position: fixed;
+        z-index: 99999; /* Higher than the cursor */
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(18, 11, 11, 0.95); /* Matches your brand-primary depth */
+        backdrop-filter: blur(10px);
+        cursor: zoom-out;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+
+    .nutriva-lightbox.active {
+        display: flex;
+        opacity: 1;
+    }
+
+    .nutriva-lightbox img {
+        max-width: 90%;
+        max-height: 85vh;
+        border-radius: 20px;
+        box-shadow: 0 50px 100px rgba(0,0,0,0.5);
+        transform: scale(0.9);
+        transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .nutriva-lightbox.active img {
+        transform: scale(1);
+    }
+
+    .close-lightbox {
+        position: absolute;
+        top: 30px;
+        right: 40px;
+        color: #fff;
+        font-size: 40px;
+        font-weight: 200;
+        cursor: pointer;
+    }
     }
 </style>
 5
-<section class="reveal active" style="background: #ffffff; padding: 10rem 0; border-top: 1px solid #f0f0f0;">
+  <section class="reveal active">
     <div class="grid">
         <div class="section-label">08 / Solution</div>
         <div class="content">
@@ -1083,6 +1143,35 @@
 
 
     <script>
+
+    function openNutrivaLightbox(src) {
+        const lightbox = document.getElementById('nutrivaLightbox');
+        const img = document.getElementById('lightboxImg');
+        img.src = src;
+        lightbox.style.display = 'flex';
+        // Force a tiny timeout so the transition opacity works
+        setTimeout(() => {
+            lightbox.style.opacity = '1';
+            img.style.transform = 'scale(1)';
+        }, 10);
+        
+        // Hide custom cursor elements
+        if(document.getElementById('cursor-dot')) document.getElementById('cursor-dot').style.display = "none";
+        if(document.getElementById('cursor-trailer')) document.getElementById('cursor-trailer').style.display = "none";
+    }
+
+    function closeNutrivaLightbox() {
+        const lightbox = document.getElementById('nutrivaLightbox');
+        const img = document.getElementById('lightboxImg');
+        lightbox.style.opacity = '0';
+        img.style.transform = 'scale(0.9)';
+        setTimeout(() => {
+            lightbox.style.display = 'none';
+            // Bring back custom cursor
+            if(document.getElementById('cursor-dot')) document.getElementById('cursor-dot').style.display = "block";
+            if(document.getElementById('cursor-trailer')) document.getElementById('cursor-trailer').style.display = "block";
+        }, 400);
+    }
         // Custom Cursor Logic
 
         // Simple Scroll Observer to trigger the 'reveal' animation
@@ -1102,22 +1191,37 @@ document.querySelectorAll('.reveal').forEach(section => {
     observer.observe(section);
 });
         const trailer = document.getElementById("cursor-trailer");
-        const dot = document.getElementById("cursor-dot");
+    const dot = document.getElementById("cursor-dot");
 
-        window.onmousemove = e => {
-            const x = e.clientX, y = e.clientY;
-            dot.style.left = `${x}px`;
-            dot.style.top = `${y}px`;
-            
-            const keyframes = {
-                transform: `translate(${x - 17.5}px, ${y - 17.5}px)`
-            }
-            
-            trailer.animate(keyframes, { 
-                duration: 800, 
-                fill: "forwards" 
-            });
-        }
+    window.onmousemove = e => {
+        const x = e.clientX, y = e.clientY;
+        
+        // Move the dot immediately
+        dot.style.left = `${x}px`;
+        dot.style.top = `${y}px`;
+        
+        // Move the trailer with a slight lag for that premium feel
+        const keyframes = {
+            transform: `translate(${x - 17.5}px, ${y - 17.5}px)`
+        };
+        
+        trailer.animate(keyframes, { 
+            duration: 500, // Reduced from 800 for better responsiveness
+            fill: "forwards" 
+        });
+    }
+
+    // Optional: Add hover effect to make the cursor "react" to links
+    document.querySelectorAll('a, button, .card').forEach(link => {
+        link.addEventListener('mouseenter', () => {
+            trailer.style.transform = 'scale(1.5)';
+            trailer.style.background = 'rgba(0, 40, 85, 0.1)'; // Uses your brand-primary
+        });
+        link.addEventListener('mouseleave', () => {
+            trailer.style.transform = 'scale(1)';
+            trailer.style.background = 'transparent';
+        });
+    });
     </script>
 </body>
 </html>

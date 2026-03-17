@@ -37,12 +37,14 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
         body { 
-            background-color: var(--brand-bg); 
-            color: var(--text-body); 
-            font-family: var(--sans); 
-            line-height: 1.7;
-            overflow-x: hidden;
-        }
+    background-color: var(--brand-bg);
+    color: var(--text-body);
+    font-family: var(--sans);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -moz-transform: scale(0.8); /* Firefox fallback */
+    -moz-transform-origin: 0 0; */
+}
 
         .clickable-mockup:hover {
             transform: translateY(-10px) scale(1.02);
@@ -133,7 +135,7 @@
     </nav>
 
     <header class="hero reveal">
-        <p style="font-size: 0.7rem; letter-spacing: 5px; color: var(--text-sub); margin-bottom: 2.5rem; font-weight: 800;">UX RESEARCH & PRODUCT DESIGN</p>
+        <p style="font-size: 0.7rem; letter-spacing: 5px; color: var(--text-sub); margin-bottom: 2.5rem; font-weight: 800;">CONCEPT DESIGN</p>
         <h1>Novella <i>Reader</i></h1>
         <p style="font-size: 1.4rem; max-width: 700px; margin-top: 3rem; color: var(--text-body); font-weight: 400;">
             Solving the "Discovery Paradox" in digital reading through mood-based Information Architecture and sensory-focused UI.
@@ -146,9 +148,9 @@
             <div class="content">
                 <h2>Curation Over Commerce: A Design Intervention</h2>
                 
-                <p>Digital reading platforms have largely stagnated, evolving into high-friction marketplaces that prioritize "The Transaction" over "The Reader." Current industry leaders are plagued by <b>legacy UI clutter</b>—interfaces that are over-saturated with "Top 10" banners and aggressive marketing carousels that reflect commercial bias rather than personal connection. Novella was conceived as a design intervention: a minimalist, premium sanctuary that strips away visual noise to restore the intimacy of the reading experience.</p>
+                <p>Digital reading platforms have largely stagnated, evolving into high-friction marketplaces that prioritize "The Transaction" over "The Reader." Current industry leaders are plagued by <b>legacy UI clutter</b> interfaces that are over-saturated with "Top 10" banners and aggressive marketing carousels that reflect commercial bias rather than personal connection. Novella was conceived as a design intervention: a minimalist, premium sanctuary that strips away visual noise to restore the intimacy of the reading experience.</p>
                 
-                <p><strong>The Strategic Goal:</strong> To replace the outdated "Storefront" model with a <b>"Sanctuary" model</b>—leveraging a sleek, modern aesthetic that prioritizes the reader's emotional state through <b>Affective Discovery</b> and conceptual matching.</p>
+                <p><strong>The Strategic Goal:</strong> To replace the outdated "Storefront" model with a <b>"Sanctuary" model</b> leveraging a sleek, modern aesthetic that prioritizes the reader's emotional state through <b>Affective Discovery</b> and conceptual matching.</p>
 
                 <div class="analysis-block" style="margin-top: 3.5rem;">
                     <div class="card">
@@ -157,7 +159,7 @@
                     </div>
                     <div class="card">
                         <h4>Atmospheric Personalization</h4>
-                        <p>Rather than pushing "New Releases," I proposed a discovery path based on <b>Atmospheric Markers</b>. Users navigate by the "vibe" they wish to inhabit—such as <i>Rainy Afternoon in London</i> or <i>High-Stakes Melancholy</i>—making the search process as evocative as the books themselves.</p>
+                        <p>Rather than pushing "New Releases," I proposed a discovery path based on <b>Atmospheric Markers</b>. Users navigate by the "vibe" they wish to inhabit such as <i>Rainy Afternoon in London</i> or <i>High-Stakes Melancholy</i>making the search process as evocative as the books themselves.</p>
                     </div>
                 </div>
 
@@ -172,7 +174,7 @@
                         <div class="concept-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 3rem;">
                             <div>
                                 <h5 style="margin-bottom: 10px; font-weight: 700;">Voice-First Matching</h5>
-                                <p style="font-size: 0.95rem; color: var(--grey);">A proposed algorithm that prioritizes the "Voice" of the writing—matching users who prefer minimalist prose with Hemingway-esque styles, rather than just matching by genre.</p>
+                                <p style="font-size: 0.95rem; color: var(--grey);">A proposed algorithm that prioritizes the "Voice" of the writing matching users who prefer minimalist prose with Hemingway-esque styles, rather than just matching by genre.</p>
                             </div>
                             <div>
                                 <h5 style="margin-bottom: 10px; font-weight: 700;">The 5-Minute "Trial Run"</h5>
@@ -703,64 +705,292 @@
     </style>
 <section class="reveal">
     <div class="grid">
-        <div class="section-label">05 / High-Fidelity UI</div>
+        <div class="section-label" style="color: var(--text-sub);">07 / The Interface</div>
         <div class="content">
-            <h2>The Mockup</h2>
-            <p>I focused on high-touch targets and "One-Handed Navigation", placing critical controls within the natural reach of the user's thumb.</p>
-            
-            <div class="slider-container" style="position: relative; margin: 3rem 0; width: 100%;">
-                
-                <button onclick="moveSlider(-1)" style="position: absolute; left: -20px; top: 50%; transform: translateY(-50%); z-index: 100; background: white; border: 2px solid #002C54; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.15);">←</button>
-                
-                <button onclick="moveSlider(1)" style="position: absolute; right: -20px; top: 50%; transform: translateY(-50%); z-index: 100; background: white; border: 2px solid #002C54; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.15);">→</button>
+            <h2 style="margin-bottom: 1.5rem;">Systemic High-Fidelity</h2>
+            <p style="margin-bottom: 3rem;">I focused on high-touch targets and "One-Handed Navigation," placing critical controls within the natural reach of the user's thumb.</p>
 
-                <div id="scrollWrapper" style="display: flex; gap: 20px; overflow-x: auto; scroll-behavior: smooth; scroll-snap-type: x mandatory; scrollbar-width: none; -ms-overflow-style: none; padding: 10px 0;">
+            <div class="nutriva-carousel-wrapper" style="position: relative; width: 100%;">
+                
+                <button class="nutriva-nav-btn prev" onclick="scrollNutriva(-1)" aria-label="Previous screens">&#8592;</button>
+                <button class="nutriva-nav-btn next" onclick="scrollNutriva(1)" aria-label="Next screens">&#8594;</button>
+
+                <div class="nutriva-track" id="nutrivaTrack">
                     
-                    <div class="mockup-slide" onclick="openZoom(this)" style="flex: 0 0 calc(33.333% - 14px); scroll-snap-align: start; cursor: zoom-in;">
-                        <img src="Novella/mainmenu.png" alt="Mockup 1" style="width: 100%; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.1);">
+                    <div class="nutriva-slide" onclick="openNutrivaLightbox(this)">
+                        <div class="mobile-frame">
+                            <img src="Novella/mainmenu.png" alt="The Main Menu">
+                        </div>
+                        <div class="slide-meta">
+                            <span class="step-num">01</span>
+                            <h5>Main Menu</h5>
+                        </div>
                     </div>
-                    <div class="mockup-slide" onclick="openZoom(this)" style="flex: 0 0 calc(33.333% - 14px); scroll-snap-align: start; cursor: zoom-in;">
-                        <img src="Novella/onboarding.png" alt="Mockup 2" style="width: 100%; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.1);">
+
+                    <div class="nutriva-slide" onclick="openNutrivaLightbox(this)">
+                        <div class="mobile-frame">
+                            <img src="Novella/library.png" alt="The Library">
+                        </div>
+                        <div class="slide-meta">
+                            <span class="step-num">02</span>
+                            <h5>Library</h5>
+                        </div>
                     </div>
-                    <div class="mockup-slide" onclick="openZoom(this)" style="flex: 0 0 calc(33.333% - 14px); scroll-snap-align: start; cursor: zoom-in;">
-                        <img src="Novella/library.png" alt="Mockup 3" style="width: 100%; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.1);">
+
+                    <div class="nutriva-slide" onclick="openNutrivaLightbox(this)">
+                        <div class="mobile-frame">
+                            <img src="Novella/booksummary.png" alt="Book Summary">
+                        </div>
+                        <div class="slide-meta">
+                            <span class="step-num">03</span>
+                            <h5>Summary</h5>
+                        </div>
                     </div>
-                    <div class="mockup-slide" onclick="openZoom(this)" style="flex: 0 0 calc(33.333% - 14px); scroll-snap-align: start; cursor: zoom-in;">
-                        <img src="Novella/booksummary.png" alt="Mockup 4" style="width: 100%; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.1);">
+
+                    <div class="nutriva-slide" onclick="openNutrivaLightbox(this)">
+                        <div class="mobile-frame">
+                            <img src="Novella/booksummary2.png" alt="Summary Details">
+                        </div>
+                        <div class="slide-meta">
+                            <span class="step-num">04</span>
+                            <h5>Details</h5>
+                        </div>
                     </div>
-                    <div class="mockup-slide" onclick="openZoom(this)" style="flex: 0 0 calc(33.333% - 14px); scroll-snap-align: start; cursor: zoom-in;">
-                        <img src="Novella/booksummary2.png" alt="Mockup 5" style="width: 100%; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.1);">
+
+                    <div class="nutriva-slide" onclick="openNutrivaLightbox(this)">
+                        <div class="mobile-frame">
+                            <img src="Novella/author.png" alt="Author Page">
+                        </div>
+                        <div class="slide-meta">
+                            <span class="step-num">05</span>
+                            <h5>Author</h5>
+                        </div>
                     </div>
-                    <div class="mockup-slide" onclick="openZoom(this)" style="flex: 0 0 calc(33.333% - 14px); scroll-snap-align: start; cursor: zoom-in;">
-                        <img src="Novella/author.png" alt="Mockup 6" style="width: 100%; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.1);">
+
+                    <div class="nutriva-slide" onclick="openNutrivaLightbox(this)">
+                        <div class="mobile-frame">
+                            <img src="Novella/search.png" alt="Search">
+                        </div>
+                        <div class="slide-meta">
+                            <span class="step-num">06</span>
+                            <h5>Search</h5>
+                        </div>
                     </div>
-                    <div class="mockup-slide" onclick="openZoom(this)" style="flex: 0 0 calc(33.333% - 14px); scroll-snap-align: start; cursor: zoom-in;">
-                        <img src="Novella/search.png" alt="Mockup 7" style="width: 100%; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.1);">
+
+                    <div class="nutriva-slide" onclick="openNutrivaLightbox(this)">
+                        <div class="mobile-frame">
+                            <img src="Novella/bookmatch.png" alt="Book Match">
+                        </div>
+                        <div class="slide-meta">
+                            <span class="step-num">07</span>
+                            <h5>Match</h5>
+                        </div>
                     </div>
-                    <div class="mockup-slide" onclick="openZoom(this)" style="flex: 0 0 calc(33.333% - 14px); scroll-snap-align: start; cursor: zoom-in;">
-                        <img src="Novella/bookmatch.png" alt="Mockup 8" style="width: 100%; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.1);">
+
+                    <div class="nutriva-slide" onclick="openNutrivaLightbox(this)">
+                        <div class="mobile-frame">
+                            <img src="Novella/onboarding.png" alt="Onboarding">
+                        </div>
+                        <div class="slide-meta">
+                            <span class="step-num">08</span>
+                            <h5>Onboarding</h5>
+                        </div>
                     </div>
 
                 </div>
             </div>
-            
-            <p style="color: var(--text-sub); font-size: 0.9rem;"><strong>Key Interaction:</strong> The "Vibe Carousel" allows users to swipe through moods (e.g., Melancholic, Ethereal, Suspenseful) which updates the recommendations in real-time using a custom filtering algorithm.</p>
         </div>
     </div>
 </section>
 
-<div id="fullScreenLightbox" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); z-index: 10000; justify-content: center; align-items: center; cursor: zoom-out;" onclick="this.style.display='none'">
-    <img id="enlargedImg" src="" style="max-width: 90%; max-height: 90%; border-radius: 8px; box-shadow: 0 0 50px rgba(0,0,0,1);">
+<div id="nutrivaLightbox" class="nutriva-lightbox" onclick="closeNutrivaLightbox()">
+    <span class="close-lightbox">&times;</span>
+    <img id="nutrivaLightboxImg" src="" alt="Expanded View">
 </div>
 
 <style>
-    /* Hide scrollbars for Webkit browsers */
-    #scrollWrapper::-webkit-scrollbar { display: none; }
+/* NUTRIVA-STYLE CAROUSEL FOR NOVELLA */
+    .nutriva-carousel-wrapper {
+        margin: 6rem 0 10rem 0;
+        padding: 0 5%;
+        position: relative;
+        /* Ensures the carousel stays centered even with smaller images */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nutriva-track {
+        display: flex;
+        gap: 4rem; /* Increased gap to create more "white space" around images */
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        padding: 2rem 2rem 5rem 2rem;
+        width: 100%;
+    }
     
-    /* Hover effect for polish */
-    .mockup-slide img { transition: transform 0.3s ease; }
-    .mockup-slide:hover img { transform: translateY(-5px); }
+    .nutriva-track::-webkit-scrollbar {
+        display: none;
+    }
+
+    .nutriva-slide {
+        /* This ensures we see 3 items, but max-width keeps them small */
+        flex: 0 0 calc(33.333% - 3rem); 
+        max-width: 280px; /* THE FIX: Specifically reduces the image size */
+        scroll-snap-align: center;
+        cursor: zoom-in;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .mobile-frame {
+        background: #fff;
+        border-radius: 45px; /* High-end rounded corners */
+        padding: 12px;
+        box-shadow: 0 15px 45px rgba(0,0,0,0.05);
+        border: 1px solid rgba(76, 39, 39, 0.04);
+        transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+        background: #ffffff;
+    }
+
+    .mobile-frame img {
+        width: 100%;
+        height: auto;
+        border-radius: 35px;
+        display: block;
+        /* Prevents very long screenshots from becoming "huge" vertically */
+        max-height: 550px; 
+        object-fit: cover;
+        object-position: top;
+    }
+
+    /* Premium Hover Effect from Nutriva */
+    .nutriva-slide:hover .mobile-frame {
+        transform: translateY(-20px);
+        box-shadow: 0 40px 80px rgba(76, 39, 39, 0.12);
+    }
+
+    /* Meta Text (Nutriva Style) */
+    .slide-meta {
+        padding: 0 1rem;
+        text-align: left;
+    }
+
+    .step-num {
+        font-family: var(--sans);
+        font-size: 0.7rem;
+        font-weight: 800;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--brand-primary);
+        display: block;
+        margin-bottom: 0.8rem;
+    }
+
+    .slide-meta h5 {
+        font-family: var(--serif);
+        font-size: 1.6rem;
+        color: var(--text-main);
+        font-weight: 500;
+        line-height: 1.2;
+    }
+
+    /* Navigation Arrows */
+    .nutriva-nav-btn {
+        position: absolute;
+        top: 40%;
+        width: 50px;
+        height: 50px;
+        background: #fff;
+        border: 1px solid rgba(0,0,0,0.05);
+        border-radius: 50%;
+        cursor: pointer;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+    }
+
+    .nutriva-nav-btn:hover {
+        background: var(--brand-primary);
+        color: white;
+    }
+
+    .nutriva-nav-btn.prev { left: 2%; }
+    .nutriva-nav-btn.next { right: 2%; }
+
+    /* LIGHTBOX STYLES */
+    .nutriva-lightbox {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(232, 230, 227, 0.95); /* var(--brand-bg) with opacity */
+        backdrop-filter: blur(8px);
+        z-index: 99999;
+        justify-content: center;
+        align-items: center;
+        cursor: zoom-out;
+    }
+
+    .nutriva-lightbox img {
+        max-height: 85vh;
+        max-width: 90%;
+        border-radius: 24px;
+        box-shadow: 0 30px 80px rgba(76, 39, 39, 0.2);
+        animation: subtlePop 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .nutriva-lightbox .close-lightbox {
+        position: absolute;
+        top: 30px; right: 40px;
+        font-size: 3rem;
+        color: var(--brand-primary);
+        cursor: pointer;
+    }
+
+    @keyframes subtlePop {
+        from { opacity: 0; transform: scale(0.95) translateY(20px); }
+        to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 1100px) {
+        .nutriva-slide { 
+            flex: 0 0 70%;
+            max-width: 100%; 
+        }
+        .nutriva-nav-btn { display: none; }
+    }
 </style>
+
+<script>
+    function scrollNutriva(direction) {
+        const track = document.getElementById('nutrivaTrack');
+        const slide = track.querySelector('.nutriva-slide');
+        // Calculate width of one slide + its gap (32px = 2rem)
+        const scrollAmount = slide.offsetWidth + 32; 
+        track.scrollBy({ left: scrollAmount * direction, behavior: 'smooth' });
+    }
+
+    function openNutrivaLightbox(element) {
+        const lightbox = document.getElementById('nutrivaLightbox');
+        const img = document.getElementById('nutrivaLightboxImg');
+        img.src = element.querySelector('img').src;
+        lightbox.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeNutrivaLightbox() {
+        document.getElementById('nutrivaLightbox').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+</script>
 
 <section class="reveal">
         <div class="grid">
@@ -877,7 +1107,7 @@
                     <div>
                         <h4 style="font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px; color: var(--brand-primary); margin-bottom: 1.5rem;">The Ethics of the "Vibe"</h4>
                         <p style="font-size: 0.95rem; line-height: 1.9; color: var(--text-body);">
-                            Unlike modern algorithms that trap users in "Filter Bubbles" (showing them only what they have already liked), the theoretical engine for Novella focuses on <strong>Mood-State Discovery</strong>. This is a more ethical approach to personalization—it respects the user’s current emotional capacity rather than just their past purchasing data. Designing for "vibe" rather than "genre" encourages a diverse literary diet.
+                            Unlike modern algorithms that trap users in "Filter Bubbles" (showing them only what they have already liked), the theoretical engine for Novella focuses on <strong>Mood-State Discovery</strong>. This is a more ethical approach to personalization it respects the user’s current emotional capacity rather than just their past purchasing data. Designing for "vibe" rather than "genre" encourages a diverse literary diet.
                         </p>
                     </div>
                 </div>
@@ -904,18 +1134,6 @@
                         </div>
                     </div>
                 </div>
-
-                <div style="margin-top: 10rem; border-left: 2px solid var(--brand-primary); padding-left: 4rem;">
-                    <h4 style="font-family: var(--serif); font-size: 2.2rem; color: #000; font-style: italic; margin-bottom: 2rem;">"Design is not just what it looks like and feels like. Design is how it makes you feel about yourself."</h4>
-                    <p style="max-width: 700px; font-size: 1.05rem; line-height: 2; color: var(--text-body);">
-                        Novella remains a conceptual testament to the power of <strong>Atmospheric Design</strong>. It challenges the industry standard that utility must be cold and that beauty is a distraction. In this project, beauty <em>is</em> the utility. It is the bridge that carries the user from a world of notifications into a world of stories.
-                    </p>
-                    <div style="margin-top: 4rem;">
-                        <a href="index.html" class="manifesto-cta">Project Archive</a>
-                        <a href="about.html" class="manifesto-cta secondary">About the Process</a>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>
@@ -998,11 +1216,6 @@
             .ab-container { grid-template-columns: 1fr !important; }
         }
     </style>
-
-    <footer style="padding: 10rem 5%; text-align: center; border-top: 1px solid rgba(0,0,0,0.05);">
-        <p style="font-size: 0.65rem; letter-spacing: 4px; font-weight: 800; color: var(--text-sub);">NEXT PROJECT</p>
-        <a href="#" style="font-family: var(--serif); font-size: clamp(2rem, 5vw, 4rem); color: var(--text-main); text-decoration: none; margin-top: 2rem; display: block;">NEXT PROJECT →</a>
-    </footer>
 
     <script>
 

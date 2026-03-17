@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holland Walking Tour | Jocelyn Martinez - UI Designer</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            /* Portfolio Identity */
+            --bg: #FDFBF7;
+            --ink: #2A2A2A; 
+            --primary: #A88980; 
+            --primary-dark: #8A6E66;
+            --grey: #888888;
+            
+            /* Project Specific Design System */
+            --holland-teal: #008080;
+            --holland-sky: #B2EBF2;
+            --holland-stone: #D7D6D6;
+            --text-main: #2C333E;
+            --text-muted: #64748B;
+            --surface: #FFFFFF;
+            --surface-alt: #F8FAFC;
+
+            --serif: 'Cormorant Garamond', serif;
+            --sans: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        /* High-end Film Grain */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.025;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        html { scroll-behavior: smooth; }
+        
+        body { 
+            background-color: var(--bg);
+            color: var(--ink); 
+            font-family: var(--sans); 
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            font-size: 16px;
+        }
+
+        /* Custom Cursor */
+        #cursor-dot, #cursor-trailer {
+            position: fixed;
+            top: 0; left: 0;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+        }
+        #cursor-dot { width: 6px; height: 6px; background: var(--ink); transition: width 0.3s; }
+        #cursor-trailer { width: 30px; height: 30px; border: 1px solid var(--primary); transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1); }
+
+        /* Reveal Animation */
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.25, 1, 0.5, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        nav {
+            position: fixed;
+            width: 100%;
+            padding: 2.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+        .logo { font-family: var(--serif); font-size: 1.6rem; font-style: italic; color: var(--ink); text-decoration: none; }
+        .back-link { text-transform: uppercase; font-size: 0.65rem; letter-spacing: 3px; color: var(--ink); text-decoration: none; font-weight: 600; opacity: 0.6; transition: 0.4s; }
+
+        /* Hero */
+        .hero { padding: 15rem 5% 5rem; }
+        h1 { font-family: var(--serif); font-size: clamp(3.5rem, 10vw, 8rem); font-weight: 300; line-height: 0.9; margin-bottom: 2rem; }
+        h1 i { font-style: italic; color: var(--holland-teal); }
+
+        .hero-details { display: flex; gap: 4rem; margin-top: 3rem; }
+        .detail-item h5 { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 2px; color: var(--grey); margin-bottom: 0.5rem; }
+        .detail-item p { font-size: 0.9rem; font-weight: 500; }
+
+        /* Content Sections */
+        section { padding: 10rem 5%; border-top: 1px solid rgba(42, 42, 42, 0.05); }
+        .grid { display: grid; grid-template-columns: 1fr 2.5fr; gap: 5rem; }
+        
+        .section-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 3px; font-weight: 600; color: var(--grey); display: flex; align-items: center; gap: 1rem; position: sticky; top: 10rem; height: fit-content; }
+        .section-label::after { content: ""; display: block; width: 40px; height: 1px; background: var(--primary); }
+
+        .content h2 { font-family: var(--serif); font-size: clamp(2.5rem, 4vw, 3.5rem); font-weight: 300; line-height: 1.1; margin-bottom: 2rem; }
+        .content p { font-size: 1.15rem; line-height: 1.8; color: var(--text-main); margin-bottom: 2rem; max-width: 900px; }
+
+        /* Design System UI */
+        .ui-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 3rem; }
+        .ui-box { background: var(--surface); border: 1px solid rgba(0,0,0,0.05); border-radius: 12px; padding: 2.5rem; display: flex; flex-direction: column; }
+        
+        /* Swatches */
+        .swatch-color { height: 100px; border-radius: 8px; margin-bottom: 1.5rem; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05); }
+        .ui-box h4 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
+        .ui-box span { font-size: 0.8rem; color: var(--text-muted); font-family: monospace; }
+
+        /* Typography Spec */
+        .type-spec { margin-top: 4rem; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 4rem; }
+        .type-row { display: grid; grid-template-columns: 1fr 3fr; gap: 2rem; align-items: baseline; margin-bottom: 2rem; border-bottom: 1px dashed rgba(0,0,0,0.1); padding-bottom: 1rem; }
+        .type-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); }
+        .type-h1 { font-family: var(--serif); font-size: 3rem; font-weight: 400; }
+        .type-h2 { font-family: var(--sans); font-size: 1.5rem; font-weight: 600; }
+        .type-body { font-family: var(--sans); font-size: 1rem; line-height: 1.6; }
+
+        /* Component Showcase */
+        .component-showcase { background: var(--surface-alt); padding: 4rem; border-radius: 16px; margin-top: 3rem; border: 1px solid rgba(0,0,0,0.03); }
+        .component-item { margin-bottom: 3rem; }
+        .component-item h5 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 1.5rem; }
+        
+        /* Fake UI Elements for presentation */
+        .btn-primary-ui { background: var(--holland-teal); color: white; padding: 1rem 2rem; border-radius: 50px; font-weight: 600; font-size: 1rem; display: inline-flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 14px rgba(0, 128, 128, 0.2); }
+        .btn-secondary-ui { background: transparent; color: var(--holland-teal); padding: 1rem 2rem; border-radius: 50px; font-weight: 600; border: 2px solid var(--holland-teal); display: inline-flex; }
+        .ui-card-mock { background: white; border-radius: 16px; padding: 1.5rem; box-shadow: 0 10px 30px rgba(0,0,0,0.05); max-width: 300px; }
+        .ui-card-img { width: 100%; height: 140px; background: var(--holland-stone); border-radius: 8px; margin-bottom: 1rem; }
+        .ui-card-title { font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem; }
+        .ui-card-sub { font-size: 0.85rem; color: var(--text-muted); }
+
+        /* Mockup Slider Styles */
+        .slider-wrapper { position: relative; width: 100%; margin: 3rem 0; padding: 0 50px; box-sizing: border-box; }
+        .slider-container { width: 100%; overflow: hidden; border-radius: 16px; }
+        .mockup-slider { display: flex; overflow-x: auto; scroll-behavior: smooth; gap: 2rem; padding: 1rem 0 2rem; scrollbar-width: none; }
+        .mockup-slider::-webkit-scrollbar { display: none; }
+        .slider-item { flex: 0 0 calc(33.33% - 1.5rem); min-width: 280px; cursor: pointer; transition: transform 0.4s ease; }
+        .slider-item img { width: 100%; height: auto; max-height: 550px; object-fit: contain; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); border: 1px solid rgba(0,0,0,0.04); }
+        .slider-item:hover { transform: translateY(-10px); }
+
+        /* Navigation Arrows */
+        .slider-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; background: white; border: 1px solid rgba(0,0,0,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 100; box-shadow: 0 4px 12px rgba(0,0,0,0.1); font-size: 1.2rem; transition: all 0.3s ease; }
+        .slider-nav:hover { background: var(--ink); color: white; }
+        .nav-prev { left: 0; }
+        .nav-next { right: 0; }
+
+        /* Lightbox Modal */
+        #lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(253, 251, 247, 0.98); display: none; justify-content: center; align-items: center; z-index: 20000; }
+        #lightbox img { max-height: 85vh; max-width: 90%; border-radius: 20px; box-shadow: 0 30px 60px rgba(0,0,0,0.2); }
+        .close-lightbox { position: absolute; top: 30px; right: 40px; font-size: 2rem; cursor: pointer; }
+
+        /* UI Feature Callouts */
+        .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 4rem; }
+        .feature-card { padding: 3rem; background: var(--surface); border-radius: 16px; border: 1px solid rgba(0,0,0,0.05); }
+        .feature-card h3 { font-family: var(--serif); font-style: italic; font-size: 1.8rem; margin-bottom: 1rem; color: var(--holland-teal); }
+
+        footer { padding: 10rem 5% 5rem; text-align: center; border-top: 1px solid rgba(42, 42, 42, 0.05); }
+        .footer-cta { font-family: var(--serif); font-size: clamp(2rem, 5vw, 4rem); text-decoration: none; color: var(--ink); transition: 0.4s; }
+        .footer-cta:hover { color: var(--holland-teal); font-style: italic; }
+
+        @media (max-width: 1100px) {
+            .grid { grid-template-columns: 1fr; gap: 3rem; }
+            .section-label { position: relative; top: 0; }
+            .feature-grid { grid-template-columns: 1fr; }
+            .type-row { grid-template-columns: 1fr; gap: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="cursor-dot"></div>
+    <div id="cursor-trailer"></div>
+
+    <nav>
+        <a href="index.html" class="logo">Jocelyn</a>
+        <a href="index.html#portfolio" class="back-link">← Close Archive</a>
+    </nav>
+
+    <header class="hero reveal">
+        <p style="font-size: 0.7rem; letter-spacing: 4px; color: var(--grey); margin-bottom: 1rem;">UI CASE STUDY / 01</p>
+        <h1>Holland <i>Walking</i> Tour</h1>
+        <div class="hero-details">
+            <div class="detail-item">
+                <h5>Role</h5>
+                <p>UI Designer</p>
+            </div>
+            <div class="detail-item">
+                <h5>Focus</h5>
+                <p>Visual Systems & Interaction</p>
+            </div>
+            <div class="detail-item">
+                <h5>Platform</h5>
+                <p>iOS Mobile App</p>
+            </div>
+        </div>
+    </header>
+
+    <section class="overview reveal">
+        <div class="grid">
+            <div class="section-label">The Visual Challenge</div>
+            <div class="content">
+                <h2>Translating heritage into a scalable digital interface.</h2>
+                <p>The goal of the Holland Walking Tour app was to modernize physical tourism maps into an intuitive, visually stunning mobile experience. As the UI Designer, my primary objective was to establish a design language that honored the city's historic Dutch roots while adhering strictly to modern iOS Human Interface Guidelines.</p>
+                <p>I focused on creating a frictionless visual experience for users walking outdoors: prioritizing high-contrast UI elements, legible typography systems, and recognizable bottom-sheet navigation paradigms.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="design-system reveal">
+        <div class="grid">
+            <div class="section-label">Foundation</div>
+            <div class="content">
+                <h2>Color & Typography Strategy</h2>
+                <p>Designing for an app primarily used outdoors in direct sunlight dictates strict visual rules. I established a high-contrast palette anchored by <strong>Heritage Teal</strong>, ensuring active states and primary buttons passed WCAG AA accessibility standards against our surface backgrounds.</p>
+                
+                <div class="ui-grid">
+                    <div class="ui-box">
+                        <div class="swatch-color" style="background: var(--holland-teal);"></div>
+                        <h4>Heritage Teal</h4>
+                        <span>#008080 • Primary Action</span>
+                    </div>
+                    <div class="ui-box">
+                        <div class="swatch-color" style="background: var(--holland-sky);"></div>
+                        <h4>Sky Mist</h4>
+                        <span>#B2EBF2 • Secondary/States</span>
+                    </div>
+                    <div class="ui-box">
+                        <div class="swatch-color" style="background: var(--text-main);"></div>
+                        <h4>Slate Ink</h4>
+                        <span>#2C333E • Primary Text</span>
+                    </div>
+                </div>
+
+                <div class="type-spec">
+                    <h3 style="margin-bottom: 2rem; font-size: 1.2rem;">Typographic Hierarchy</h3>
+                    <div class="type-row">
+                        <div class="type-label">Display (Serif)</div>
+                        <div class="type-h1">Cormorant Garamond</div>
+                    </div>
+                    <div class="type-row">
+                        <div class="type-label">Headings (Sans)</div>
+                        <div class="type-h2">Plus Jakarta Sans - Semibold</div>
+                    </div>
+                    <div class="type-row">
+                        <div class="type-label">Body (Sans)</div>
+                        <div class="type-body">Plus Jakarta Sans - Regular. Set at a baseline of 16px to ensure maximum legibility for senior demographics while on the move.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="components reveal">
+        <div class="grid">
+            <div class="section-label">UI Components</div>
+            <div class="content">
+                <h2>Systematic UI Design</h2>
+                <p>To ensure consistency across the application, I built a component library utilizing an <strong>8pt grid system</strong>. This atomic approach allowed for rapid prototyping and ensured all paddings, margins, and touch targets (minimum 44x44px) were mathematically sound.</p>
+                
+                <div class="component-showcase">
+                    <div class="component-item">
+                        <h5>Interactive Elements</h5>
+                        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                            <div class="btn-primary-ui">Take the Tour</div>
+                            <div class="btn-secondary-ui">View Map</div>
+                        </div>
+                    </div>
+                    
+                    <div class="component-item" style="margin-top: 4rem;">
+                        <h5>Location Data Cards</h5>
+                        <div class="ui-card-mock">
+                            <div class="ui-card-img"></div>
+                            <div class="ui-card-title">Hope College</div>
+                            <div class="ui-card-sub">0.2 miles away • Historic Site</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="reveal">
+        <div class="grid">
+            <div class="section-label">High-Fidelity</div>
+            <div class="content">
+                <h2>The Final Interface</h2>
+                <p>The resulting screens blend editorial-style imagery with clean, utilitarian navigation. <b>Click any screen to view the pixel-perfect details.</b></p>
+                
+                <div class="slider-wrapper">
+                    <div class="slider-nav nav-prev" id="prevBtn">⟵</div> 
+                    <div class="slider-nav nav-next" id="nextBtn">⟶</div>
+                    
+                    <div class="slider-container">
+                        <div class="mockup-slider" id="mockupSlider">
+                            <div class="slider-item"><img src="Holland Walking Tour/Screen1.png" alt="Home Screen"></div>
+                            <div class="slider-item"><img src="Holland Walking Tour/Screen2.png" alt="Interactive Map"></div>
+                            <div class="slider-item"><img src="Holland Walking Tour/Screen3.png" alt="Location Detail"></div>
+                            <div class="slider-item"><img src="Holland Walking Tour/Screen4.png" alt="Audio Player UI"></div>
+                            <div class="slider-item"><img src="Holland Walking Tour/Screen5.png" alt="Camera AR Feature"></div>
+                            <div class="slider-item"><img src="Holland Walking Tour/Screen6.png" alt="Route Map"></div>
+                            <div class="slider-item"><img src="Holland Walking Tour/Screen7.png" alt="Search and Filters"></div>
+                            <div class="slider-item"><img src="Holland Walking Tour/Screen8.png" alt="User Profile"></div>
+                            <div class="slider-item"><img src="Holland Walking Tour/Screen9.png" alt="List View"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>Media Player UI</h3>
+                        <p>Designed a custom audio player interface for the "Listen to Audio" feature. Used clear visual hierarchy for progress bars and playback controls, ensuring the user can easily scrub through historical narrations without visual clutter.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Map & Bottom Sheet</h3>
+                        <p>Implemented a dynamic bottom-sheet overlay for the map view. This allows users to retain context of their geographic location while smoothly swiping up to browse location details, adhering to familiar mobile interaction patterns.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="conclusion reveal">
+        <div class="grid">
+            <div class="section-label">The Impact</div>
+            <div class="content">
+                <h2>Design that Drives Engagement</h2>
+                <p>As a UI Designer, my role goes beyond making things "look pretty." For the Holland Walking Tour, I architected a visual system that actively reduces cognitive load. By standardizing the component library, optimizing touch targets, and curating an accessible color palette, the interface empowers users to look up at the city's architecture, rather than squinting down at their phones.</p>
+
+                <div style="margin-top: 6rem; text-align: center;">
+                    <h2 style="font-size: 1.4rem; margin-bottom: 2rem; color: var(--ink);">Ready to build beautiful, functional interfaces together?</h2>
+                    <a href="mailto:your.email@example.com" class="btn-primary-ui" style="text-decoration: none;">Let's Connect</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="lightbox">
+        <span class="close-lightbox">&times;</span>
+        <img id="lightboxImg" src="" alt="Enlarged view">
+    </div>
+
+    <footer>
+        <p style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 3px; color: var(--grey); margin-bottom: 2rem;">Next Case Study</p>
+        <a href="#" class="footer-cta">E-Commerce UI Kit →</a>
+    </footer>
+
+    <script>
+        // Custom Cursor Logic
+        const cursorDot = document.getElementById('cursor-dot');
+        const cursorTrailer = document.getElementById('cursor-trailer');
+        let mouseX = 0, mouseY = 0, trailerX = 0, trailerY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX; mouseY = e.clientY;
+            cursorDot.style.left = `${mouseX}px`;
+            cursorDot.style.top = `${mouseY}px`;
+        });
+
+        function animate() {
+            trailerX += (mouseX - trailerX) * 0.15;
+            trailerY += (mouseY - trailerY) * 0.15;
+            cursorTrailer.style.left = `${trailerX}px`;
+            cursorTrailer.style.top = `${trailerY}px`;
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Scroll Reveal Logic
+        function reveal() {
+            document.querySelectorAll(".reveal").forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight - 100) {
+                    el.classList.add("active");
+                }
+            });
+        }
+        window.addEventListener("scroll", reveal);
+        reveal();
+
+        // Slider & Lightbox Logic
+        const slider = document.getElementById('mockupSlider');
+        const nextBtn = document.getElementById('nextBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+
+        nextBtn.addEventListener('click', () => {
+            slider.scrollBy({ left: slider.clientWidth, behavior: 'smooth' });
+        });
+        prevBtn.addEventListener('click', () => {
+            slider.scrollBy({ left: -slider.clientWidth, behavior: 'smooth' });
+        });
+
+        document.querySelectorAll('.slider-item img').forEach(img => {
+            img.addEventListener('click', () => {
+                lightbox.style.display = 'flex';
+                lightboxImg.src = img.src;
+                document.body.style.overflow = 'hidden'; 
+            });
+        });
+
+        lightbox.addEventListener('click', () => {
+            lightbox.style.display = 'none';
+            document.body.style.overflow = 'auto'; 
+        });
+
+        document.querySelectorAll('a, .btn-primary-ui, .btn-secondary-ui, .slider-nav, .slider-item img').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursorTrailer.style.width = '60px';
+                cursorTrailer.style.height = '60px';
+                cursorTrailer.style.background = 'rgba(0, 128, 128, 0.1)';
+                cursorTrailer.style.borderColor = 'var(--holland-teal)';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursorTrailer.style.width = '30px';
+                cursorTrailer.style.height = '30px';
+                cursorTrailer.style.background = 'transparent';
+                cursorTrailer.style.borderColor = 'var(--primary)';
+            });
+        });
+    </script>
+</body>
+</html>

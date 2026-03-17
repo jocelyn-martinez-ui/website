@@ -123,7 +123,7 @@
     </nav>
 
     <header class="hero reveal">
-        <p style="font-size: 0.7rem; letter-spacing: 5px; color: var(--text-sub); margin-bottom: 2.5rem; font-weight: 800;">UX RESEARCH & MOBILE PRODUCT DESIGN</p>
+        <p style="font-size: 0.7rem; letter-spacing: 5px; color: var(--text-sub); margin-bottom: 2.5rem; font-weight: 800;">CONCEPT DESIGN</p>
         <h1>Nutriva <i>Kitchen</i></h1>
         <p style="font-size: 1.4rem; max-width: 700px; margin-top: 3rem; color: var(--text-body); font-weight: 400;">
             Bridging the gap between refrigerator inventory and dinner inspiration through AI-curated meal planning.
@@ -663,6 +663,218 @@
             }
         }
     </style>
+
+
+<section class="reveal">
+    <div class="grid">
+        <div class="section-label" style="color: var(--text-sub);">07 / The Interface</div>
+        <div class="content">
+            <h2 style="margin-bottom: 1.5rem;">Visualizing Cognitive Relief</h2>
+            <p style="margin-bottom: 4rem; max-width: 800px; color: var(--text-body); font-size: 1.15rem; line-height: 1.8;">
+                Translating the <b>Zero-Waste Logic</b> and <b>Cognitive Relief</b> strategies into a tangible, high-fidelity interface. The final prototypes leverage our <i>Clarity Blue</i> and <i>Pristine White</i> palettes to systematically reduce visual noise, allowing the algorithmic food-matching to remain the focal point of the user journey.
+            </p>
+
+            <div class="nutriva-carousel-wrapper" style="position: relative; width: 100%;">
+                
+
+                <div class="nutriva-track" id="nutrivaTrack">
+                    
+                    <div class="nutriva-slide" onclick="openNutrivaLightbox(this)">
+                        <div class="mobile-frame">
+                            <img src="mainpage.png" alt="The Dashboard">
+                        </div>
+                        <div class="slide-meta">
+                            <span class="step-num">01 / </span>
+                            <h5>Dashboard</h5>
+                        </div>
+                    </div>
+
+                    <div class="nutriva-slide" onclick="openNutrivaLightbox(this)">
+                        <div class="mobile-frame">
+                            <img src="recipelist.png" alt="AI Vision Scan">
+                        </div>
+                        <div class="slide-meta">
+                            <span class="step-num">02 / </span>
+                            <h5>Recipe List</h5>
+                        </div>
+                    </div>
+
+                    <div class="nutriva-slide" onclick="openNutrivaLightbox(this)">
+                        <div class="mobile-frame">
+                            <img src="inventory.png" alt="Recipe Match">
+                        </div>
+                        <div class="slide-meta">
+                            <span class="step-num">03 / </span>
+                            <h5>The Inventory Dashboard</h5>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="nutrivaLightbox" class="nutriva-lightbox" onclick="closeNutrivaLightbox()">
+    <span class="close-lightbox">&times;</span>
+    <img id="nutrivaLightboxImg" src="" alt="Expanded UI View">
+</div>
+
+<style>
+    /* NUTRIVA CAROUSEL SPECIFIC STYLES */
+    .nutriva-carousel-wrapper {
+        margin: 2rem 0 5rem 0;
+        padding: 0 1rem;
+    }
+
+    .nutriva-track {
+        display: flex;
+        gap: 3rem;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+        padding: 2rem 0 4rem 0; /* Room for hover shadows */
+    }
+    
+    .nutriva-track::-webkit-scrollbar {
+        display: none; /* Chrome/Safari */
+    }
+
+    .nutriva-slide {
+        flex: 0 0 calc(33.333% - 2rem);
+        min-width: 280px;
+        scroll-snap-align: center;
+        cursor: zoom-in;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    /* Soft Mobile Frame Illusion */
+    .mobile-frame {
+        background: #fff;
+        border-radius: 30px;
+        padding: 12px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+        border: 1px solid rgba(76, 39, 39, 0.05); /* Uses var(--brand-primary) gently */
+        transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.5s ease;
+    }
+
+    .mobile-frame img {
+        width: 100%;
+        height: auto;
+        border-radius: 20px; /* Inner screen radius */
+        display: block;
+        background: var(--brand-bg);
+    }
+
+    .nutriva-slide:hover .mobile-frame {
+        transform: translateY(-12px);
+        box-shadow: 0 30px 60px rgba(76, 39, 39, 0.1);
+    }
+
+    /* Meta Text Styling */
+    .slide-meta {
+        padding: 0 0.5rem;
+    }
+
+    .step-num {
+        font-family: var(--sans);
+        font-size: 0.65rem;
+        font-weight: 800;
+        letter-spacing: 2px;
+        color: var(--brand-primary);
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+
+    .slide-meta h5 {
+        font-family: var(--serif);
+        font-size: 1.5rem;
+        color: var(--text-main);
+        margin-bottom: 0.75rem;
+        font-weight: 600;
+    }
+
+    .slide-meta p {
+        font-family: var(--sans);
+        font-size: 0.9rem;
+        line-height: 1.6;
+        color: var(--text-body);
+        margin: 0;
+    }
+
+
+    /* LIGHTBOX STYLES */
+    .nutriva-lightbox {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(232, 230, 227, 0.95); /* var(--brand-bg) with opacity */
+        backdrop-filter: blur(8px);
+        z-index: 99999;
+        justify-content: center;
+        align-items: center;
+        cursor: zoom-out;
+    }
+
+    .nutriva-lightbox img {
+        max-height: 85vh;
+        max-width: 90%;
+        border-radius: 24px;
+        box-shadow: 0 30px 80px rgba(76, 39, 39, 0.2);
+        animation: subtlePop 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .nutriva-lightbox .close-lightbox {
+        position: absolute;
+        top: 30px; right: 40px;
+        font-size: 3rem;
+        color: var(--brand-primary);
+        cursor: pointer;
+    }
+
+    @keyframes subtlePop {
+        from { opacity: 0; transform: scale(0.95) translateY(20px); }
+        to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 900px) {
+        .nutriva-slide { flex: 0 0 calc(80% - 1rem); }
+        .nutriva-nav-btn { display: none; /* Hide arrows on touch devices */ }
+    }
+</style>
+
+<script>
+    // Nutriva Specific Slider Logic
+    function scrollNutriva(direction) {
+        const track = document.getElementById('nutrivaTrack');
+        const slideWidth = track.querySelector('.nutriva-slide').offsetWidth + 48; // width + gap
+        track.scrollBy({
+            left: slideWidth * direction,
+            behavior: 'smooth'
+        });
+    }
+
+    // Nutriva Lightbox Logic
+    function openNutrivaLightbox(element) {
+        const lightbox = document.getElementById('nutrivaLightbox');
+        const lightboxImg = document.getElementById('nutrivaLightboxImg');
+        const imgSrc = element.querySelector('img').src;
+        
+        lightboxImg.src = imgSrc;
+        lightbox.style.display = 'flex';
+        document.body.style.overflow = 'hidden'; // Stop background scrolling
+    }
+
+    function closeNutrivaLightbox() {
+        document.getElementById('nutrivaLightbox').style.display = 'none';
+        document.body.style.overflow = 'auto'; // Resume scrolling
+    }
+</script>
 <section class="reveal" style="padding-bottom: 15rem; background: #F9FAFB;">
         <div class="grid">
             <div class="section-label">07 / Retrospective</div>
@@ -694,21 +906,6 @@
                         </p>
                     </div>
 
-                </div>
-
-                <div style="margin-top: 8rem; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 6rem; text-align: center;">
-                    <h3 style="font-family: 'Montserrat', sans-serif; font-size: 0.7rem; letter-spacing: 5px; color: var(--text-sub); text-transform: uppercase; margin-bottom: 2rem;">Conclusion</h3>
-                    <h4 style="font-family: var(--serif); font-size: 2.5rem; color: #111418; line-height: 1.4; font-style: italic; max-width: 900px; margin: 0 auto;">
-                        "Design is the systematic removal of the <strong>mental friction</strong> between a human and their intention."
-                    </h4>
-                    <p style="margin-top: 3rem; max-width: 600px; margin-left: auto; margin-right: auto; color: var(--text-body); line-height: 1.8;">
-                        Nutriva stands as a testament to the power of <strong>Intentional Design</strong>. It demonstrates that even the most mundane routines can be elevated through an interface that respects the user's cognitive capacity and emotional well-being.
-                    </p>
-                    
-                    <div style="margin-top: 5rem;">
-                        <a href="index.html" class="nutriva-btn">Project Archive</a>
-                        <a href="about.html" class="nutriva-btn secondary">Contact Designer</a>
-                    </div>
                 </div>
 
             </div>
