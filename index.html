@@ -290,33 +290,129 @@
             .nav-links { display: none; }
         }
 
-        /* Playground Specific Grid */
-.playground-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    margin-top: 4rem;
-}
+/* --- The Playground Portal --- */
+        .playground-section {
+            padding: 5rem 5% 10rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
 
-/* Adjusting the offset for the playground so it's not as extreme as the main gallery */
-.playground-grid .project-wrap:nth-child(even) {
-    margin-top: 4rem;
-}
+        .playground-portal {
+            margin-top: 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 900px;
+            padding: 4rem 5rem;
+            border: 1px solid rgba(42, 42, 42, 0.1);
+            border-radius: 4px; /* Matches your project-img borders */
+            text-decoration: none;
+            color: var(--ink);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1);
+            background: transparent;
+            text-align: left;
+        }
 
-@media (max-width: 1000px) {
-    .playground-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-}
+        /* The elegant background fill on hover */
+        .playground-portal::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: var(--primary);
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: transform 0.7s cubic-bezier(0.19, 1, 0.22, 1);
+            z-index: 0;
+        }
 
-@media (max-width: 600px) {
-    .playground-grid {
-        grid-template-columns: 1fr;
-    }
-    .playground-grid .project-wrap:nth-child(even) {
-        margin-top: 0;
-    }
-}
+        .playground-portal:hover {
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(168, 137, 128, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .playground-portal:hover::before {
+            transform: scaleY(1);
+            transform-origin: top;
+        }
+
+        /* Ensuring text stays above the hover fill */
+        .portal-content, .portal-arrow {
+            position: relative;
+            z-index: 1;
+            transition: color 0.5s ease;
+        }
+
+        /* Text color changes on hover for contrast */
+        .playground-portal:hover .portal-content,
+        .playground-portal:hover .portal-arrow,
+        .playground-portal:hover .portal-desc {
+            color: var(--bg);
+        }
+
+        .portal-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--primary-dark);
+            transition: color 0.5s ease;
+        }
+
+        .playground-portal:hover .portal-label {
+            color: rgba(253, 251, 247, 0.8); /* Faded cream */
+        }
+
+        .portal-title {
+            font-family: var(--serif);
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 300;
+            font-style: italic;
+            margin-bottom: 1rem;
+            line-height: 1;
+        }
+
+        .portal-desc {
+            font-size: 0.9rem;
+            color: var(--grey);
+            max-width: 450px;
+            line-height: 1.6;
+            transition: color 0.5s ease;
+        }
+
+        /* The animated arrow */
+        .portal-arrow svg {
+            width: 40px;
+            height: 40px;
+            transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .playground-portal:hover .portal-arrow svg {
+            transform: translateX(15px);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .playground-portal {
+                flex-direction: column;
+                padding: 3rem 2rem;
+                text-align: center;
+                gap: 3rem;
+            }
+            .portal-arrow svg {
+                transform: rotate(90deg);
+            }
+            .playground-portal:hover .portal-arrow svg {
+                transform: rotate(90deg) translateY(10px);
+            }
+        }
     </style>
 </head>
 <body>
@@ -432,65 +528,27 @@ My background in code gives me the logic to build things that work, but my real 
             </a>
         </div>
     </section>
+<section class="playground-section reveal" id="playground">
+        <div class="section-title" style="justify-content: center; width: 100%;">
+            <span style="display:block; width: 40px; height: 1px; background: var(--primary); margin-right: 1rem;"></span>
+            03 / The Archive
+            <span style="display:block; width: 40px; height: 1px; background: var(--primary); margin-left: 1rem;"></span>
+        </div>
 
-    <section class="gallery reveal" id="playground" style="padding-top: 0;">
-    <div class="section-title">
-        03 / The Playground
-    </div>
-    
-    <p style="font-size: 0.9rem; color: var(--grey); margin-top: 2rem; max-width: 500px; line-height: 1.6;">
-        A collection of digital sketches, code experiments, and design mockups created for the love of the craft. No constraints, just exploration.
-    </p>
-
-    <div class="playground-grid">
-        <a href="#" class="project-wrap reveal">
-            <div class="project-img" style="height: 40vh;">
-                <img src="mockup1.png" alt="Design Experiment">
+        <a href="playground.html" class="playground-portal reveal">
+            <div class="portal-content">
+                <div class="portal-label">Enter the Sandbox</div>
+                <h3 class="portal-title">The Playground</h3>
+                <p class="portal-desc">A collection of digital sketches, code experiments, and design mockups created for the love of the craft. No constraints, just exploration.</p>
             </div>
-            <div class="project-meta">
-                <div class="project-meta-top">
-                    <h4 style="font-size: 1.4rem;">Glassmorphism UI</h4>
-                    <span class="project-year">'26</span>
-                </div>
-                <div class="project-tags">
-                    <span class="tag">CSS Lab</span>
-                    <span class="tag">UI Design</span>
-                </div>
+            <div class="portal-arrow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                    <polyline points="15 5 22 12 15 19"></polyline>
+                </svg>
             </div>
         </a>
-
-        <a href="#" class="project-wrap reveal">
-            <div class="project-img" style="height: 40vh;">
-                <img src="mockup2.png" alt="Layout Study">
-            </div>
-            <div class="project-meta">
-                <div class="project-meta-top">
-                    <h4 style="font-size: 1.4rem;">Brutalist Web</h4>
-                    <span class="project-year">'25</span>
-                </div>
-                <div class="project-tags">
-                    <span class="tag">HTML/CSS</span>
-                </div>
-            </div>
-        </a>
-
-        <a href="#" class="project-wrap reveal">
-            <div class="project-img" style="height: 40vh;">
-                <img src="mockup3.png" alt="Interaction Study">
-            </div>
-            <div class="project-meta">
-                <div class="project-meta-top">
-                    <h4 style="font-size: 1.4rem;">Micro-interactions</h4>
-                    <span class="project-year">'26</span>
-                </div>
-                <div class="project-tags">
-                    <span class="tag">Figma</span>
-                    <span class="tag">JS</span>
-                </div>
-            </div>
-        </a>
-    </div>
-</section>
+    </section>
 
     <footer id="contact" class="reveal">
         <a href="mailto:jocelyn.wisteria@gmail.com" class="footer-cta">Let's Talk</a>
