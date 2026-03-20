@@ -289,6 +289,34 @@
             .project-img { height: 60vh; }
             .nav-links { display: none; }
         }
+
+        /* Playground Specific Grid */
+.playground-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 4rem;
+}
+
+/* Adjusting the offset for the playground so it's not as extreme as the main gallery */
+.playground-grid .project-wrap:nth-child(even) {
+    margin-top: 4rem;
+}
+
+@media (max-width: 1000px) {
+    .playground-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .playground-grid {
+        grid-template-columns: 1fr;
+    }
+    .playground-grid .project-wrap:nth-child(even) {
+        margin-top: 0;
+    }
+}
     </style>
 </head>
 <body>
@@ -406,17 +434,68 @@ My background in code gives me the logic to build things that work, but my real 
         </div>
     </section>
 
-    <footer id="contact" class="reveal">
-        <a href="mailto:hello@youremail.com" class="footer-cta">Let's Talk</a>
-        
-        <div class="social">
-            <a href="#">LinkedIn</a>
-            <div class="footer-details">
-                <p style="font-size: 0.55rem; letter-spacing: 2px; text-transform: uppercase; color: var(--grey);">Chicago, IL</p>
-                <p style="font-size: 0.55rem; letter-spacing: 2px; text-transform: uppercase; color: var(--grey);">©2026 Jocelyn Martinez</p>
+    <section class="gallery reveal" id="playground" style="padding-top: 0;">
+    <div class="section-title">
+        03 / The Playground
+    </div>
+    
+    <p style="font-size: 0.9rem; color: var(--grey); margin-top: 2rem; max-width: 500px; line-height: 1.6;">
+        A collection of digital sketches, code experiments, and design mockups created for the love of the craft. No constraints, just exploration.
+    </p>
+
+    <div class="playground-grid">
+        <a href="#" class="project-wrap reveal">
+            <div class="project-img" style="height: 40vh;">
+                <img src="mockup1.png" alt="Design Experiment">
             </div>
-            <a href="#">Github</a>
-        </div>
+            <div class="project-meta">
+                <div class="project-meta-top">
+                    <h4 style="font-size: 1.4rem;">Glassmorphism UI</h4>
+                    <span class="project-year">'26</span>
+                </div>
+                <div class="project-tags">
+                    <span class="tag">CSS Lab</span>
+                    <span class="tag">UI Design</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="#" class="project-wrap reveal">
+            <div class="project-img" style="height: 40vh;">
+                <img src="mockup2.png" alt="Layout Study">
+            </div>
+            <div class="project-meta">
+                <div class="project-meta-top">
+                    <h4 style="font-size: 1.4rem;">Brutalist Web</h4>
+                    <span class="project-year">'25</span>
+                </div>
+                <div class="project-tags">
+                    <span class="tag">HTML/CSS</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="#" class="project-wrap reveal">
+            <div class="project-img" style="height: 40vh;">
+                <img src="mockup3.png" alt="Interaction Study">
+            </div>
+            <div class="project-meta">
+                <div class="project-meta-top">
+                    <h4 style="font-size: 1.4rem;">Micro-interactions</h4>
+                    <span class="project-year">'26</span>
+                </div>
+                <div class="project-tags">
+                    <span class="tag">Figma</span>
+                    <span class="tag">JS</span>
+                </div>
+            </div>
+        </a>
+    </div>
+</section>
+
+    <footer id="contact" class="reveal">
+        <a href="mailto:jocelyn.wisteria@gmail.com" class="footer-cta">Let's Talk</a>
+        
     </footer>
 
     <script>
