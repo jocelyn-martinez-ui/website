@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurea | Curated Olfactory Archive</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            /* Brand Identity - Aurea's Luxury Muted Palette */
+            --brand-primary: #C89FA3; /* Dusty Vintage Rose */
+            --brand-secondary: #D4B8A3; /* Warm Cashmere/Taupe */
+            --brand-bg: #FDFCF9;      /* Warm Alabaster/Paper */
+            
+            /* Typography */
+            --text-main: #2B2B2B;     /* Deep Charcoal (Softer than black) */
+            --text-body: #4A4742;     /* Body Text */
+            --text-sub: #8B827B;      /* Subtext/Muted */
+            
+            /* Layout */
+            --serif: 'Cormorant Garamond', serif;
+            --sans: 'Plus Jakarta Sans', sans-serif;
+            --section-pad: 12rem 5%;
+        }
+
+        /* High-End Texture */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: url('https://www.transparenttextures.com/patterns/cream-paper.png');
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none; /* Custom Cursor */
+        }
+
+        body {
+            background-color: var(--brand-bg);
+            color: var(--text-body);
+            font-family: var(--serif);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Custom Cursor Elements */
+        .cursor-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--text-main);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor-trailer {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(43, 43, 43, 0.2);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, background 0.3s, border-color 0.3s;
+        }
+
+        /* Typography Styles */
+        h1, h2, h3 { color: var(--text-main); font-weight: 400; line-height: 1.1; }
+        h1 { font-size: clamp(4rem, 8vw, 8rem); font-style: italic; letter-spacing: -0.02em; }
+        h2 { font-size: clamp(2.5rem, 4vw, 4rem); margin-bottom: 2rem; }
+        p { font-family: var(--sans); font-size: 1.1rem; line-height: 1.8; font-weight: 300; }
+        .label { font-family: var(--sans); text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.75rem; color: var(--text-sub); display: block; margin-bottom: 1rem; }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            mix-blend-mode: difference;
+        }
+        
+        .logo {
+            font-family: var(--sans);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .nav-links a {
+            font-family: var(--sans);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #fff;
+            text-decoration: none;
+            margin-left: 3rem;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: #fff; transition: width 0.3s ease;
+        }
+        .nav-links a:hover::after { width: 100%; }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 5%;
+            position: relative;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 4rem;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(43, 43, 43, 0.1);
+            padding-top: 2rem;
+        }
+
+        .meta-item p { font-family: var(--serif); font-size: 1.5rem; font-style: italic; color: var(--text-main); }
+
+        .hero-image {
+            position: absolute;
+            right: 5%; top: 20%;
+            width: 40vw; height: 60vh;
+            background: #E2DCD3; /* Placeholder for App Hero Mockup */
+            border-radius: 200px 200px 0 0;
+            overflow: hidden;
+            z-index: -1;
+            opacity: 0.8;
+        }
+
+        /* High-End Overview Refinement */
+        .overview { 
+            padding: var(--section-pad); 
+            background-color: #fff; /* Crisp white for the 'Clinic' vs 'Sanctuary' contrast */
+        }
+
+        .overview-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            margin-bottom: 8rem;
+        }
+
+        /* The "Mental Model Shift" bridge */
+        .ux-bridge {
+            grid-column: 1 / -1;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin: 4rem 0;
+            padding: 2rem;
+            background: var(--brand-bg);
+            border-radius: 2px;
+        }
+
+        .bridge-text {
+            font-family: var(--sans);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--brand-primary);
+            white-space: nowrap;
+        }
+
+        .bridge-line {
+            height: 1px;
+            background: rgba(76, 39, 39, 0.2);
+            width: 100%;
+        }
+
+        /* Strategy Grid Styling */
+        .ux-strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4rem;
+        }
+
+        .ux-pillar {
+            position: relative;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .ux-pillar h3 {
+            font-family: var(--serif);
+            font-size: 1.8rem;
+            font-style: italic;
+            margin-bottom: 1.2rem;
+            color: var(--text-main);
+        }
+
+        .ux-pillar p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--text-body);
+        }
+
+        /* UX Meta-Tags */
+        .ux-meta {
+            display: inline-block;
+            font-family: var(--sans);
+            font-size: 0.6rem;
+            background: rgba(76, 39, 39, 0.05);
+            padding: 2px 8px;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--brand-primary);
+        }
+
+        @media (max-width: 992px) {
+            .overview-header, .ux-strategy-grid { grid-template-columns: 1fr; gap: 4rem; }
+            .ux-bridge { display: none; } /* Hide on mobile for cleanliness */
+        }
+
+        /* Approach Section Styling */
+        .approach-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            margin-top: 8rem;
+            align-items: center;
+        }
+
+        .approach-content {
+            padding-right: 2rem;
+        }
+
+        .approach-visual-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .ux-strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4rem;
+            border-top: 1px solid rgba(43, 43, 43, 0.1);
+            padding-top: 4rem;
+        }
+
+        .ux-pillar h3 {
+            font-family: var(--serif);
+            font-size: 1.8rem;
+            font-style: italic;
+            color: var(--text-main);
+            margin-bottom: 1rem;
+        }
+
+        .ux-pillar p {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--text-body);
+        }
+
+        @media (max-width: 768px) {
+            .overview-header, .ux-strategy-grid { 
+                grid-template-columns: 1fr; 
+                gap: 3rem; 
+            }
+        }
+        .overview-text p { margin-bottom: 2rem; font-size: 1.2rem; }
+
+        /* Design System Section */
+        /* Visual Language Section Refinement */
+        .design-system {
+            background-color: var(--bg-canvas);
+            padding: var(--section-pad);
+        }
+
+        .system-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8rem;
+            margin-top: 5rem;
+        }
+
+        /* Swatch Styling */
+        .palette-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .swatch-row {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .swatch-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 1px solid rgba(0,0,0,0.05);
+            flex-shrink: 0;
+        }
+
+        .color-meta h4 {
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-title);
+            margin-bottom: 0.2rem;
+        }
+
+        .color-meta code {
+            font-size: 0.75rem;
+            color: var(--text-data);
+        }
+
+        /* Type Specimen Styling */
+        .type-specimen {
+            margin-bottom: 4rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding-bottom: 2rem;
+        }
+
+        .specimen-title {
+            display: block;
+            margin-bottom: 1rem;
+            color: var(--text-data);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+
+        .display-playfair {
+            font-family: var(--font-serif);
+            color: var(--text-title);
+            line-height: 1.1;
+        }
+
+        .display-teachers {
+            font-family: var(--font-sans);
+            color: var(--text-body);
+        }
+
+        @media (max-width: 992px) {
+            .system-grid { grid-template-columns: 1fr; gap: 4rem; }
+        }
+        .c1 { background: var(--brand-primary); color: white; }
+        .c2 { background: var(--brand-secondary); color: white; }
+        .c3 { background: #B5B0A8; color: white; } /* Muted Greige */
+        .c4 { background: var(--text-main); color: white; }
+
+        /* Typography Showcase */
+        .type-showcase { border-left: 1px solid rgba(43, 43, 43, 0.1); padding-left: 3rem; }
+        .type-serif { font-family: var(--serif); font-size: 4rem; font-style: italic; margin-bottom: 1rem; color: var(--text-main); }
+        .type-sans { font-family: var(--sans); font-size: 2rem; font-weight: 300; margin-bottom: 0.5rem; }
+
+        /* Horizontal Scroll Gallery */
+        /* High-End Gallery Refinement */
+        .gallery-container {
+            padding: 8rem 0; /* Slightly reduced padding */
+            background: #fbfaf8;
+        }
+
+        .gallery-header {
+            padding: 0 5%;
+            margin-bottom: 4rem;
+        }
+
+        /* The Scroll Track - Fixed "Buggy" Movement */
+        .gallery-track {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory; /* Native smooth snapping */
+            scroll-behavior: smooth;
+            gap: 10vw;
+            padding: 0 10vw 5rem 10vw;
+            -ms-overflow-style: none;  /* Hide scrollbar IE/Edge */
+            scrollbar-width: none;     /* Hide scrollbar Firefox */
+        }
+
+        .gallery-track::-webkit-scrollbar {
+            display: none; /* Hide scrollbar Chrome/Safari */
+        }
+
+        .slide {
+            flex: 0 0 50vw; 
+            scroll-snap-align: center;
+            display: grid;
+            /* CHANGE 1: Adjusted the ratio. '1fr' for image, '220px' for text */
+            grid-template-columns: 1fr 260px; 
+            /* CHANGE 2: Reduced gap from 3rem or 4rem down to 1.5rem */
+            gap: 0.1rem; 
+            align-items: center;
+        }
+
+
+
+        /* .slide-image-container {
+            position: relative;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.08);
+            border-radius: 1px;
+            overflow: hidden;
+            background: #fff;
+        } */
+
+        .slide img {
+            width: 40%;
+            height: auto;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .slide:hover img {
+            transform: scale(1.03);
+        }
+
+        /* UX Insight Panel */
+        .ux-insight-panel {
+            opacity: 0.8;
+        }
+
+        .ux-insight-panel .slide-number {
+            font-family: var(--sans);
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            color: var(--brand-primary);
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .ux-insight-panel h4 {
+            font-family: var(--serif);
+            font-size: 2rem;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: var(--text-main);
+        }
+
+        .ux-insight-panel p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-body);
+        }
+
+        .ux-tag-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+
+        .ux-tag {
+            font-family: var(--sans);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 4px 10px;
+            border: 1px solid rgba(43, 43, 43, 0.1);
+            border-radius: 100px;
+        }
+
+        /* Lightbox Overlay */
+        .lightbox {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(253, 252, 249, 0.98); /* Matching brand-bg with high opacity */
+            display: none; /* Hidden by default */
+            justify-content: center;
+            align-items: center;
+            z-index: 20000;
+            cursor: zoom-out;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.4s ease;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90vh;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.1);
+            border-radius: 4px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Refined Ethos Layout */
+        .ethos-methodology {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 6rem;
+            padding-bottom: 4rem;
+            border-bottom: 1px solid rgba(76, 39, 39, 0.1);
+        }
+
+        .method-tag {
+            font-family: var(--sans);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--brand-primary);
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .approach-visual-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .stat-card {
+            padding: 3rem 2rem;
+            background: #fff;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            border-radius: 2px;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(76, 39, 39, 0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.02);
+        }
+
+        /* Decorative Numbering for UX Authority */
+        .stat-card::before {
+            content: attr(data-index);
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-family: var(--serif);
+            font-style: italic;
+            font-size: 0.9rem;
+            opacity: 0.2;
+        }
+
+        .stat-card h4 {
+            font-family: var(--serif);
+            font-size: 1.4rem;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: var(--text-main);
+        }
+
+        .stat-card p {
+            font-size: 0.9rem;
+            line-height: 1.8;
+            color: var(--text-body);
+        }
+
+        @media (max-width: 992px) {
+            .ethos-methodology { grid-template-columns: 1fr; gap: 2rem; }
+        }
+
+        /* Gallery Image Interactions */
+        .slide-image-container {
+            cursor: zoom-in;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .slide-image-container:hover {
+            transform: translateY(-10px);
+        }
+
+        @media (max-width: 1100px) {
+            .slide { grid-template-columns: 1fr; flex: 0 0 85vw; }
+            .ux-insight-panel { padding-top: 2rem; }
+        }
+
+        /* Next Project Footer */
+        .next-project {
+            height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+        }
+        .next-project a {
+            text-decoration: none; color: var(--text-main); position: relative;
+        }
+        .next-project h1 { transition: color 0.3s ease; }
+        .next-project a:hover h1 { color: var(--brand-primary); }
+
+        /* Reveal Animations */
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 768px) {
+            .overview, .system-grid { grid-template-columns: 1fr; gap: 4rem; }
+            .hero-image { display: none; }
+            .hero-meta { flex-direction: column; gap: 2rem; }
+            .slide { width: 80vw; }
+            .palette { flex-wrap: wrap; }
+        }
+
+        /* Friction Analysis Section */
+        .friction-analysis {
+            background: #fff;
+            padding: var(--section-pad);
+            border-top: 1px solid rgba(43, 43, 43, 0.05);
+        }
+
+        .friction-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8rem;
+            margin-top: 4rem;
+        }
+
+        .friction-item {
+            margin-bottom: 4rem;
+        }
+
+        .friction-item .label {
+            color: #d4b8a3; /* Muted gold/tan */
+            margin-bottom: 1.5rem;
+        }
+
+        .friction-item h3 {
+            font-family: var(--serif);
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .pain-point-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .pain-point-list li {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(43, 43, 43, 0.08);
+            font-size: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pain-point-list li span {
+            font-family: var(--sans);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--brand-primary);
+            background: rgba(76, 39, 39, 0.05);
+            padding: 2px 8px;
+            border-radius: 2px;
+        }
+
+        .audit-summary {
+            background: var(--brand-bg);
+            padding: 4rem;
+            margin-top: 6rem;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .audit-summary blockquote {
+            font-family: var(--serif);
+            font-size: 1.8rem;
+            font-style: italic;
+            line-height: 1.4;
+            color: var(--brand-primary);
+        }
+
+        @media (max-width: 992px) {
+            .friction-grid, .audit-summary { grid-template-columns: 1fr; gap: 3rem; }
+            .audit-summary { padding: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cursor-dot"></div>
+    <div class="cursor-trailer"></div>
+
+    <nav>
+        <a href="#" class="logo">Jocelyn Martinez</a>
+        <div class="nav-links">
+            <a href="#overview">Case Study</a>
+            <a href="#gallery">Screens</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1 class="reveal">Aurea.</h1>
+        <h1 class="reveal" style="margin-left: 10vw; color: var(--text-sub);">The Olfactory Archive</h1>
+        
+        <div class="hero-meta reveal" style="transition-delay: 0.2s;">
+            <div class="meta-item">
+                <span class="label">Context</span>
+                <p>Mockup Case Study</p>
+            </div>
+        </div>
+    </section>
+
+<section class="overview" id="overview">
+        <div class="overview-header">
+            <div class="reveal">
+                <span class="label">01. The Problem Space</span>
+                <h2>Escaping the <br>Clinical.</h2>
+            </div>
+            <div class="overview-text reveal" style="transition-delay: 0.2s;">
+                <p>Fragrance is a sensory, emotional, and ephemeral experience, yet the industry standard for digital cataloging remains rooted in <strong>Analytical Overload</strong>. Most databases function as spreadsheets, prioritizing cold data points over the olfactory journey.</p>
+                <p>This creates a <strong>Cognitive Barrier</strong>: the user’s joy of discovery is buried under cluttered dashboards, aggressive charts, and "functional" lag. Aurea was born from the need to move away from utility and toward <em>atmosphere</em>.</p>
+            </div>
+        </div>
+
+        <div class="ux-bridge reveal">
+            <span class="bridge-text">The UX Pivot: From Utility to Sanctuary</span>
+            <div class="bridge-line"></div>
+        </div>
+
+        <div class="ux-strategy-grid">
+            <div class="ux-pillar reveal" style="transition-delay: 0.3s;">
+                <div class="ux-meta">Information Architecture</div>
+                <h3>Progressive Disclosure</h3>
+                <p>To mitigate <strong>Hick’s Law</strong> (where choice-overload leads to frustration), Aurea employs a strict hierarchy. Users first engage with "emotional data"—imagery and story—before accessing granular performance metrics. This ensures depth without the weight of cognitive fatigue.</p>
+            </div>
+            
+            <div class="ux-pillar reveal" style="transition-delay: 0.4s;">
+                <div class="ux-meta">Behavioral Psychology</div>
+                <h3>Emotional Ergonomics</h3>
+                <p>Standard apps are "tools" for the task; Aurea is a "vanity" for the self. By shifting from utility tracking to identity building (e.g., the 'Signature Scent' pinning), the UX creates a <strong>Dopamine Loop</strong> centered on curation and personal legacy rather than just list-making.</p>
+            </div>
+
+            <div class="ux-pillar reveal" style="transition-delay: 0.5s;">
+                <div class="ux-meta">Interaction Design</div>
+                <h3>Intentional Friction</h3>
+                <p>In luxury design, speed isn't always the goal. By introducing "Visual Pauses" (generous white space and slow horizontal transitions), I mimicked the <strong>Tactile Pacing</strong> of a physical magazine. This encourages the user to linger, appreciate the bottle silhouettes, and respect the craftsmanship.</p>
+            </div>
+        </div>
+    </section>
+
+<section class="overview" style="padding-top: 0;">
+        <div class="ethos-methodology reveal">
+            <div class="approach-content">
+                <span class="label">02. The Design Ethos</span>
+                <h2>A Sanctuary for the Senses.</h2>
+            </div>
+            <div class="overview-text">
+                <span class="method-tag">System Methodology</span>
+                <p>The design philosophy for Aurea centers on the <strong>Aesthetic-Usability Effect</strong>. I posited that a fragrance archive shouldn't feel like a tool, but an extension of the olfactory experience. By prioritizing "Visual Breathability, I stripped away traditional UI containers to reduce <strong>Cognitive Load</strong>, transforming a dense database into a curated editorial journey.</p>
+            </div>
+        </div>
+
+        <div class="approach-visual-stats reveal">
+            <div class="stat-card" data-index="01">
+                <h4>Visual Semantics</h4>
+                <p>I utilized <strong>Semantic Contrast</strong> as a navigation aid. High-character Serif typography is reserved for "Narrative" (story/names), while a functional Sans-Serif handles "Data" (metrics). This creates an instant mental shortcut for users to categorize information without reading.</p>
+            </div>
+            
+            <div class="stat-card" data-index="02">
+                <h4>Cognitive Offloading</h4>
+                <p>Space is treated as a <strong>Functional Utility</strong>. By leveraging wide margins and removing harsh borders, I ensure the intricate bottle silhouettes act as the primary anchor points. This prevents "Catalog Fatigue" and maintains a state of focused calm during exploration.</p>
+            </div>
+
+            <div class="stat-card" data-index="03">
+                <h4>Cross-Modal Design</h4>
+                <p>Since scent is non-digital, I designed a <strong>Synesthetic Bridge</strong>. Through the use of macro-photography, grain textures, and muted vellum tones, the UI provides a tactile "feeling" that correlates to the warmth and complexity of the physical perfumes.</p>
+            </div>
+
+            <div class="stat-card" data-index="04">
+                <h4>Reduced Visual Noise</h4>
+                <p>By implementing a <strong>Minimalist Information Architecture</strong> (using 1px hairlines and tracking instead of color blocks), I maintained a "Quiet Luxury" atmosphere. This ensures that the Information Hierarchy remains rigid and logical while appearing effortless.</p>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="friction-analysis reveal">
+        <div class="section-title">
+            <span class="label">03. Competitive Audit</span>
+            <h2>Deconstructing the Noise.</h2>
+            <p style="max-width: 650px; margin-top: 2rem;">The fragrance industry relies on a "Legacy Standard"—tools that are data-rich but UX-poor. I analyzed the friction points of industry giants to understand why users feel overwhelmed despite having access to the best information.</p>
+        </div>
+
+        <div class="friction-grid">
+            <div class="friction-item">
+                <span class="label">The Friction (Existing Tools)</span>
+                <h3>Data Without Curation.</h3>
+                <ul class="pain-point-list">
+                    <li>Information Paralysis <span>Hick's Law</span></li>
+                    <li>Visual Noise & Ad-Clutter <span>Cognitive Load</span></li>
+                    <li>Technical Lag / Bloated Code <span>Performance</span></li>
+                    <li>"Spreadsheet" Aesthetics <span>Emotional Friction</span></li>
+                </ul>
+                <p style="margin-top: 2rem; color: var(--text-sub);">Users reported that while sites like Fragrantica are the "gold standard" for data, the experience of using them feels like work rather than a hobby. The interaction is transactional, not emotional.</p>
+            </div>
+
+            <div class="friction-item">
+                <span class="label">The Pivot (Aurea)</span>
+                <h3>Olfactory Calm.</h3>
+                <p>Aurea was designed to solve these specific pain points by applying three core UX principles:</p>
+                
+                <div style="margin-top: 2rem;">
+                    <h4 class="type-sans" style="font-size: 0.8rem; letter-spacing: 0.1em; margin-bottom: 0.5rem; color: var(--brand-primary);">01. PROGRESSIVE DISCLOSURE</h4>
+                    <p style="font-size: 0.95rem; margin-bottom: 1.5rem;">Data is hidden until it is relevant. I start with the scent's "vibe" and only show technical accords when the user chooses to dive deeper.</p>
+
+                    <h4 class="type-sans" style="font-size: 0.8rem; letter-spacing: 0.1em; margin-bottom: 0.5rem; color: var(--brand-primary);">02. AESTHETIC-USABILITY EFFECT</h4>
+                    <p style="font-size: 0.95rem; margin-bottom: 1.5rem;">By creating a "Light Academia" environment, users perceive the system as more intuitive and are more forgiving of the time it takes to document their collection.</p>
+
+                    <h4 class="type-sans" style="font-size: 0.8rem; letter-spacing: 0.1em; margin-bottom: 0.5rem; color: var(--brand-primary);">03. INTENTIONAL WHITE SPACE</h4>
+                    <p style="font-size: 0.95rem;">Removing borders and boxes allows the eye to travel naturally across the information architecture without hitting "visual speedbumps."</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="audit-summary reveal">
+            <div>
+                <span class="label">The Thesis</span>
+            </div>
+            <div>
+                <blockquote>
+                    "In the luxury space, UX is not just about speed—it is about the <strong>quality of time spent</strong>. Aurea moves away from the 'Database' and toward the 'Digital Sanctuary'."
+                </blockquote>
+            </div>
+        </div>
+    </section>
+
+
+<section class="design-system reveal" id="visuals">
+        <div class="section-title">
+            <span class="label">04. Visual Language</span>
+            <h2>A Sensory Aesthetic.</h2>
+            <p style="max-width: 650px; margin-top: 2rem; color: var(--text-body);">The visual system of Aurea is designed to lower the user's heart rate. By utilizing a "Low-Luminance" palette and semantic typography, we create an environment where data feels like a story.</p>
+        </div>
+        
+        <div class="system-grid">
+            <div class="color-strategy">
+                <span class="label">The Palette</span>
+                <p style="margin: 1.5rem 0 3rem 0; font-size: 0.95rem; line-height: 1.7; color: var(--text-body);">
+                    <strong>Psychological Warmth:</strong> I avoided pure white (#FFF) to prevent "Display Flare." The use of #FAF9F6 mimics the archival quality of vellum, signaling <em>luxury</em> and <em>permanence</em>. The charcoal tones (#2C2A29) provide high accessibility (WCAG compliant) while appearing softer and more editorial than a harsh digital black.
+                </p>
+                
+                <div class="palette-stack">
+                    <div class="swatch-row">
+                        <div class="swatch-circle" style="background: #FAF9F6;"></div>
+                        <div class="color-meta">
+                            <h4>Canvas Off-White</h4>
+                            <code>#FAF9F6</code>
+                        </div>
+                    </div>
+                    <div class="swatch-row">
+                        <div class="swatch-circle" style="background: #2C2A29;"></div>
+                        <div class="color-meta">
+                            <h4>Ink Charcoal</h4>
+                            <code>#2C2A29</code>
+                        </div>
+                    </div>
+                    <div class="swatch-row">
+                        <div class="swatch-circle" style="background: #8A8583;"></div>
+                        <div class="color-meta">
+                            <h4>Stone Dust (Sub-info)</h4>
+                            <code>#8A8583</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="typography-strategy">
+                <span class="label">Semantic Typography</span>
+                <p style="margin: 1.5rem 0 3rem 0; font-size: 0.95rem; line-height: 1.7; color: var(--text-body);">
+                    <strong>Cognitive Categorization:</strong> I paired a high-contrast Serif with a geometric Sans-Serif to create an instant mental shortcut. The user instinctively knows that <em>Serif</em> denotes "The Story" (Perfume Identity), while <em>Sans-Serif</em> denotes "The Fact" (Technical Metrics).
+                </p>
+                
+                <div class="type-specimen">
+                    <span class="specimen-title">The Narrative / Playfair Display</span>
+                    <h3 class="display-playfair" style="font-size: 3.5rem;">Santal 33</h3>
+                    <p class="display-playfair" style="font-style: italic; font-size: 1.2rem; margin-top: 0.5rem;">The Spirit of the American West.</p>
+                </div>
+
+                <div class="type-specimen">
+                    <span class="specimen-title">The Logic / Teachers</span>
+                    <h4 class="display-teachers" style="text-transform: uppercase; letter-spacing: 0.2em; font-weight: 600; font-size: 0.9rem;">Longevity: 8.5 Hours</h4>
+                    <p class="display-teachers" style="font-size: 0.85rem; color: var(--text-data); margin-top: 0.5rem;">Main Accord: Woody, Powdery, Leather.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <img src="" id="lightbox-img" alt="Full screen view">
+    </div>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <img src="" id="lightbox-img" alt="Full screen view">
+    </div>
+
+    <section class="gallery-container" id="gallery">
+        <div class="gallery-header reveal">
+            <span class="label">05. The User Journey</span>
+            <h2>A Narrative Flow.</h2>
+        </div>
+
+        <div class="gallery-track" id="track">
+            
+            <div class="slide">
+                <div class="slide-image-container" onclick="openLightbox('aurea/onboarding.png')">
+                    <img src="aurea/onboarding.png" alt="Discovery Home Page">
+                </div>
+                <div class="ux-insight-panel">
+                    <span class="slide-number">PHASE 01</span>
+                    <h4>Personalized Discovery</h4>
+                    <p>The journey begins with <strong>low-friction exploration</strong>. By utilizing a "Digital Vanity" layout, I solved the paradox of choice. The UI prioritizes personalized recommendations based on seasonal accords, using generous whitespace to prevent the 'catalog fatigue' found in traditional databases.</p>
+                    <div class="ux-tag-group">
+                        <span class="ux-tag">Information Architecture</span>
+                        <span class="ux-tag">Algorithmic Serendipity</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-image-container" onclick="openLightbox('aurea/visualizing.png')">
+                    <img src="aurea/visualizing.png" alt="Scent Profile Analysis">
+                </div>
+                <div class="ux-insight-panel">
+                    <span class="slide-number">PHASE 02</span>
+                    <h4>Quantifying the Intangible</h4>
+                    <p>Once a scent is selected, the UX shifts to <strong>Data Visualization</strong>. The challenge: How do you show "smell"? I developed "Scent Matrices" for projection and longevity metrics, allowing the user to digest complex performance data at a glance through minimalist bar scales and typographic hierarchy.</p>
+                    <div class="ux-tag-group">
+                        <span class="ux-tag">Data Visualization</span>
+                        <span class="ux-tag">Visual Semantics</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-image-container" onclick="openLightbox('aurea/roseprick.png')">
+                    <img src="aurea/roseprick.png" alt="The Fragrance Brief">
+                </div>
+                <div class="ux-insight-panel">
+                    <span class="slide-number">PHASE 03</span>
+                    <h4>Narrative-Led UX</h4>
+                    <p>Fragrance is emotional. 'The Brief' provides the <strong>Contextual Narrative</strong>—the "why" behind the scent. By using high-character serif typography and editorial layouts, the design establishes value through storytelling, mimicking the experience of reading a high-end luxury magazine.</p>
+                    <div class="ux-tag-group">
+                        <span class="ux-tag">Emotional Design</span>
+                        <span class="ux-tag">Editorial UI</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-image-container" onclick="openLightbox('aurea/collection.png')">
+                    <img src="aurea/collection.png" alt="Personal Archive Collection">
+                </div>
+                <div class="ux-insight-panel">
+                    <span class="slide-number">PHASE 04</span>
+                    <h4>The Personal Archive</h4>
+                    <p>The final phase is <strong>Retention</strong>. The collection view utilizes an asymmetric masonry grid, turning a simple list into a curated museum of memories. This design choice encourages users to treat their digital profile as a cherished asset, increasing long-term engagement through a sense of digital ownership.</p>
+                    <div class="ux-tag-group">
+                        <span class="ux-tag">Retention Strategy</span>
+                        <span class="ux-tag">Grid Theory</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <script>
+        // Custom Cursor Logic
+        const dot = document.querySelector('.cursor-dot');
+        const trailer = document.querySelector('.cursor-trailer');
+        let mX = 0, mY = 0, tX = 0, tY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mX = e.clientX; mY = e.clientY;
+            dot.style.left = mX + 'px';
+            dot.style.top = mY + 'px';
+        });
+
+        function animateTrailer() {
+            tX += (mX - tX) * 0.15;
+            tY += (mY - tY) * 0.15;
+            trailer.style.left = tX + 'px';
+            trailer.style.top = tY + 'px';
+            requestAnimationFrame(animateTrailer);
+        }
+        animateTrailer();
+
+        // Intersection Observer for Scroll Reveals
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Hover scale interaction for the custom cursor
+        document.querySelectorAll('a, .swatch, .slide').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                trailer.style.transform = 'translate(-50%, -50%) scale(2)';
+                trailer.style.background = 'rgba(200, 159, 163, 0.1)'; /* Soft Rose tint on hover */
+                trailer.style.borderColor = 'rgba(200, 159, 163, 0.5)';
+            });
+            el.addEventListener('mouseleave', () => {
+                trailer.style.transform = 'translate(-50%, -50%) scale(1)';
+                trailer.style.background = 'transparent';
+                trailer.style.borderColor = 'rgba(43, 43, 43, 0.2)';
+            });
+        });
+
+        // Subtle Parallax effect for the gallery images
+        const track = document.getElementById('track');
+        
+        track.addEventListener('scroll', () => {
+            const slides = document.querySelectorAll('.slide img');
+            slides.forEach(img => {
+                const rect = img.getBoundingClientRect();
+                const offset = (rect.left - window.innerWidth / 2) * 0.05;
+                img.style.transform = `translateX(${offset}px) scale(1.05)`;
+            });
+        });
+
+        function openLightbox(imageSrc) {
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        
+        lightboxImg.src = imageSrc;
+        lightbox.style.display = 'flex';
+        // Prevent background scrolling while looking at image
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+        const lightbox = document.getElementById('lightbox');
+        lightbox.style.display = 'none';
+        // Re-enable scrolling
+        document.body.style.overflow = 'auto';
+    }
+
+    // Close lightbox on 'Esc' key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === "Escape") closeLightbox();
+    });
+    </script>
+</body>
+</html>
